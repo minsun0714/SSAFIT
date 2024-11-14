@@ -117,7 +117,7 @@ const data = [
   <div class="flex justify-center border">
     <div class="grid grid-flow-col auto-cols-max gap-1">
       <div v-for="(month, monthIdx) in data" :key="monthIdx" class="flex flex-col items-center">
-        <div :class="`grid grid-cols-${month.calendar.length} gap-1`">
+        <div :class="`grid gap-1`"  :style="{ gridTemplateColumns: `repeat(${month.calendar.length}, minmax(0, 1fr))` }">
           <div v-for="(week, weekIdx) in month.calendar" :key="weekIdx" class="flex flex-col gap-1">
             <div
               v-for="(day, dayIdx) in week"
