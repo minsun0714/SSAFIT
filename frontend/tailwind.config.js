@@ -12,6 +12,7 @@ export default {
       gray: {
         200: '#F2F2F2',
       },
+      white: 'white',
     },
   },
   plugins: [],
