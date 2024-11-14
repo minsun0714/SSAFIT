@@ -12,6 +12,9 @@ import { profileImg } from './assets/index'
         <RouterLink to="/about">운동기록</RouterLink>
         <RouterLink to="/about">영상등록</RouterLink>
         <img :src="profileImg" alt="auth icon" />
+        <span>Login</span>
+        /
+        <span>Register</span>
       </nav>
     </div>
   </header>
