@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BlueButton from '../components/common/BlueButton.vue'
 import ExerciseGrassRecord from '../components/Exercise/ExerciseGrassRecord.vue'
 import MonthlyInfoCardList from '../components/Exercise/MonthlyInfoCardList.vue'
 </script>
@@ -7,5 +8,6 @@ import MonthlyInfoCardList from '../components/Exercise/MonthlyInfoCardList.vue'
   <main>
     <MonthlyInfoCardList />
     <ExerciseGrassRecord />
+    <BlueButton :text="'운동하기'" />
   </main>
 </template>
