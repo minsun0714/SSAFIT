@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import ExerciseGrassRecord from '../components/Exercise/ExerciseGrassRecord.vue'
+import MonthlyInfoCardList from '../components/Exercise/MonthlyInfoCardList.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <MonthlyInfoCardList />
+    <ExerciseGrassRecord />
   </main>
 </template>
