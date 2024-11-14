@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>페이지</div>
+  <div>배포 자동화 후 페이지</div>
 </template>
