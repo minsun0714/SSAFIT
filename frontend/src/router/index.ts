@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { Routes } from '@/utils/enum'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,39 +12,39 @@ const router = createRouter({
     },
     {
       path: '/login',
-      name: 'login',
+      name: Routes.LOGIN,
       component: () => import('../views/LoginView.vue'),
     },
     {
       path: '/signup',
-      name: 'signup',
+      name: Routes.SIGN_UP,
       component: () => import('../views/SignUpView.vue'),
     },
     {
       path: '/mypage/:id',
-      name: 'mypage',
+      name: Routes.MY_PAGE,
       component: () => import('../views/MyPageView.vue'),
     },
     {
       path: '/videos',
-      name: 'videos',
+      name: Routes.VIDEOS,
       component: () => import('../views/VideoListView.vue'),
       children: [
         {
           path: 'create',
-          name: 'createVideo',
+          name: Routes.CREATE_VIDEO,
           component: () => import('../views/VideoCreateView.vue'),
         },
       ],
     },
     {
       path: '/video/:id',
-      name: 'video',
+      name: Routes.VIDEO,
       component: () => import('../views/VideoDetailView.vue'),
     },
     {
       path: '/exercise',
-      name: 'exercise',
+      name: Routes.EXERCISE,
       component: () => import('../views/ExerciseView.vue'),
     },
   ],
