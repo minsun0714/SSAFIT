@@ -8,9 +8,9 @@ import { profileImg } from './assets/index'
     <div class="wrapper">
       <nav>
         <span>SSAFIT</span>
-        <RouterLink to="/">운동영상</RouterLink>
-        <RouterLink to="/about">운동기록</RouterLink>
-        <RouterLink to="/about">영상등록</RouterLink>
+        <RouterLink :to="{ name: 'videos' }">운동영상</RouterLink>
+        <RouterLink :to="{ name: 'exercise' }">운동기록</RouterLink>
+        <RouterLink :to="{ name: 'createVideo' }">영상등록</RouterLink>
         <img :src="profileImg" alt="auth icon" />
         <span>Login</span>
         /

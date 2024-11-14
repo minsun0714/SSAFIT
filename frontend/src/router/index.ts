@@ -28,6 +28,13 @@ const router = createRouter({
       path: '/videos',
       name: 'videos',
       component: () => import('../views/VideoListView.vue'),
+      children: [
+        {
+          path: 'create',
+          name: 'createVideo',
+          component: () => import('../views/VideoCreateView.vue'),
+        },
+      ],
     },
     {
       path: '/video/:id',
