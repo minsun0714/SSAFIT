@@ -11,3 +11,7 @@ export const exerciseCardUtil = (cardType: CardType) => {
       throw new Error('단위가 잘못 되었습니다.')
   }
 }
+
+export const pad = (time: number): string => {
+  return String(time).padStart(2, '0')
+}
