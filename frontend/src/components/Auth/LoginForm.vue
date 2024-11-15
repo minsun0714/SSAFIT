@@ -1,0 +1,60 @@
+<script setup lang="ts">
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+
+import { toTypedSchema } from '@vee-validate/zod'
+import { useForm } from 'vee-validate'
+import * as z from 'zod'
+import BlueButton from '../common/BlueButton.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const formSchema = toTypedSchema(
+  z.object({
+    userId: z.string().min(2).max(50),
+    password: z.string().min(8).max(50),
+  }),
+)
+
+const { handleSubmit } = useForm({
+  validationSchema: formSchema,
+})
+
+const onSubmit = handleSubmit((value) => {
+  console.log(value)
+})
+</script>
+
+<template>
+  <div>
+    <button v-text="'< Back'" class="p-8 text-gray-400" @click="router.back()"></button>
+  </div>
+  <form class="flex flex-col justify-center items-center space-y-6 p-10" @submit="onSubmit">
+    <h1 class="font-bold text-xl w-[300px]">로그인</h1>
+    <h2 class="text-gray-400 text-sm w-[300px]">로그인 후 다양한 운동 서비스를 즐겨보세요!</h2>
+    <FormField v-slot="{ componentField }" name="userId">
+      <FormItem>
+        <FormLabel>아이디</FormLabel>
+        <FormControl>
+          <Input type="text" v-bind="componentField" />
+        </FormControl>
+        <div class="min-h-5">
+          <FormMessage />
+        </div>
+      </FormItem>
+    </FormField>
+    <FormField v-slot="{ componentField }" name="password">
+      <FormItem>
+        <FormLabel>비밀번호</FormLabel>
+        <FormControl>
+          <Input type="password" v-bind="componentField" />
+        </FormControl>
+        <div class="min-h-5">
+          <FormMessage />
+        </div>
+      </FormItem>
+    </FormField>
+    <BlueButton type="submit" text="회원가입" :width="300" :height="45" />
+  </form>
+</template>
