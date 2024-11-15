@@ -47,6 +47,7 @@ const router = createRouter({
       name: Routes.EXERCISE,
       component: () => import('../views/ExerciseView.vue'),
     },
+    { path: '/:catchAll(.*)', redirect: '/' }, // 404 처리
   ],
 })
 
