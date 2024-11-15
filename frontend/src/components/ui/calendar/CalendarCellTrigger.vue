@@ -20,16 +20,15 @@ const forwardedProps = useForwardProps(delegatedProps)
     :class="
       cn(
         buttonVariants({ variant: 'ghost' }),
-        'h-24 w-9 font-normal flex justify-end items-start',
-        '[&[data-today]:not([data-selected])]:bg-accent [&[data-today]:not([data-selected])]:text-accent-foreground',
+        'h-24 font-normal flex justify-end items-start',
+        '[&[data-today]]:border-2 [&[data-today]]:border-blue-400  [&[data-today]]:text-black',
         // Selected
-        'w-full data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:opacity-100 data-[selected]:hover:bg-primary data-[selected]:hover:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
+        'w-full',
         // Disabled
-        'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',
         // Unavailable
         'data-[unavailable]:text-destructive-foreground data-[unavailable]:line-through',
         // Outside months
-        'data-[outside-view]:text-muted-foreground data-[outside-view]:opacity-50 [&[data-outside-view][data-selected]]:bg-accent/50 [&[data-outside-view][data-selected]]:text-muted-foreground [&[data-outside-view][data-selected]]:opacity-30',
+        'data-[outside-view]:text-muted-foreground data-[outside-view]:opacity-50',
         props.class,
       )
     "
