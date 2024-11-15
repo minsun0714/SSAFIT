@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   text: string
+  width?: number
   handleClick?: () => void
 }>()
 </script>

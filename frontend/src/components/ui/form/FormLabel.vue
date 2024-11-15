@@ -7,17 +7,11 @@ import { useFormField } from './useFormField'
 
 const props = defineProps<LabelProps & { class?: HTMLAttributes['class'] }>()
 
-const { error, formItemId } = useFormField()
+const { formItemId } = useFormField()
 </script>
 
 <template>
-  <Label
-    :class="cn(
-      error && 'text-destructive',
-      props.class,
-    )"
-    :for="formItemId"
-  >
+  <Label :class="cn('py-2', props.class)" :for="formItemId">
     <slot />
   </Label>
 </template>
