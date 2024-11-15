@@ -122,7 +122,7 @@ const data = [
             <div
               v-for="(day, dayIdx) in week"
               :key="dayIdx"
-              class="w-3 h-3 rounded-sm"
+              class="w-4 h-4 rounded-sm"
               :class="{
                 'bg-gray-200': day === 0,
                 'bg-blue-100': day === 1,
