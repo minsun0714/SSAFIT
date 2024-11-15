@@ -1,4 +1,10 @@
 {
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"] // src 폴더를 '@'로 별칭 설정
+    }
+  },
   "files": [],
   "references": [
     {
