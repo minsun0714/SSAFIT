@@ -30,7 +30,7 @@ const onSubmit = handleSubmit((value) => {
 
 <template>
   <div>
-    <button v-text="'< Back'" class="text-gray-400" @click="router.back()"></button>
+    <button v-text="'< Back'" class="p-8 text-gray-400" @click="router.back()"></button>
   </div>
   <form class="flex flex-col justify-center items-center space-y-6 p-10" @submit="onSubmit">
     <h1 class="font-bold text-xl w-[210px]">회원가입</h1>
