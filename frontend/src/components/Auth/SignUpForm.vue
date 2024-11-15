@@ -33,15 +33,17 @@ const onSubmit = handleSubmit((value) => {
     <button v-text="'< Back'" class="p-8 text-gray-400" @click="router.back()"></button>
   </div>
   <form class="flex flex-col justify-center items-center space-y-6 p-10" @submit="onSubmit">
-    <h1 class="font-bold text-xl w-[210px]">회원가입</h1>
-    <h2 class="text-gray-400 text-sm w-[210px]">회원이 되어 다양한 운동 서비스를 즐겨보세요!</h2>
+    <h1 class="font-bold text-xl w-[300px]">회원가입</h1>
+    <h2 class="text-gray-400 text-sm w-[300px]">회원이 되어 다양한 운동 서비스를 즐겨보세요!</h2>
     <FormField v-slot="{ componentField }" name="name">
       <FormItem>
         <FormLabel>이름</FormLabel>
         <FormControl>
           <Input type="text" v-bind="componentField" />
         </FormControl>
-        <FormMessage />
+        <div class="min-h-5">
+          <FormMessage />
+        </div>
       </FormItem>
     </FormField>
     <FormField v-slot="{ componentField }" name="userId">
@@ -50,7 +52,9 @@ const onSubmit = handleSubmit((value) => {
         <FormControl>
           <Input type="text" v-bind="componentField" />
         </FormControl>
-        <FormMessage />
+        <div class="min-h-5">
+          <FormMessage />
+        </div>
       </FormItem>
     </FormField>
     <FormField v-slot="{ componentField }" name="password">
@@ -59,7 +63,9 @@ const onSubmit = handleSubmit((value) => {
         <FormControl>
           <Input type="password" v-bind="componentField" />
         </FormControl>
-        <FormMessage />
+        <div class="min-h-5">
+          <FormMessage />
+        </div>
       </FormItem>
     </FormField>
     <FormField v-slot="{ componentField }" name="passwordConfirm">
@@ -68,9 +74,11 @@ const onSubmit = handleSubmit((value) => {
         <FormControl>
           <Input type="password" v-bind="componentField" />
         </FormControl>
-        <FormMessage />
+        <div class="min-h-5">
+          <FormMessage />
+        </div>
       </FormItem>
     </FormField>
-    <BlueButton type="submit" text="회원가입" :width="210" :height="45" />
+    <BlueButton type="submit" text="회원가입" :width="300" :height="45" />
   </form>
 </template>

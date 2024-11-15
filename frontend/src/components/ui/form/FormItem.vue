@@ -13,7 +13,7 @@ provide(FORM_ITEM_INJECTION_KEY, id)
 </script>
 
 <template>
-  <div :class="cn('flex flex-col w-[210px]', props.class)">
+  <div :class="cn('flex flex-col w-[300px]', props.class)">
     <slot />
   </div>
 </template>
