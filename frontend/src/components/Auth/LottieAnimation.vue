@@ -1,31 +1,26 @@
-<script lang="ts">
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue'
 import lottie from 'lottie-web'
 
-export default {
-  props: {
-    animationPath: {
-      type: String,
-      required: true,
-    },
-    loop: {
-      type: Boolean,
-      default: true,
-    },
-    autoplay: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  mounted() {
+const props = defineProps<{
+  animationPath: string
+  loop?: boolean
+  autoplay?: boolean
+}>()
+
+const lottieContainer = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+  if (lottieContainer.value) {
     lottie.loadAnimation({
-      container: this.$refs.lottieContainer,
+      container: lottieContainer.value,
       renderer: 'svg',
-      loop: this.loop,
-      autoplay: this.autoplay,
-      path: this.animationPath,
+      loop: props.loop ?? true,
+      autoplay: props.autoplay ?? true,
+      path: props.animationPath,
     })
-  },
-}
+  }
+})
 </script>
 
 <template>

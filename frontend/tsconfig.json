@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["esnext", "dom"], // 'dom' 라이브러리를 포함
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"] // src 폴더를 '@'로 별칭 설정
