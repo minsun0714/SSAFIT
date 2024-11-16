@@ -9,7 +9,7 @@ public class DTOMapper {
     private DTOMapper() {
     } // 인스턴스화 방지
 
-    // User -> UserInfoDTO 변환
+    // Member -> MemberInfoDTO 변환
     public static MemberInfoDTO toMemberInfoDTO(Member member) {
         return MemberInfoDTO.builder()
                 .memberId(member.getMemberId())
@@ -20,7 +20,7 @@ public class DTOMapper {
                 .build();
     }
 
-    // Player와 accessToken을 이용해 SignUpResponseDTO로 변환
+    // member와 accessToken을 이용해 SignUpResponseDTO로 변환
     public static SignUpResponseDTO toSignUpResponseDTO(Member member, String accessToken) {
         return SignUpResponseDTO.builder()
                 .name(member.getName())
