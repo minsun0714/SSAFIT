@@ -1,6 +1,6 @@
 package com.ssafy.ssafit.utils;
 
-import com.ssafy.ssafit.dto.response.MemberInfoDTO;
+import com.ssafy.ssafit.dto.response.MemberInfoResponseDTO;
 import com.ssafy.ssafit.domain.Member;
 import com.ssafy.ssafit.dto.response.SignUpResponseDTO;
 
@@ -10,8 +10,8 @@ public class DTOMapper {
     } // 인스턴스화 방지
 
     // Member -> MemberInfoDTO 변환
-    public static MemberInfoDTO toMemberInfoDTO(Member member) {
-        return MemberInfoDTO.builder()
+    public static MemberInfoResponseDTO toMemberInfoDTO(Member member) {
+        return MemberInfoResponseDTO.builder()
                 .memberId(member.getMemberId())
                 .name(member.getName())
                 .nickname(member.getNickname())

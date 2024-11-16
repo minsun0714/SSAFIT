@@ -2,7 +2,7 @@ package com.ssafy.ssafit.controller;
 
 import com.ssafy.ssafit.dto.request.MemberInfoRequestDTO;
 import com.ssafy.ssafit.dto.request.SignUpRequestDTO;
-import com.ssafy.ssafit.dto.response.MemberInfoDTO;
+import com.ssafy.ssafit.dto.response.MemberInfoResponseDTO;
 import com.ssafy.ssafit.dto.response.SignUpResponseDTO;
 import com.ssafy.ssafit.service.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,17 +31,17 @@ public class MemberController {
 
     // 특정 유저 조회
     @GetMapping
-    public ResponseEntity<MemberInfoDTO> getUserById() {
-        MemberInfoDTO user = memberService.getMemberById();
+    public ResponseEntity<MemberInfoResponseDTO> getUserById() {
+        MemberInfoResponseDTO user = memberService.getMemberById();
         return ResponseEntity.ok(user);
     }
 
    // 유저 정보 업데이트
     @PutMapping
-    public ResponseEntity<MemberInfoDTO> updateUser(
+    public ResponseEntity<MemberInfoResponseDTO> updateUser(
             @Valid
             @RequestBody MemberInfoRequestDTO myInfoUpdateDTO) {
-        MemberInfoDTO updatedUser = memberService.updateMember(myInfoUpdateDTO);
+        MemberInfoResponseDTO updatedUser = memberService.updateMember(myInfoUpdateDTO);
         return ResponseEntity.ok(updatedUser);
     }
 

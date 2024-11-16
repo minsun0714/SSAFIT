@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MemberInfoDTO {
+public class MemberInfoResponseDTO {
     private String memberId;
     private String name;
     private String nickname;

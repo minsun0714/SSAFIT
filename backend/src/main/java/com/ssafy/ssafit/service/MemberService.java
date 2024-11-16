@@ -5,7 +5,7 @@ import com.ssafy.ssafit.domain.JwtToken;
 import com.ssafy.ssafit.domain.Role;
 import com.ssafy.ssafit.dto.request.MemberInfoRequestDTO;
 import com.ssafy.ssafit.dto.request.SignUpRequestDTO;
-import com.ssafy.ssafit.dto.response.MemberInfoDTO;
+import com.ssafy.ssafit.dto.response.MemberInfoResponseDTO;
 import com.ssafy.ssafit.domain.Member;
 import com.ssafy.ssafit.dto.response.SignUpResponseDTO;
 import com.ssafy.ssafit.exception.MemberNotAuthenticatedException;
@@ -56,7 +56,7 @@ public class MemberService {
     }
 
     // 사용자 조회
-    public MemberInfoDTO getMemberById() {
+    public MemberInfoResponseDTO getMemberById() {
         String memberId = getAuthenticatedMemberId();
         System.out.println(memberMapper.findByMemberId(memberId));
         Member member = memberMapper.findByMemberId(memberId)
@@ -66,7 +66,7 @@ public class MemberService {
 
     // 사용자 정보 업데이트
     @Transactional
-    public MemberInfoDTO updateMember(MemberInfoRequestDTO memberRequestDTO) {
+    public MemberInfoResponseDTO updateMember(MemberInfoRequestDTO memberRequestDTO) {
         String memberId = getAuthenticatedMemberId();
         Member member = memberMapper.findByMemberId(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));
