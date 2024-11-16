@@ -16,6 +16,7 @@ public class DTOMapper {
                 .name(member.getName())
                 .nickname(member.getNickname())
                 .profileImg(member.getProfileImg())
+                .role(member.getRole())
                 .build();
     }
 

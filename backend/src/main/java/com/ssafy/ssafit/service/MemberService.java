@@ -58,7 +58,7 @@ public class MemberService {
     // 사용자 조회
     public MemberInfoDTO getMemberById() {
         String memberId = getAuthenticatedMemberId();
-        System.out.println(memberId);
+        System.out.println(memberMapper.findByMemberId(memberId));
         Member member = memberMapper.findByMemberId(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));
         return toMemberInfoDTO(member);
