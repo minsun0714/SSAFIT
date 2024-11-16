@@ -3,6 +3,7 @@ package com.ssafy.ssafit.service;
 import com.ssafy.ssafit.dao.MemberMapper;
 import com.ssafy.ssafit.domain.JwtToken;
 import com.ssafy.ssafit.domain.Role;
+import com.ssafy.ssafit.dto.request.MemberInfoRequestDTO;
 import com.ssafy.ssafit.dto.request.SignUpRequestDTO;
 import com.ssafy.ssafit.dto.response.MemberInfoDTO;
 import com.ssafy.ssafit.domain.Member;
@@ -37,7 +38,6 @@ public class MemberService {
     // 사용자 생성
     @Transactional
     public SignUpResponseDTO createMember(SignUpRequestDTO memberRequestDTO, HttpServletResponse response) {
-        System.out.println(memberRequestDTO.getPasswordConfirm());
         Member member = Member.builder()
                 .memberId(memberRequestDTO.getMemberId())
                 .password(passwordEncoder.encode(memberRequestDTO.getPassword())) // 보안상 해시 처리 필요
@@ -47,11 +47,8 @@ public class MemberService {
                 .build();
 
         memberMapper.insertMember(member);
-        System.out.println("insert후");
 
         JwtToken jwtToken = authService.authenticateAndGenerateToken(memberRequestDTO.getMemberId(), memberRequestDTO.getPassword());
-        System.out.println(jwtToken);
-        System.out.println("insert한 직후 확인" + memberMapper.findByMemberId(member.getMemberId()));
 
         setRefreshTokenCookie(response, jwtToken.getRefreshToken());
 
@@ -68,24 +65,24 @@ public class MemberService {
     }
 
     // 사용자 정보 업데이트
-//    @Transactional
-//    public MemberInfoDTO updateMember(MyInfoUpdateDTO memberRequestDTO) {
-//        String memberId = getAuthenticatedMemberId();
-//        Member member = memberMapper.findByMemberId(memberId)
-//                .orElseThrow(() -> new IllegalArgumentException("Member not found"));
-//
-//        if (memberRequestDTO.getPassword() != null) {
-//            validatePasswordMatch(memberRequestDTO.getPassword(), memberRequestDTO.getConfirmPassword());
-//            member.setPassword(passwordEncoder.encode(memberRequestDTO.getPassword())); // 보안상 해시 처리 필요
-//        }
-//
-//        member.setProfileImg(memberRequestDTO.getProfileImg());
-//        member.setNickname(memberRequestDTO.getNickname());
-//
-//        memberMapper.updateMember(member);
-//
-//        return toMemberInfoDTO(member);
-//    }
+    @Transactional
+    public MemberInfoDTO updateMember(MemberInfoRequestDTO memberRequestDTO) {
+        String memberId = getAuthenticatedMemberId();
+        Member member = memberMapper.findByMemberId(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Member not found"));
+
+        if (memberRequestDTO.getPassword() != null) {
+            validatePasswordMatch(memberRequestDTO.getPassword(), memberRequestDTO.getPasswordConfirm());
+            member.setPassword(passwordEncoder.encode(memberRequestDTO.getPassword())); // 보안상 해시 처리 필요
+        }
+
+        member.setProfileImg(memberRequestDTO.getProfileImg());
+        member.setNickname(memberRequestDTO.getNickname());
+
+        memberMapper.updateMember(member);
+
+        return toMemberInfoDTO(member);
+    }
 
     // 사용자 삭제
     @Transactional

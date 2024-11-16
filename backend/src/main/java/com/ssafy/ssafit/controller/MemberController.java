@@ -1,5 +1,6 @@
 package com.ssafy.ssafit.controller;
 
+import com.ssafy.ssafit.dto.request.MemberInfoRequestDTO;
 import com.ssafy.ssafit.dto.request.SignUpRequestDTO;
 import com.ssafy.ssafit.dto.response.MemberInfoDTO;
 import com.ssafy.ssafit.dto.response.SignUpResponseDTO;
@@ -23,8 +24,6 @@ public class MemberController {
     // 유저 생성 (회원가입)
     @PostMapping
     public ResponseEntity<SignUpResponseDTO> createUser(@Valid @RequestBody SignUpRequestDTO signUpFormDTO, HttpServletResponse response) {
-        System.out.println("controller");
-        System.out.println(signUpFormDTO);
         SignUpResponseDTO createdUser = memberService.createMember(signUpFormDTO, response);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
@@ -37,14 +36,14 @@ public class MemberController {
         return ResponseEntity.ok(user);
     }
 
-//    // 유저 정보 업데이트
-//    @PutMapping
-//    public ResponseEntity<MemberInfoDTO> updateUser(
-//            @Valid
-//            @RequestBody MyInfoUpdateDTO myInfoUpdateDTO) {
-//        MemberInfoDTO updatedUser = memberService.updateMember(myInfoUpdateDTO);
-//        return ResponseEntity.ok(updatedUser);
-//    }
+   // 유저 정보 업데이트
+    @PutMapping
+    public ResponseEntity<MemberInfoDTO> updateUser(
+            @Valid
+            @RequestBody MemberInfoRequestDTO myInfoUpdateDTO) {
+        MemberInfoDTO updatedUser = memberService.updateMember(myInfoUpdateDTO);
+        return ResponseEntity.ok(updatedUser);
+    }
 
     // 유저 삭제
     @DeleteMapping

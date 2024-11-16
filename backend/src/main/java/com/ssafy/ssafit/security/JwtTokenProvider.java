@@ -38,8 +38,6 @@ public class JwtTokenProvider {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(",")); // 권한을 문자열로 결합
 
-        System.out.println(authorities + " " + authentication);
-
         long now = System.currentTimeMillis();
         Date accessTokenExpiresIn = new Date(now + 3600 * 1000); // 1시간
 
