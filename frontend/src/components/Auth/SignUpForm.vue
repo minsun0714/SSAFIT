@@ -9,6 +9,7 @@ import BlueButton from '../common/BlueButton.vue'
 import { useRouter } from 'vue-router'
 
 import LottieAnimation from '@/components/Auth/LottieAnimation.vue'
+import { LOTTIE_ANIMATION_PATH } from '@/utils/enum'
 
 const router = useRouter()
 
@@ -34,7 +35,7 @@ const onSubmit = handleSubmit((value) => {
   <div class="flex flex-row justify-center h-[calc(100vh_-_98px)]">
     <div class="w-full">
       <LottieAnimation
-        animationPath="https://assets9.lottiefiles.com/packages/lf20_3ueg3po6.json"
+        :animationPath="LOTTIE_ANIMATION_PATH.SIGN_UP"
         :loop="true"
         :autoplay="true"
       />
