@@ -2,6 +2,7 @@ package com.ssafy.ssafit.service;
 
 import com.ssafy.ssafit.dao.ExerciseLogMapper;
 import com.ssafy.ssafit.domain.ExerciseLog;
+import com.ssafy.ssafit.domain.ExerciseMetData;
 import com.ssafy.ssafit.dto.request.ExerciseInfoRequestDTO;
 import com.ssafy.ssafit.dto.response.ExerciseInfoResponseDTO;
 import com.ssafy.ssafit.utils.DTOMapper;
@@ -22,11 +23,15 @@ import static com.ssafy.ssafit.utils.DTOMapper.toExerciseInfoDTO;
 public class ExerciseLogService {
 
     private final ExerciseLogMapper exerciseLogMapper;
+    private final ExerciseMetService exerciseMetService;
 
     // 운동 기록 생성
     @Transactional
     public ExerciseInfoResponseDTO createExerciseLog(ExerciseInfoRequestDTO exerciseInfoRequestDTO) {
         String memberId = getAuthenticatedMemberId();
+
+        ExerciseMetData exerciseMetData = exerciseMetService.getMetData(exerciseInfoRequestDTO.getExerciseType());
+        System.out.println(exerciseMetData);
 
         ExerciseLog exerciseLog = ExerciseLog.builder()
                 .memberId(memberId)

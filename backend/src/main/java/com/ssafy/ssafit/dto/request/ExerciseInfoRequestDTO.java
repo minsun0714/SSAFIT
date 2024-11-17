@@ -22,7 +22,7 @@ public class ExerciseInfoRequestDTO {
     private Date exerciseDate;
 
     @NotNull(message = "Exercise type is required.")
-    private ExerciseType exerciseType;
+    private String exerciseType;
 
     @Positive(message = "Exercise time must be greater than 0.")
     private int exerciseTime;

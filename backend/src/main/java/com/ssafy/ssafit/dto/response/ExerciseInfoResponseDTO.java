@@ -15,7 +15,7 @@ import java.util.Date;
 public class ExerciseInfoResponseDTO {
     private Long exerciseLogId;
     private Date exerciseDate;
-    private ExerciseType exerciseType;
+    private String exerciseType;
     private int exerciseTime;
     private Long caloriesBurned;
     private Long fatBurned;

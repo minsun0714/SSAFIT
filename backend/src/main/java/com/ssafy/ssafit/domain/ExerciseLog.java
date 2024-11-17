@@ -15,7 +15,7 @@ public class ExerciseLog {
     private Long exerciseLogId;
     private String memberId;
     private Date exerciseDate;
-    private ExerciseType exerciseType;
+    private String exerciseType;
     private int exerciseTime;
     private Long caloriesBurned;
     private Long fatBurned;
