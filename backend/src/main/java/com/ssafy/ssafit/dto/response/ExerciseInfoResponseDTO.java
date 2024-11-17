@@ -17,6 +17,6 @@ public class ExerciseInfoResponseDTO {
     private Date exerciseDate;
     private String exerciseType;
     private int exerciseTime;
-    private Long caloriesBurned;
-    private Long fatBurned;
+    private double caloriesBurned;
+    private double fatBurned;
 }

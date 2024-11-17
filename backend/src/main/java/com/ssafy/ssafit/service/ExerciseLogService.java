@@ -30,16 +30,27 @@ public class ExerciseLogService {
     public ExerciseInfoResponseDTO createExerciseLog(ExerciseInfoRequestDTO exerciseInfoRequestDTO) {
         String memberId = getAuthenticatedMemberId();
 
+        // MET 데이터를 가져옴
         ExerciseMetData exerciseMetData = exerciseMetService.getMetData(exerciseInfoRequestDTO.getExerciseType());
-        System.out.println(exerciseMetData);
 
+        // 체중은 사용자로부터 입력받는다고 가정 (필요시 RequestDTO에 weight 필드 추가)
+        double weight = 60;
+
+        // 초 단위 운동 시간을 시간 단위로 변환
+        double exerciseTimeInHours = exerciseInfoRequestDTO.getExerciseTime() / 3600.0;
+
+        // 칼로리 소모량 및 지방 소모량 계산
+        double caloriesBurned = calculateCalories(exerciseMetData.getMet(), exerciseTimeInHours, weight);
+        double fatBurned = calculateFatBurned(caloriesBurned);
+
+        // 운동 기록 객체 생성
         ExerciseLog exerciseLog = ExerciseLog.builder()
                 .memberId(memberId)
                 .exerciseDate(exerciseInfoRequestDTO.getExerciseDate())
                 .exerciseType(exerciseInfoRequestDTO.getExerciseType())
                 .exerciseTime(exerciseInfoRequestDTO.getExerciseTime())
-                .caloriesBurned(100L)
-                .fatBurned(900L)
+                .caloriesBurned(caloriesBurned)
+                .fatBurned(fatBurned)
                 .build();
 
         exerciseLogMapper.insertExerciseLog(exerciseLog);
@@ -81,5 +92,15 @@ public class ExerciseLogService {
             throw new IllegalArgumentException("Member not authenticated");
         }
         return (String) authentication.getPrincipal();
+    }
+
+    // 칼로리 소모량 계산
+    private double calculateCalories(double met, double exerciseTimeInHours, double weight) {
+        return met * weight * exerciseTimeInHours;
+    }
+
+    // 지방 소모량 계산
+    private double calculateFatBurned(double caloriesBurned) {
+        return (caloriesBurned * 0.7) / 9.0;
     }
 }
