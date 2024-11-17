@@ -2,6 +2,7 @@ package com.ssafy.ssafit.controller;
 
 import com.ssafy.ssafit.domain.ExerciseLog;
 import com.ssafy.ssafit.dto.request.ExerciseInfoRequestDTO;
+import com.ssafy.ssafit.dto.response.ExerciseCardDataDTO;
 import com.ssafy.ssafit.dto.response.ExerciseInfoResponseDTO;
 import com.ssafy.ssafit.service.ExerciseLogService;
 import jakarta.validation.Valid;
@@ -29,6 +30,12 @@ public class ExerciseLogController {
     public ResponseEntity<ExerciseInfoResponseDTO> createExerciseLog(@Valid @RequestBody ExerciseInfoRequestDTO exerciseInfoRequestDTO) {
         ExerciseInfoResponseDTO createdExerciseInfo = exerciseLogService.createExerciseLog(exerciseInfoRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdExerciseInfo);
+    }
+
+    @GetMapping("/cards")
+    public ResponseEntity<List<ExerciseCardDataDTO>> getCardDataList() {
+        List<ExerciseCardDataDTO> exerciseCardDataDTOList = exerciseLogService.getCardDataList();
+        return ResponseEntity.ok(exerciseCardDataDTOList);
     }
 
     // 특정 날짜 운동 기록 조회

@@ -4,6 +4,7 @@ import com.ssafy.ssafit.dao.ExerciseLogMapper;
 import com.ssafy.ssafit.domain.ExerciseLog;
 import com.ssafy.ssafit.domain.ExerciseMetData;
 import com.ssafy.ssafit.dto.request.ExerciseInfoRequestDTO;
+import com.ssafy.ssafit.dto.response.ExerciseCardDataDTO;
 import com.ssafy.ssafit.dto.response.ExerciseInfoResponseDTO;
 import com.ssafy.ssafit.utils.DTOMapper;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.ssafy.ssafit.utils.DTOMapper.toExerciseCardDataDTO;
 import static com.ssafy.ssafit.utils.DTOMapper.toExerciseInfoDTO;
 
 @Service
@@ -60,11 +63,21 @@ public class ExerciseLogService {
         return toExerciseInfoDTO(savedExerciseLog);
     }
 
+    // 카드 데이터 기록 조회
+    public List<ExerciseCardDataDTO> getCardDataList(){
+        String memberId = getAuthenticatedMemberId();
+
+        Map<String, Double> thisWeekExerciseData = exerciseLogMapper.selectThisWeekExerciseData(memberId);
+        Map<String, Double> lastWeekExerciseData = exerciseLogMapper.selectLastWeekExerciseData(memberId);
+
+        return toExerciseCardDataDTO(thisWeekExerciseData, lastWeekExerciseData);
+    }
+
     // 특정 날짜의 운동 기록 조회
     public List<ExerciseInfoResponseDTO> getExerciseLogsByDate(Date exerciseDate) {
         String memberId = getAuthenticatedMemberId();
 
-        List<ExerciseLog> exerciseLogs = exerciseLogMapper.selectExerciseLogs(memberId, exerciseDate);
+        List<ExerciseLog> exerciseLogs = exerciseLogMapper.selectExerciseLogsByDate(memberId, exerciseDate);
 
         return exerciseLogs.stream()
                 .map(DTOMapper::toExerciseInfoDTO)

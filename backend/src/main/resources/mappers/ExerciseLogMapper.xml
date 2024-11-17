@@ -6,10 +6,40 @@
         INSERT INTO exercise_log (member_id, exercise_date, exercise_type, exercise_time, calories_burned, fat_burned)
         VALUES (#{memberId}, #{exerciseDate}, #{exerciseType}, #{exerciseTime}, #{caloriesBurned}, #{fatBurned});
     </insert>
+    <resultMap id="exerciseDataMap" type="map">
+        <result property="totalExerciseTime" column="totalExerciseTime" javaType="Double"/>
+        <result property="totalCaloriesBurned" column="totalCaloriesBurned" javaType="Double"/>
+        <result property="totalFatBurned" column="totalFatBurned" javaType="Double"/>
+    </resultMap>
+    <select id="selectThisWeekExerciseData" parameterType="string" resultMap="exerciseDataMap">
+        SELECT
+        IFNULL(SUM(exercise_time), 0.0) AS totalExerciseTime,
+        IFNULL(SUM(calories_burned), 0.0) AS totalCaloriesBurned,
+        IFNULL(SUM(fat_burned), 0.0) AS totalFatBurned
+        FROM
+        exercise_log
+        WHERE
+        member_id = #{memberId}
+        AND WEEK(exercise_date, 1) = WEEK(now(), 1)
+        AND YEAR(exercise_date) = YEAR(now())
+    </select>
+
+    <select id="selectLastWeekExerciseData" parameterType="string" resultMap="exerciseDataMap">
+        SELECT
+        IFNULL(SUM(exercise_time), 0.0) AS totalExerciseTime,
+        IFNULL(SUM(calories_burned), 0.0) AS totalCaloriesBurned,
+        IFNULL(SUM(fat_burned), 0.0) AS totalFatBurned
+        FROM
+        exercise_log
+        WHERE
+        member_id = #{memberId}
+        AND WEEK(exercise_date, 1) = WEEK(now(), 1) - 1
+        AND YEAR(exercise_date) = YEAR(now())
+    </select>
     <select id="selectOneExerciseLog" parameterType="Long" resultType="ExerciseLog">
         SELECT * FROM exercise_log WHERE exercise_log_id = #{exerciseLogId};
     </select>
-    <select id="selectExerciseLogs" parameterType="map" resultType="ExerciseLog">
+    <select id="selectExerciseLogsByDate" parameterType="map" resultType="ExerciseLog">
         SELECT * FROM exercise_log WHERE member_id = #{memberId} AND DATE(exercise_date) = #{exerciseDate};
     </select>
     <delete id="deleteExerciseLog" parameterType="map">
