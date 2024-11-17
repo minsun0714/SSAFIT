@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class SignUpResponseDTO{
-    private String userId;
+    private String memberId;
     private String name;
     private String nickname;
     private String profileImg;
