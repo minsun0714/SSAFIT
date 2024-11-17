@@ -28,7 +28,6 @@ public class AuthService {
     }
 
     public JwtToken refreshAccessToken(String refreshToken) {
-
         if (jwtTokenProvider.validateToken(refreshToken)) {
             Authentication authentication = jwtTokenProvider.getAuthentication(refreshToken);
             return jwtTokenProvider.generateToken(authentication);

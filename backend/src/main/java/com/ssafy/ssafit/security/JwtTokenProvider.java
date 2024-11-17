@@ -37,7 +37,10 @@ public class JwtTokenProvider {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(",")); // 권한을 문자열로 결합
-
+        System.out.println("Authentication Name: " + authentication.getName());
+        if (authentication.getName() == null){
+            throw new RuntimeException("memberId가 없습니다.");
+        }
         long now = System.currentTimeMillis();
         Date accessTokenExpiresIn = new Date(now + 3600 * 1000); // 1시간
 
@@ -50,6 +53,8 @@ public class JwtTokenProvider {
                 .compact();
 
         // Refresh Token 생성
+        System.out.println(Jwts.builder()
+                .setSubject(authentication.getName()));
         Date refreshTokenExpiresIn = new Date(now + 3600 * 1000 * 24); // 24시간
         String refreshToken = Jwts.builder()
                 .setSubject(authentication.getName())
@@ -57,6 +62,8 @@ public class JwtTokenProvider {
                 .setExpiration(refreshTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
+
+        System.out.println("memberId 추출" + extractUserId(refreshToken));
 
         return JwtToken.builder()
                 .grantType("Bearer")
@@ -67,9 +74,17 @@ public class JwtTokenProvider {
 
     // 쿠키에서 Refresh Token을 가져오는 메서드
     public String getRefreshTokenFromCookie(HttpServletRequest request) {
+        System.out.println("request" + " " + request.getCookies()[0]);
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
+                System.out.println(cookie.getName());
                 if ("refreshToken".equals(cookie.getName())) {
+                    String refreshToken = cookie.getValue();
+                    System.out.println(refreshToken);
+                    System.out.println("refresh token을 가져와서 추출" + extractUserId(refreshToken));
+                    if (extractUserId(refreshToken) == null){
+                        throw new RuntimeException("서브  정보가 없는 리프레시 토큰");
+                    }
                     return cookie.getValue();
                 }
             }
@@ -86,12 +101,17 @@ public class JwtTokenProvider {
         if (claims.get("auth") == null) {
             throw new RuntimeException("권한 정보가 없는 토큰입니다.");
         }
+
+        // 권한 정보를 처리
         Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get("auth").toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-        System.out.println(authorities);
 
-        UserDetails principal = new Member(claims.getSubject(), "", authorities);
+        // Member 객체 생성
+        String memberId = claims.getSubject();
+        Member principal = new Member();
+        principal.setMemberId(memberId);
+        principal.setRoles(authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
 
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
@@ -129,7 +149,6 @@ public class JwtTokenProvider {
     // 토큰에서 사용자 ID를 추출하는 메서드
     public String extractUserId(String token) {
         Claims claims = parseClaims(token);
-        System.out.println("claims" + " " + claims);
         // 예를 들어, 유저 ID가 "userId"라는 클레임에 저장된 경우
         return claims.get("sub", String.class);
     }
