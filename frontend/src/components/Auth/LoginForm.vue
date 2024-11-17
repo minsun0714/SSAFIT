@@ -65,7 +65,7 @@ const onSubmit = handleSubmit((value) => {
             </div>
           </FormItem>
         </FormField>
-        <BlueButton type="submit" text="회원가입" :width="300" :height="45" />
+        <BlueButton type="submit" text="로그인" :width="300" :height="45" />
       </form>
     </div>
   </div>
