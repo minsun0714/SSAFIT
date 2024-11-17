@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.ssafit.dao.ExerciseLogMapper">
+    <insert id="insertExerciseLog" parameterType="ExerciseLog" useGeneratedKeys="true" keyProperty="exerciseLogId">
+        INSERT INTO exercise_log (member_id, exercise_date, exercise_type, exercise_time, calories_burned, fat_burned)
+        VALUES (#{memberId}, #{exerciseDate}, #{exerciseType}, #{exerciseTime}, #{caloriesBurned}, #{fatBurned});
+    </insert>
+    <select id="selectOneExerciseLog" parameterType="Long" resultType="ExerciseLog">
+        SELECT * FROM exercise_log WHERE exercise_log_id = #{exerciseLogId};
+    </select>
+    <select id="selectExerciseLogs" parameterType="map" resultType="ExerciseLog">
+        SELECT * FROM exercise_log WHERE member_id = #{memberId} AND DATE(exercise_date) = #{exerciseDate};
+    </select>
+    <delete id="deleteExerciseLog" parameterType="map">
+        DELETE FROM exercise_log WHERE exercise_log_id = #{exerciseLogId};
+    </delete>
+</mapper>

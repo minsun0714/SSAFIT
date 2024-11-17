@@ -1,0 +1,22 @@
+package com.ssafy.ssafit.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ExerciseLog {
+    private Long exerciseLogId;
+    private String memberId;
+    private Date exerciseDate;
+    private ExerciseType exerciseType;
+    private int exerciseTime;
+    private Long caloriesBurned;
+    private Long fatBurned;
+}
