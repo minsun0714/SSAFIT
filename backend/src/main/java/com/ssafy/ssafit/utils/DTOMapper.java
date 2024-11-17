@@ -34,7 +34,7 @@ public class DTOMapper {
     public static SignUpResponseDTO toSignUpResponseDTO(Member member, String accessToken) {
         return SignUpResponseDTO.builder()
                 .name(member.getName())
-                .userId(member.getMemberId())
+                .memberId(member.getMemberId())
                 .nickname(member.getNickname())
                 .profileImg(member.getProfileImg())
                 .accessToken(accessToken)
