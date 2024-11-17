@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import { useRouter } from 'vue-router'
 import MemberService from '../services/MemberService'
+import { queryClient } from '@/main'
 
 class MemberApiFacade {
   // 유저, 인증 관련 메서드
@@ -8,6 +9,7 @@ class MemberApiFacade {
     return useQuery({
       queryKey: ['user'],
       queryFn: () => MemberService.fetchUserInfo(),
+      retry: 0,
     })
   }
 
@@ -23,10 +25,13 @@ class MemberApiFacade {
           nickname,
         }),
       onSuccess: (response) => {
+        queryClient.refetchQueries()
         const accessToken = response.accessToken
         localStorage.setItem('token', accessToken)
         router.push('/')
+        alert('회원가입 성공 후 로그인되었습니다.')
       },
+      retry: 0,
     })
   }
 

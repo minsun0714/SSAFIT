@@ -21,7 +21,7 @@ const router = createRouter({
       component: () => import('../views/SignUpView.vue'),
     },
     {
-      path: '/mypage/:id',
+      path: '/mypage',
       name: Routes.MY_PAGE,
       component: () => import('../views/MyPageView.vue'),
     },

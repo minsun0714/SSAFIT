@@ -1,8 +1,18 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import '@/assets/index.css'
 import { profileImg } from '../../assets'
 import { Routes } from '../../utils/enum'
+import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
+
+const { data: memberInfo, isSuccess, refetch } = MemberApiFacade.useFetchUserInfo()
+const router = useRouter()
+const logout = () => {
+  localStorage.removeItem('token')
+  refetch()
+  router.push('/')
+  alert('로그아웃 되었습니다.')
+}
 </script>
 
 <template>
@@ -14,7 +24,13 @@ import { Routes } from '../../utils/enum'
         <RouterLink :to="{ name: Routes.EXERCISE }">운동기록</RouterLink>
         <RouterLink :to="{ name: Routes.CREATE_VIDEO }">영상등록</RouterLink>
       </div>
-      <div class="flex flex-row gap-x-1">
+      <div v-if="isSuccess" class="flex flex-row gap-x-2">
+        <img :src="profileImg" alt="auth icon" />
+        <span>{{ memberInfo?.nickname }}님</span>
+        <RouterLink :to="{ name: Routes.MY_PAGE }">마이페이지</RouterLink>
+        <button @click="logout">로그아웃</button>
+      </div>
+      <div class="flex flex-row gap-x-1" v-else>
         <img :src="profileImg" alt="auth icon" />
         <RouterLink :to="{ name: Routes.LOGIN }">Login</RouterLink>
         /
