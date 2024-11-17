@@ -24,13 +24,13 @@ const logout = () => {
         <RouterLink :to="{ name: Routes.EXERCISE }">운동기록</RouterLink>
         <RouterLink :to="{ name: Routes.CREATE_VIDEO }">영상등록</RouterLink>
       </div>
-      <div v-if="isSuccess" class="flex flex-row gap-x-2">
+      <div v-if="isSuccess" class="flex flex-row gap-x-2 text-blue-400">
         <img :src="profileImg" alt="auth icon" />
         <span>{{ memberInfo?.nickname }}님</span>
         <RouterLink :to="{ name: Routes.MY_PAGE }">마이페이지</RouterLink>
         <button @click="logout">로그아웃</button>
       </div>
-      <div class="flex flex-row gap-x-1" v-else>
+      <div class="flex flex-row gap-x-1 text-blue-400" v-else>
         <img :src="profileImg" alt="auth icon" />
         <RouterLink :to="{ name: Routes.LOGIN }">Login</RouterLink>
         /
