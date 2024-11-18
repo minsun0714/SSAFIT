@@ -1,13 +1,14 @@
 package com.ssafy.ssafit.controller;
 
-import com.ssafy.ssafit.domain.ExerciseLog;
+import com.ssafy.ssafit.domain.ExerciseMetData;
 import com.ssafy.ssafit.dto.request.ExerciseInfoRequestDTO;
 import com.ssafy.ssafit.dto.response.ExerciseCardDataDTO;
 import com.ssafy.ssafit.dto.response.ExerciseInfoResponseDTO;
+import com.ssafy.ssafit.dto.response.PagedResponseDTO;
 import com.ssafy.ssafit.service.ExerciseLogService;
+import com.ssafy.ssafit.service.ExerciseMetService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.ssafy.ssafit.utils.DTOMapper.toPagedResponseDTO;
 
 @RestController
 @RequestMapping("/api/exercise-log")
@@ -24,6 +26,7 @@ import java.util.List;
 public class ExerciseLogController {
 
     private final ExerciseLogService exerciseLogService;
+    private final ExerciseMetService exerciseMetService;
 
     // 운동 기록 생성
     @PostMapping

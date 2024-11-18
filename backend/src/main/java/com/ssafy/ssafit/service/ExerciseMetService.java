@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ExerciseMetService {
@@ -40,5 +42,45 @@ public class ExerciseMetService {
                 .filter(data -> data.getExerciseType().equalsIgnoreCase(exerciseType))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("MET 데이터가 없습니다."));
+    }
+
+    public List<ExerciseMetData> getMetDataByPage(int page, int perPage) {
+        ExerciseMetResponse response = webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("page", page)
+                        .queryParam("perPage", perPage)
+                        .queryParam("serviceKey", serviceKey)
+                        .build())
+                .header("Authorization", authorizationHeader)
+                .retrieve()
+                .bodyToMono(ExerciseMetResponse.class)
+                .block();
+
+        if (response == null || response.getData() == null) {
+            throw new IllegalArgumentException("데이터를 가져올 수 없습니다.");
+        }
+
+        return response.getData();
+    }
+
+    public int getTotalDataCount() {
+        ExerciseMetResponse response = webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("page", 1)
+                        .queryParam("perPage", 600)
+                        .queryParam("serviceKey", serviceKey)
+                        .build())
+                .header("Authorization", authorizationHeader)
+                .retrieve()
+                .bodyToMono(ExerciseMetResponse.class)
+                .block();
+
+        if (response == null || response.getData() == null) {
+            throw new IllegalArgumentException("총 데이터 개수를 가져올 수 없습니다.");
+        }
+
+        return response.getData().size();
     }
 }

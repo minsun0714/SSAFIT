@@ -1,13 +1,7 @@
 package com.ssafy.ssafit.utils;
 
-import com.ssafy.ssafit.domain.CardType;
-import com.ssafy.ssafit.domain.ExerciseLog;
-import com.ssafy.ssafit.domain.ExerciseType;
-import com.ssafy.ssafit.dto.response.ExerciseCardDataDTO;
-import com.ssafy.ssafit.dto.response.ExerciseInfoResponseDTO;
-import com.ssafy.ssafit.dto.response.MemberInfoResponseDTO;
-import com.ssafy.ssafit.domain.Member;
-import com.ssafy.ssafit.dto.response.SignUpResponseDTO;
+import com.ssafy.ssafit.domain.*;
+import com.ssafy.ssafit.dto.response.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -102,4 +96,18 @@ public class DTOMapper {
 
         return cardDataList;
     }
+
+    public static <T> PagedResponseDTO<T> toPagedResponseDTO(int page, int size, int totalDataCount, List<T> data) {
+        int totalPages = (int) Math.ceil((double) totalDataCount / size);
+
+        return new PagedResponseDTO<>(
+                page,
+                size,
+                totalPages,
+                totalDataCount,
+                data
+        );
+    }
+
+
 }
