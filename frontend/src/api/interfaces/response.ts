@@ -18,11 +18,11 @@ interface ExerciseTimerResponse extends Exercise {
   caloriesBurned: number
   fatBurned: number
 }
-
+type CardType = 'MINUTE' | 'KCAL' | 'KG'
 interface ExerciseCard {
   title: string
   cardIconUrl: string
-  cardType: 'MINUTE' | 'KCAL' | 'KG'
+  cardType: CardType
    currentValue: number
   lastValue: number
   up: boolean

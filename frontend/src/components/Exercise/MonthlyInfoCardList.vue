@@ -3,7 +3,6 @@ import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
 import { Up } from '../../assets'
 import { Down } from '../../assets'
 import { PurpleCardIcon } from '../../assets'
-import { exerciseCardUtil } from '../../utils/helperFunction'
 
 const { data } = ExerciseLogApiFacade.useFetchCardDataList()
 </script>
@@ -32,7 +31,7 @@ const { data } = ExerciseLogApiFacade.useFetchCardDataList()
         <img :src="cardData.up ? Up : Down" alt="change" class="h-4 w-4 m-2" />
         지난주보다
         <span :class="cardData.up ? 'text-[#00B69B]' : 'text-[#F93C65]'">{{
-         (cardData.currentValue + " " + cardData.lastValue) + exerciseCardUtil(cardData.cardType).unit
+          cardData.currentValue - cardData.lastValue + cardData.cardType
         }}</span>
         {{ cardData.up ? ' 증가' : ' 감소' }}
       </p>
