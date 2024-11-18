@@ -35,7 +35,7 @@ const onSubmit = form.handleSubmit((values) => {
               <Input type="text" v-bind="componentField" class="min-w-[280px]" />
             </FormControl>
           </div>
-          <div class="min-h-5 flex justify-end w-2/3">
+          <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
             <FormMessage />
           </div>
         </FormItem>
@@ -48,7 +48,7 @@ const onSubmit = form.handleSubmit((values) => {
               <Input type="text" v-bind="componentField" class="min-w-[280px]" />
             </FormControl>
           </div>
-          <div class="min-h-5 flex justify-end w-2/3">
+          <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
             <FormMessage />
           </div>
         </FormItem>
@@ -61,7 +61,7 @@ const onSubmit = form.handleSubmit((values) => {
               <Input type="text" v-bind="componentField" class="min-w-[280px]" />
             </FormControl>
           </div>
-          <div class="min-h-5 flex justify-end w-2/3">
+          <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
             <FormMessage />
           </div>
         </FormItem>
