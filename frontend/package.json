@@ -13,10 +13,13 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@tanstack/vue-query": "^5.60.5",
     "@vee-validate/zod": "^4.14.7",
     "@vueuse/core": "^11.2.0",
+    "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "lottie-web": "^5.12.2",
     "lucide-vue-next": "^0.456.0",
     "pinia": "^2.2.6",
     "radix-vue": "^1.9.9",
@@ -25,6 +28,7 @@
     "vee-validate": "^4.14.7",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5",
+    "vue3-icons": "^0.1.13",
     "zod": "^3.23.8"
   },
   "devDependencies": {
