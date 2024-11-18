@@ -13,9 +13,9 @@
     </resultMap>
     <select id="selectThisWeekExerciseData" parameterType="string" resultMap="exerciseDataMap">
         SELECT
-        IFNULL(SUM(exercise_time), 0.0) AS totalExerciseTime,
-        IFNULL(SUM(calories_burned), 0.0) AS totalCaloriesBurned,
-        IFNULL(SUM(fat_burned), 0.0) AS totalFatBurned
+        ROUND(IFNULL(SUM(exercise_time), 0.0), 2) AS totalExerciseTime,
+        ROUND(IFNULL(SUM(calories_burned), 0.0), 2) AS totalCaloriesBurned,
+        ROUND(IFNULL(SUM(fat_burned), 0.0), 2) AS totalFatBurned
         FROM
         exercise_log
         WHERE
@@ -23,12 +23,11 @@
         AND WEEK(exercise_date, 1) = WEEK(now())
         AND YEAR(exercise_date) = YEAR(now())
     </select>
-
     <select id="selectLastWeekExerciseData" parameterType="string" resultMap="exerciseDataMap">
         SELECT
-        IFNULL(SUM(exercise_time), 0.0) AS totalExerciseTime,
-        IFNULL(SUM(calories_burned), 0.0) AS totalCaloriesBurned,
-        IFNULL(SUM(fat_burned), 0.0) AS totalFatBurned
+        ROUND(IFNULL(SUM(exercise_time), 0.0), 2) AS totalExerciseTime,
+        ROUND(IFNULL(SUM(calories_burned), 0.0), 2) AS totalCaloriesBurned,
+        ROUND(IFNULL(SUM(fat_burned), 0.0), 2) AS totalFatBurned
         FROM
         exercise_log
         WHERE
