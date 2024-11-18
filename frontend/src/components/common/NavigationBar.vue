@@ -27,7 +27,7 @@ const logout = () => {
       <div v-if="isSuccess" class="flex flex-row gap-x-2 text-blue-400">
         <img :src="profileImg" alt="auth icon" />
         <span>{{ memberInfo?.nickname }}님</span>
-        <RouterLink :to="{ name: Routes.MY_PAGE }">마이페이지</RouterLink>
+        <RouterLink :to="{ name: Routes.MYPAGE_LIKED_VIDEOS }">마이페이지</RouterLink>
         <button @click="logout">로그아웃</button>
       </div>
       <div class="flex flex-row gap-x-1 text-blue-400" v-else>
