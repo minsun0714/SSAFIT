@@ -26,20 +26,22 @@ class ExerciseLogService {
   }
 
   // Public 메서드로 외부에서 사용할 수 있도록 제공
-  static createExerciseLog(exerciseLogInfo: ExerciseTimerRequest): Promise<ExerciseTimerResponse> {
-    return this._createExerciseLog(exerciseLogInfo)
+  static async createExerciseLog(
+    exerciseLogInfo: ExerciseTimerRequest,
+  ): Promise<ExerciseTimerResponse> {
+    return await this._createExerciseLog(exerciseLogInfo)
   }
 
-  static fetchCardDataList(): Promise<ExerciseCard[]> {
-    return this._fetchCardDataList()
+  static async fetchCardDataList(): Promise<ExerciseCard[]> {
+    return await this._fetchCardDataList()
   }
 
-  static fetchExerciseLogsByDate(date: Date): Promise<ExerciseTimerResponse[]> {
-    return this._fetchExerciseLogsByDate(date)
+  static async fetchExerciseLogsByDate(date: Date): Promise<ExerciseTimerResponse[]> {
+    return await this._fetchExerciseLogsByDate(date)
   }
 
-  static deleteExerciseLog(exerciseLogId: number): Promise<void> {
-    return this._deleteExerciseLog(exerciseLogId)
+  static async deleteExerciseLog(exerciseLogId: number): Promise<void> {
+    return await this._deleteExerciseLog(exerciseLogId)
   }
 }
 

@@ -1,35 +1,11 @@
 <script setup lang="ts">
+import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
 import { Up } from '../../assets'
 import { Down } from '../../assets'
 import { PurpleCardIcon } from '../../assets'
 import { exerciseCardUtil } from '../../utils/helperFunction'
 
-const data = [
-  {
-    title: '이번 달 운동시간',
-    imageUrl: PurpleCardIcon,
-    type: 'minute',
-    value: 3231,
-    isUp: true,
-    changedValue: 60,
-  },
-  {
-    title: '이번 달 소모 칼로리',
-    imageUrl: PurpleCardIcon,
-    type: 'kcal',
-    value: 10293,
-    isUp: true,
-    changedValue: 1.3,
-  },
-  {
-    title: '없애버린 지방',
-    imageUrl: PurpleCardIcon,
-    type: 'kg',
-    value: 4.7,
-    isUp: false,
-    changedValue: 4.3,
-  },
-]
+const { data } = ExerciseLogApiFacade.useFetchCardDataList()
 </script>
 
 <template>
@@ -43,19 +19,22 @@ const data = [
         <div class="flex flex-col justify-around items-start gap-y-4">
           <p class="text-sm text-gray-500">{{ cardData.title }}</p>
           <p class="text-2xl text-gray-900">
-            {{ cardData.type === 'minute' ? cardData.value.toLocaleString() : cardData.value
-            }}{{ cardData.type }}
+            {{
+              cardData.cardType === 'MINUTE'
+                ? cardData.currentValue.toLocaleString()
+                : cardData.currentValue
+            }}{{ cardData.cardType }}
           </p>
         </div>
-        <img :src="cardData.imageUrl" alt="icon" class="h-12 w-12" />
+        <img :src="PurpleCardIcon" alt="icon" class="h-12 w-12" />
       </div>
       <p class="flex items-center w-full text-xs px-4 pb-3">
-        <img :src="cardData.isUp ? Up : Down" alt="change" class="h-4 w-4 m-2" />
-        {{ exerciseCardUtil(cardData.type as 'minute' | 'kcal' | 'kg').compareTime
-        }}<span :class="cardData.isUp ? 'text-[#00B69B]' : 'text-[#F93C65]'">{{
-          cardData.changedValue + exerciseCardUtil(cardData.type as 'minute' | 'kcal' | 'kg').unit
+        <img :src="cardData.up ? Up : Down" alt="change" class="h-4 w-4 m-2" />
+        지난주보다
+        <span :class="cardData.up ? 'text-[#00B69B]' : 'text-[#F93C65]'">{{
+         (cardData.currentValue + " " + cardData.lastValue) + exerciseCardUtil(cardData.cardType).unit
         }}</span>
-        {{ cardData.isUp ? ' 증가' : ' 감소' }}
+        {{ cardData.up ? ' 증가' : ' 감소' }}
       </p>
     </li>
   </ul>

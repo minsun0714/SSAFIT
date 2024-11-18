@@ -22,8 +22,8 @@ interface ExerciseTimerResponse extends Exercise {
 interface ExerciseCard {
   title: string
   cardIconUrl: string
-  cardType: ''
-  currentValue: number
+  cardType: 'MINUTE' | 'KCAL' | 'KG'
+   currentValue: number
   lastValue: number
   up: boolean
 }
