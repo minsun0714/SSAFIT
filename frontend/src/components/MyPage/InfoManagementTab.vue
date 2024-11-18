@@ -45,7 +45,7 @@ const onSubmit = form.handleSubmit((values) => {
           <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
             <FormLabel class="w-full">비밀번호 변경</FormLabel>
             <FormControl>
-              <Input type="text" v-bind="componentField" class="min-w-[280px]" />
+              <Input type="password" v-bind="componentField" class="min-w-[280px]" />
             </FormControl>
           </div>
           <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
@@ -58,7 +58,7 @@ const onSubmit = form.handleSubmit((values) => {
           <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
             <FormLabel class="w-full">비밀번호 확인</FormLabel>
             <FormControl>
-              <Input type="text" v-bind="componentField" class="min-w-[280px]" />
+              <Input type="password" v-bind="componentField" class="min-w-[280px]" />
             </FormControl>
           </div>
           <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
