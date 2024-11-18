@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { profileImg } from '@/assets'
 import { FaStar, FaStarHalf } from 'vue3-icons/fa'
+import MyReviewContent from './MyReviewContent.vue'
 const data = [
   {
     id: 0,
@@ -38,6 +39,18 @@ const data = [
       "KaiB was phenomenal with our dog, Max!  We were first-time users of a pet-sitting service and were quite nervous. Kai's professionalism and warmth immediately put us at ease. She visited twice a day for a week and provided us with detailed updates and adorable pictures. Max was happy, healthy, and well-exercised throughout our trip. Kai's genuine love for animals shines through in her work. We will definitely book her again and highly recommend her services!",
     evaluation: 8,
   },
+  {
+    id: 2,
+    user: {
+      username: '이민선',
+      userId: 'minsun',
+      profileImg,
+    },
+    createdAt: new Date(),
+    content:
+      's through in her work. We will definitely book her again and highly recommend her services!',
+    evaluation: 8,
+  },
 ]
 </script>
 
@@ -47,7 +60,7 @@ const data = [
       <li
         v-for="review in data"
         :key="review.id"
-        class="w-2/3 border-t border-b flex flex-col justify-center items-center text-sm text-gray-600"
+        class="w-2/3 h-full border-t border-b flex flex-col justify-center items-center text-sm text-gray-600"
       >
         <div class="flex flex-col items-center text-sm w-full pt-6 px-6">
           <div class="flex flex-row justify-between items-center w-full">
@@ -79,9 +92,7 @@ const data = [
             </div>
           </div>
         </div>
-        <div class="p-6">
-          <p class="w-4/5">{{ review.content }}</p>
-        </div>
+        <MyReviewContent :content="review.content" />
       </li>
     </ul>
   </div>

@@ -3,7 +3,7 @@ import CommonTab from '@/components/common/CommonTab.vue'
 import InfoManagement from '@/components/MyPage/InfoManagement.vue'
 import LikedVideoList from '@/components/MyPage/LikedVideoList.vue'
 import MyProfile from '@/components/MyPage/MyProfile.vue'
-import MyReviews from '@/components/MyPage/MyReviews.vue'
+import MyReviews from '@/components/MyPage/MyReviewList.vue'
 import { ref } from 'vue'
 
 const activeTab = ref(0)
