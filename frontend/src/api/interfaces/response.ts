@@ -23,7 +23,14 @@ interface ExerciseCard {
   title: string
   cardIconUrl: string
   cardType: CardType
-   currentValue: number
+  currentValue: number
   lastValue: number
   up: boolean
+}
+
+interface PagedExerciseTypeResponse extends MET {
+  currentPage: number
+  pageSize: number
+  totalPages: number
+  totalItems: number
 }
