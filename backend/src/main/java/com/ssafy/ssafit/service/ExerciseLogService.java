@@ -70,6 +70,9 @@ public class ExerciseLogService {
         Map<String, Double> thisWeekExerciseData = exerciseLogMapper.selectThisWeekExerciseData(memberId);
         Map<String, Double> lastWeekExerciseData = exerciseLogMapper.selectLastWeekExerciseData(memberId);
 
+        System.out.println(thisWeekExerciseData);
+        System.out.println(lastWeekExerciseData);
+
         return toExerciseCardDataDTO(thisWeekExerciseData, lastWeekExerciseData);
     }
 

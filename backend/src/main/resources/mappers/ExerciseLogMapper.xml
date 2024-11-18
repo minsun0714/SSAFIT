@@ -20,7 +20,7 @@
         exercise_log
         WHERE
         member_id = #{memberId}
-        AND WEEK(exercise_date, 1) = WEEK(now(), 1)
+        AND WEEK(exercise_date, 1) = WEEK(now())
         AND YEAR(exercise_date) = YEAR(now())
     </select>
 
@@ -33,7 +33,7 @@
         exercise_log
         WHERE
         member_id = #{memberId}
-        AND WEEK(exercise_date, 1) = WEEK(now(), 1) - 1
+        AND WEEK(exercise_date, 1) = WEEK(now(), 1)
         AND YEAR(exercise_date) = YEAR(now())
     </select>
     <select id="selectOneExerciseLog" parameterType="Long" resultType="ExerciseLog">
