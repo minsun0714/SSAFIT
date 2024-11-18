@@ -1,5 +1,98 @@
-<script setup lang="ts"></script>
-
 <template>
-  <div>배포 자동화 후 페이지</div>
+  <div class="welcome-container">
+    <AdsCarousel :ads="ads" />
+    <PopularVideos :popularVideos="popularVideos" />
+    <LatestVideos :latestVideos="latestVideos" />
+  </div>
 </template>
+
+<script>
+import AdsCarousel from "@/components/Video/AdsCarousel.vue";
+import PopularVideos from "@/components/Video/PopularVideo.vue";
+import LatestVideos from "@/components/Video/LatestVideo.vue";
+
+export default {
+  components: { AdsCarousel, PopularVideos, LatestVideos },
+  data() {
+    return {
+      ads: [
+        {
+          thumbnailImgUrl: "https://img.youtube.com/vi/50WCSpZtdmA/maxresdefault.jpg",
+          title: "Shim EuDdeum 10 Minute Morning Stretch Everydayㅣ2023 Renewal",
+          nickname: "힘으뜸",
+          viewCount: 1200000,
+          createdAt: "2024-11-17"
+        },
+        {
+          thumbnailImgUrl: "https://img.youtube.com/vi/02K-k6daPb4/maxresdefault.jpg",
+          title: "15 MIN Fat Burning Cardio - 서서하는 유산소 - 다이어트 운동",
+          nickname: "빅씨스 Bigsis",
+          viewCount: 900000,
+          createdAt: "2024-11-16"
+        },
+        {
+          thumbnailImgUrl: "https://img.youtube.com/vi/54tTYO-vU2E/maxresdefault.jpg",
+          title: "상체 다이어트 최고의 운동 BEST [팔뚝살/겨드랑이살/등살/가슴어깨라인]",
+          nickname: "ThankyouBUBU",
+          viewCount: 800000,
+          createdAt: "2024-11-15"
+        }
+      ],
+      videoData: [
+        {
+          thumbnailImgUrl: "https://img.youtube.com/vi/50WCSpZtdmA/maxresdefault.jpg",
+          title: "Shim EuDdeum 10 Minute Morning Stretch Everydayㅣ2023 Renewal",
+          nickname: "힘으뜸",
+          viewCount: 1200000,
+          createdAt: "2024-11-17"
+        },
+        {
+          thumbnailImgUrl: "https://img.youtube.com/vi/02K-k6daPb4/maxresdefault.jpg",
+          title: "15 MIN Fat Burning Cardio - 서서하는 유산소 - 다이어트 운동",
+          nickname: "빅씨스 Bigsis",
+          viewCount: 900000,
+          createdAt: "2024-11-16"
+        },
+        {
+          thumbnailImgUrl: "https://img.youtube.com/vi/54tTYO-vU2E/maxresdefault.jpg",
+          title: "상체 다이어트 최고의 운동 BEST [팔뚝살/겨드랑이살/등살/가슴어깨라인]",
+          nickname: "ThankyouBUBU",
+          viewCount: 800000,
+          createdAt: "2024-11-15"
+        },
+        {
+          thumbnailImgUrl: "https://img.youtube.com/vi/QqqZH3j_vH0/maxresdefault.jpg",
+          title: "상체비만 다이어트 최고의 운동 [상체 핵매운맛]",
+          nickname: "ThankyouBUBU",
+          viewCount: 950000,
+          createdAt: "2024-11-14"
+        },
+        {
+          thumbnailImgUrl: "https://img.youtube.com/vi/tzN6ypk6Sps/maxresdefault.jpg",
+          title: "하체운동이 중요한 이유? 이것만 보고 따라하자 ! [하체운동 교과서]",
+          nickname: "김강민",
+          viewCount: 1100000,
+          createdAt: "2024-11-13"
+        }
+      ]
+    };
+  },
+  computed: {
+    popularVideos() {
+      return this.videoData.sort((a, b) => b.viewCount - a.viewCount).slice(0, 3);
+    },
+    latestVideos() {
+      return this.videoData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3);
+    }
+  }
+};
+</script>
+
+<style scoped>
+.welcome-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
