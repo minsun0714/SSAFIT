@@ -24,6 +24,28 @@ const router = createRouter({
       path: '/mypage',
       name: Routes.MY_PAGE,
       component: () => import('../views/MyPageView.vue'),
+      children: [
+        {
+          path: 'liked-videos',
+          name: 'liked-videos',
+          component: () => import('../components/MyPage/LikedVideoListTab.vue'),
+        },
+        {
+          path: 'reviews',
+          name: 'reviews',
+          component: () => import('../components/MyPage/MyReviewListTab.vue'),
+        },
+        {
+          path: 'info',
+          name: 'info',
+          component: () => import('../components/MyPage/InfoManagementTab.vue'),
+        },
+        {
+          path: 'admin',
+          name: 'admin',
+          component: () => import('../components/MyPage/AdminTab.vue'),
+        },
+      ],
     },
     {
       path: '/videos',
