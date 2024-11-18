@@ -1,15 +1,28 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-defineProps<{
+const { tabs, routesMap } = defineProps<{
   tabs: string[]
-  active: number
+  routesMap: string[]
 }>()
 
-const emit = defineEmits(['update:active'])
+const route = useRoute()
+const router = useRouter()
 
-const setActiveTab = (index: number) => {
-  emit('update:active', index)
+const activeTab = ref(0)
+
+watch(
+  () => route.path,
+  (newPath) => {
+    activeTab.value = routesMap.indexOf(newPath)
+  },
+  { immediate: true },
+)
+
+const handleClickTab = (index: number) => {
+  activeTab.value = index
+  router.push(routesMap[index])
 }
 </script>
 
@@ -19,8 +32,8 @@ const setActiveTab = (index: number) => {
       v-for="(tab, index) in tabs"
       :key="tab"
       class="cursor-pointer"
-      :class="{ 'text-blue-400': index === active, 'text-gray-400': index !== active }"
-      @click="setActiveTab(index)"
+      :class="{ 'text-blue-400': index === activeTab, 'text-gray-400': index !== activeTab }"
+      @click="handleClickTab(index)"
     >
       {{ tab }}
     </li>
