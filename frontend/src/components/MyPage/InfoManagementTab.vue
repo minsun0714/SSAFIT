@@ -40,7 +40,7 @@ const onSubmit = form.handleSubmit((values) => {
           </div>
         </FormItem>
       </FormField>
-      <FormField v-slot="{ componentField }" name="nickname">
+      <FormField v-slot="{ componentField }" name="password">
         <FormItem class="flex flex-col w-full items-center">
           <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
             <FormLabel class="w-full">비밀번호 변경</FormLabel>
@@ -53,7 +53,7 @@ const onSubmit = form.handleSubmit((values) => {
           </div>
         </FormItem>
       </FormField>
-      <FormField v-slot="{ componentField }" name="nickname">
+      <FormField v-slot="{ componentField }" name="passwordConfirm">
         <FormItem class="flex flex-col w-full items-center">
           <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
             <FormLabel class="w-full">비밀번호 확인</FormLabel>
