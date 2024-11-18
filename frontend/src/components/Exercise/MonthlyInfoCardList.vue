@@ -3,6 +3,7 @@ import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
 import { Up } from '../../assets'
 import { Down } from '../../assets'
 import { PurpleCardIcon } from '../../assets'
+import TimerModal from './TimerModal.vue'
 
 const { data } = ExerciseLogApiFacade.useFetchCardDataList()
 </script>
@@ -38,8 +39,11 @@ const { data } = ExerciseLogApiFacade.useFetchCardDataList()
         </p>
       </li>
     </ul>
-    <div class="w-full flex justify-center items-center text-white text-5xl p-10 font-bold">
+    <div
+      class="w-full flex flex-col justify-center items-center text-white text-5xl p-10 font-bold"
+    >
       <p>00 : 00 : 00</p>
+      <TimerModal :text="'운동하기'" />
     </div>
   </div>
 </template>

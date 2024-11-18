@@ -7,7 +7,7 @@ import TimerModal from '../components/Exercise/TimerModal.vue'
 <template>
   <main>
     <MonthlyInfoCardList />
-    <TimerModal :text="'운동하기'" />
+
     <ExerciseCalendar />
   </main>
 </template>

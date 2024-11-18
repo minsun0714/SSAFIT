@@ -22,7 +22,7 @@ const timer = new Timer(time, isRunning)
 <template>
   <div>
     <Dialog>
-      <DialogTrigger><BlueButton text="운동하기" /></DialogTrigger>
+      <DialogTrigger class="border w-[300px] rounded-sm flex justify-center my-10"><BlueButton text="운동하기" /></DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>오늘의 운동</DialogTitle>
