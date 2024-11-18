@@ -15,7 +15,7 @@ const activeTab = ref(0)
 watch(
   () => route.path,
   (newPath) => {
-    activeTab.value = routesMap.indexOf(newPath)
+    activeTab.value = routesMap.indexOf(newPath.slice(route.path.lastIndexOf('/') + 1))
   },
   { immediate: true },
 )
