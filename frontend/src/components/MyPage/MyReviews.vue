@@ -42,12 +42,12 @@ const data = [
 </script>
 
 <template>
-  <div class="flex justify-center">
-    <ul>
+  <div>
+    <ul class="flex flex-col justify-center items-center w-full">
       <li
         v-for="review in data"
         :key="review.id"
-        class="w-[1000px] border-t border-b flex flex-col justify-between items-center text-sm text-gray-600"
+        class="w-2/3 border-t border-b flex flex-col justify-center items-center text-sm text-gray-600"
       >
         <div class="flex flex-col items-center text-sm w-full pt-6 px-6">
           <div class="flex flex-row justify-between items-center w-full">
