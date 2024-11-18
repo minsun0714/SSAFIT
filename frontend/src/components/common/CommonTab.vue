@@ -20,9 +20,9 @@ watch(
   { immediate: true },
 )
 
-const handleClickTab = (index: number) => {
+const handleClickTab = async (index: number) => {
+  await router.push({ name: routesMap[index] })
   activeTab.value = index
-  router.push(routesMap[index])
 }
 </script>
 
