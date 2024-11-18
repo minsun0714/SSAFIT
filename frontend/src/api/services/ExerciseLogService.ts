@@ -16,7 +16,7 @@ class ExerciseLogService {
     return response.data
   }
 
-  private static async _fetchExerciseLogsByDate(date: Date): Promise<ExerciseTimerResponse[]> {
+  private static async _fetchExerciseLogsByDate(date: string): Promise<ExerciseTimerResponse[]> {
     const response = await api.get(this.path + `/${date}`)
     return response.data
   }
@@ -36,7 +36,7 @@ class ExerciseLogService {
     return await this._fetchCardDataList()
   }
 
-  static async fetchExerciseLogsByDate(date: Date): Promise<ExerciseTimerResponse[]> {
+  static async fetchExerciseLogsByDate(date: string): Promise<ExerciseTimerResponse[]> {
     return await this._fetchExerciseLogsByDate(date)
   }
 
