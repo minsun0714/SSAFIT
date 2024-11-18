@@ -9,7 +9,6 @@ import {
 import { computed, type HTMLAttributes } from 'vue'
 import {
   CalendarCell,
-  CalendarCellTrigger,
   CalendarGrid,
   CalendarGridBody,
   CalendarGridHead,
