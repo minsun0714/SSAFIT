@@ -13,6 +13,7 @@ import { pad } from '../../utils/helperFunction'
 import BlueButton from '../common/BlueButton.vue'
 import { ref } from 'vue'
 import { Timer } from '../../utils/helperClass'
+import TimerModalSaveButton from './TimerModalSaveButton.vue'
 
 const time = ref(0)
 const isRunning = ref(false)
@@ -22,7 +23,9 @@ const timer = new Timer(time, isRunning)
 <template>
   <div>
     <Dialog>
-      <DialogTrigger class="border w-[300px] rounded-sm flex justify-center my-10"><BlueButton text="운동하기" /></DialogTrigger>
+      <DialogTrigger class="border w-[300px] rounded-sm flex justify-center my-10"
+        ><BlueButton text="운동하기"
+      /></DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>오늘의 운동</DialogTitle>
@@ -61,7 +64,7 @@ const timer = new Timer(time, isRunning)
             </div>
           </div>
         </div>
-        <DialogFooter><BlueButton text="저장" /></DialogFooter>
+        <DialogFooter><TimerModalSaveButton /></DialogFooter>
       </DialogContent>
     </Dialog>
   </div>
