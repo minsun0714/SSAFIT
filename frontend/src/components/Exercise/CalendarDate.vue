@@ -32,12 +32,11 @@ const totalKcalBurn = computed(() => {
   const kcalBurnData = data.value?.map((d) => d.caloriesBurned) || []
   return kcalBurnData.reduce((a, b) => a + b, 0)
 })
-
 </script>
 <template>
   <div class="w-full">
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger class="w-full text-end flex justify-end h-24">
         <CalendarCellTrigger :day="weekDate" :month="month" />
       </DialogTrigger>
       <DialogContent>
@@ -48,15 +47,13 @@ const totalKcalBurn = computed(() => {
             </div></DialogTitle
           >
           <DialogDescription>
-            총 운동 시간 : {{ totalExerciseTime }}
-            {{ totalKcalBurn }}kcal
+            총 운동 시간 : {{ totalExerciseTime }} {{ totalKcalBurn }}kcal
           </DialogDescription>
         </DialogHeader>
         <ul v-if="data?.length">
           <li v-for="d in data" :key="d.exerciseLogId">
-              {{ d.exerciseType }}
-              {{ d.exerciseTime }}초
-              {{ d.caloriesBurned }}kcal
+            {{ d.exerciseType }}
+            {{ d.exerciseTime }}초 {{ d.caloriesBurned }}kcal
           </li>
         </ul>
         <div v-else>해당 날짜의 운동 데이터가 없습니다.</div>
