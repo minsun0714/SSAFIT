@@ -8,13 +8,14 @@
       <p class="nickname">{{ videoData.nickname }}</p>
       <p class="view-count">조회수: <span>{{ formattedViewCount }}</span></p>
       <p class="introduce">이 비디오는 아침 스트레칭 루틴으로 활력을 더합니다.</p>
+      <Button> 좋아요 </Button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, computed } from "vue";
-
+import Button from "../ui/button/Button.vue";
 const videoData = reactive({
   thumbnailImgUrl: "https://img.youtube.com/vi/50WCSpZtdmA/maxresdefault.jpg",
   title: "Shim EuDdeum 10 Minute Morning Stretch Everydayㅣ2023 Renewal",

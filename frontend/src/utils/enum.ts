@@ -11,6 +11,8 @@ export enum Routes {
   CREATE_VIDEO = 'createVideo',
   VIDEO = 'video',
   EXERCISE = 'exercise',
+  VIDEO_PLAY = 'video-play',
+  VIDEO_REVIEWS = 'video-reviews',
 }
 
 export enum LOTTIE_ANIMATION_PATH {

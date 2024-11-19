@@ -11,6 +11,7 @@
       </div>
     </template>
 
+    <!-- 각 슬라이드에 썸네일 이미지만 표시 -->
     <div v-for="(video, index) in videos" :key="video.videoId">
       <img :src="video.thumbnailImgUrl" alt="썸네일" class="thumbnail-image" />
     </div>

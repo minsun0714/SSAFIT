@@ -18,7 +18,7 @@ const logout = () => {
 <template>
   <header class="border p-10 flex flex-row justify-between items-center">
     <nav class="w-full flex flex-row justify-between items-center h-98 text-xs font-bold">
-      <RouterLink :to="{ name: Routes.HOME }">SSAFIT</RouterLink>
+      <RouterLink :to="{ name: Routes.HOME }" class="logo-text">SSAFIT</RouterLink>
       <div class="flex flex-row gap-x-4">
         <RouterLink :to="{ name: Routes.VIDEOS }">운동영상</RouterLink>
         <RouterLink :to="{ name: Routes.EXERCISE }">운동기록</RouterLink>
@@ -39,3 +39,12 @@ const logout = () => {
     </nav>
   </header>
 </template>
+<style scoped>
+.logo-text {
+  font-size: 2rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: bold;
+  color: black;
+  text-transform: uppercase; /* 대문자로 설정 */
+}
+</style>

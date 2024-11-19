@@ -48,6 +48,23 @@ const router = createRouter({
       ],
     },
     {
+      path: '/video/:id',
+      name: Routes.VIDEO,
+      component: () => import('../views/VideoDetailView.vue'),
+      children: [
+        {
+          path: 'video-play',
+          name: Routes.VIDEO_PLAY,
+          component: () => import('../components/VideoDetail/VideoPlayTab.vue')
+        },
+        {
+          path: 'video-reviews',
+          name: Routes.VIDEO_REVIEWS,
+          component: () => import('../components/VideoDetail/VideoReviewListTab.vue'),
+        },
+      ]
+    },
+    {
       path: '/videos',
       name: Routes.VIDEOS,
       component: () => import('../views/VideoListView.vue'),
@@ -58,11 +75,6 @@ const router = createRouter({
           component: () => import('../views/VideoCreateView.vue'),
         },
       ],
-    },
-    {
-      path: '/video/:id',
-      name: Routes.VIDEO,
-      component: () => import('../views/VideoDetailView.vue'),
     },
     {
       path: '/exercise',
