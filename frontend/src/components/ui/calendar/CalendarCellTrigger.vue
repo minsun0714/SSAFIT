@@ -22,9 +22,9 @@ const { data } = ExerciseLogApiFacade.useFetchExerciseLogsByDate(
   year + '-' + pad(month) + '-' + pad(day),
 )
 const totalExerciseTime = computed(() => {
-  const exerciseTimeData = data.value?.map((d) => d.exerciseTime) || [];
-  return exerciseTimeData.reduce((a, b) => a + b, 0);
-});
+  const exerciseTimeData = data.value?.map((d) => d.exerciseTime) || []
+  return exerciseTimeData.reduce((a, b) => a + b, 0)
+})
 </script>
 
 <template>
@@ -32,8 +32,8 @@ const totalExerciseTime = computed(() => {
     :class="
       cn(
         buttonVariants({ variant: 'ghost' }),
-        'h-24 font-normal flex justify-end items-start',
-        '[&[data-today]]:border-2 [&[data-today]]:border-blue-400  [&[data-today]]:text-black',
+        'relative h-12 w-12 font-normal flex justify-center items-center',
+        '[&[data-today]]:flex [&[data-today]]:justify-center [&[data-today]]:w-12 [&[data-today]]:rounded-full [&[data-today]]:bg-blue-400  [&[data-today]]:text-white',
         // Selected
         'w-full',
         // Disabled
