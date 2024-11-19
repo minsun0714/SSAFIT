@@ -17,96 +17,39 @@ import * as z from 'zod'
 
 import { SlMagnifier } from 'vue3-icons/sl'
 import { useExerciseStore } from '@/stores/exerciseType'
-
-const formSchema = toTypedSchema(
-  z.object({
-    memberId: z.string().min(2).max(50),
-    password: z.string().min(8).max(50),
-  }),
-)
+import ExerciseTypeApiFacade from '@/api/apiFacade/ExerciseTypeApiFacade'
+import { ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const { handleClickExercise } = useExerciseStore()
 
-const { handleSubmit } = useForm({
-  validationSchema: formSchema,
-})
+const router = useRouter()
+const route = useRoute()
 
+const exerciseType = ref(route.query.exerciseType || '')
 
+watch(
+  exerciseType,
+  (newKeyword) => {
+    router.push({ query: { ...route.query, exerciseType: newKeyword } })
+  },
+  { immediate: true },
+)
 
-
-const onSubmit = handleSubmit((value) => {
-  console.log(value)
-})
-
-const data = {
-  currentPage: 1,
-  pageSize: 10,
-  totalPages: 26,
-  totalItems: 259,
-  data: [
-    {
-      운동명: '다트',
-      'MET 계수': 2.5,
-    },
-    {
-      운동명: '야구 캐치볼',
-      'MET 계수': 2.5,
-    },
-    {
-      운동명: '당구',
-      'MET 계수': 2.5,
-    },
-    {
-      운동명: '요가',
-      'MET 계수': 2.5,
-    },
-    {
-      운동명: '하타 요가',
-      'MET 계수': 2.5,
-    },
-    {
-      운동명: '파워요가',
-      'MET 계수': 4.0,
-    },
-    {
-      운동명: '수리야 나마스까 요가',
-      'MET 계수': 3.3,
-    },
-    {
-      운동명: '나디소다나 요가',
-      'MET 계수': 2.0,
-    },
-    {
-      운동명: '스트레칭(가볍게) - 전신',
-      'MET 계수': 2.5,
-    },
-    {
-      운동명: '낚시',
-      'MET 계수': 3.0,
-    },
-  ],
-}
-
+const { data } = ExerciseTypeApiFacade.useFetchPagedExerciseType(1)
+console.log(data.value)
 </script>
 
 <template>
   <div>
-    <form class="" @submit="onSubmit">
-      <FormField v-slot="{ componentField }" name="memberId">
-        <FormItem>
-          <FormControl class="flex flex-row rounded-md border items-center">
-            <div class="flex">
-              <SlMagnifier class="flex justify-center w-9 items-center h-3" />
-              <Input
-                type="text"
-                v-bind="componentField"
-                class="border border-none border-input-none outline-none"
-              />
-            </div>
-          </FormControl>
-        </FormItem>
-      </FormField>
-    </form>
+    <div class="flex flex-row justify-start items-center border p-3 gap-2">
+      <SlMagnifier />
+      <input
+        type="text"
+        v-model="exerciseType"
+        class="border border-none border-input-none outline-none"
+      />
+    </div>
     <Table>
       <TableHeader>
         <TableRow>
@@ -115,7 +58,7 @@ const data = {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow v-for="(item, index) in data.data" :key="index" class="cursor-pointer">
+        <TableRow v-for="(item, index) in data?.data" :key="index" class="cursor-pointer">
           <TableCell @click="() => handleClickExercise(item.운동명)">{{ item.운동명 }}</TableCell>
           <TableCell>{{ item['MET 계수'] }}</TableCell>
         </TableRow>

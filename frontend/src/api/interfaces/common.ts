@@ -10,8 +10,3 @@ interface Exercise {
   exerciseType: string
   exerciseTime: number
 }
-
-interface MET {
-  운동명: string
-  'MET 계수': number
-}

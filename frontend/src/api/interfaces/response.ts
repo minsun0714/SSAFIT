@@ -1,3 +1,5 @@
+import { string } from "zod"
+
 interface SignUpResponse extends Omit<Member, 'password'> {
   profileImg: string
   accessToken: string
@@ -28,9 +30,15 @@ interface ExerciseCard {
   up: boolean
 }
 
-interface PagedExerciseTypeResponse extends MET {
+interface ExerciseType {
+  운동명: string
+  "MET 계수": number;
+}
+
+export interface PagedExerciseTypeResponse {
   currentPage: number
   pageSize: number
   totalPages: number
   totalItems: number
+  data: ExerciseType[]
 }
