@@ -22,9 +22,12 @@ public class ExerciseTypeController {
     @GetMapping
     public ResponseEntity<PagedResponseDTO<ExerciseMetData>> getPagedExerciseTypes(
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String exerciseType
+    )
+    {
 
-        PagedResponseDTO<ExerciseMetData> pagedExerciseTypeResponse = exerciseTypeService.getPagedExerciseTypeResponse(page, size);
+        PagedResponseDTO<ExerciseMetData> pagedExerciseTypeResponse = exerciseTypeService.getPagedExerciseTypeResponse(page, size, exerciseType);
 
         return ResponseEntity.ok(pagedExerciseTypeResponse);
     }

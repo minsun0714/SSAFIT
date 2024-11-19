@@ -14,9 +14,9 @@ import static com.ssafy.ssafit.utils.DTOMapper.toPagedResponseDTO;
 public class ExerciseTypeService {
     private final ExerciseMetService exerciseMetService;
 
-    public PagedResponseDTO<ExerciseMetData> getPagedExerciseTypeResponse(int page, int size){
+    public PagedResponseDTO<ExerciseMetData> getPagedExerciseTypeResponse(int page, int size, String exerciseType){
 
-        List<ExerciseMetData> exerciseMetDataList = exerciseMetService.getMetDataByPage(page, size);
+        List<ExerciseMetData> exerciseMetDataList = exerciseMetService.getMetDataByPage(page, size, exerciseType);
 
         int totalItems = exerciseMetService.getTotalDataCount();
 
