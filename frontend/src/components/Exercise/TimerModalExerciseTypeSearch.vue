@@ -16,6 +16,7 @@ import { useForm } from 'vee-validate'
 import * as z from 'zod'
 
 import { SlMagnifier } from 'vue3-icons/sl'
+import { useExerciseStore } from '@/stores/exerciseType'
 
 const formSchema = toTypedSchema(
   z.object({
@@ -24,8 +25,17 @@ const formSchema = toTypedSchema(
   }),
 )
 
+const { handleClickExercise } = useExerciseStore()
+
 const { handleSubmit } = useForm({
   validationSchema: formSchema,
+})
+
+
+
+
+const onSubmit = handleSubmit((value) => {
+  console.log(value)
 })
 
 const data = {
@@ -77,9 +87,6 @@ const data = {
   ],
 }
 
-const onSubmit = handleSubmit((value) => {
-  console.log(value)
-})
 </script>
 
 <template>
@@ -108,8 +115,8 @@ const onSubmit = handleSubmit((value) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow v-for="(item, index) in data.data" :key="index">
-          <TableCell>{{ item.운동명 }}</TableCell>
+        <TableRow v-for="(item, index) in data.data" :key="index" class="cursor-pointer">
+          <TableCell @click="() => handleClickExercise(item.운동명)">{{ item.운동명 }}</TableCell>
           <TableCell>{{ item['MET 계수'] }}</TableCell>
         </TableRow>
       </TableBody>

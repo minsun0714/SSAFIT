@@ -10,17 +10,28 @@ import { pad } from '../../utils/helperFunction'
 import { ref } from 'vue'
 import { Timer } from '../../utils/helperClass'
 import TimerModalSaveButton from './TimerModalSaveButton.vue'
+import { useExerciseStore } from '@/stores/exerciseType'
+import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
+
+const { exercise } = useExerciseStore()
 
 const time = ref(0)
 const isRunning = ref(false)
 const timer = new Timer(time, isRunning)
+
+const { mutate } = ExerciseLogApiFacade.useCreateExerciseLog()
+
+const handleClickSaveTime = () => {
+  console.log("hi")
+  mutate({exerciseDate: new Date(), exerciseType: exercise, exerciseTime: time.value})
+}
 </script>
 
 <template>
   <div class="w-full flex flex-col justify-center items-center">
     <DialogHeader class="flex gap-y-6 p-8 w-2/3">
       <DialogDescription class="text-xs"> 현재 선택한 운동 </DialogDescription>
-      <DialogTitle class="text-xl">요가</DialogTitle>
+      <DialogTitle class="text-xl">{{ exercise }}</DialogTitle>
     </DialogHeader>
     <div class="flex flex-col justify-center items-center">
       <div class="font-bold text-4xl">
@@ -53,6 +64,6 @@ const timer = new Timer(time, isRunning)
         </div>
       </div>
     </div>
-    <DialogFooter><TimerModalSaveButton /></DialogFooter>
+    <DialogFooter><TimerModalSaveButton @click="handleClickSaveTime"/></DialogFooter>
   </div>
 </template>
