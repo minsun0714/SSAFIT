@@ -25,7 +25,7 @@ class ExerciseLogApiFacade {
     })
   }
 
-  static useFetchExerciseLogsByDate(date: Date) {
+  static useFetchExerciseLogsByDate(date: string) {
     return useQuery({
       queryKey: ['exerciseLog', date],
       queryFn: () => ExerciseLogService.fetchExerciseLogsByDate(date),

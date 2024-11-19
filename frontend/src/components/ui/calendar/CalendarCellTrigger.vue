@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { pad } from '@/utils/helperFunction'
 import { CalendarCellTrigger, type CalendarCellTriggerProps, useForwardProps } from 'radix-vue'
 import { computed, type HTMLAttributes } from 'vue'
 
@@ -13,6 +15,16 @@ const delegatedProps = computed(() => {
 })
 
 const forwardedProps = useForwardProps(delegatedProps)
+
+const { year, month, day } = props.day
+
+const { data } = ExerciseLogApiFacade.useFetchExerciseLogsByDate(
+  year + '-' + pad(month) + '-' + pad(day),
+)
+const totalExerciseTime = computed(() => {
+  const exerciseTimeData = data.value?.map((d) => d.exerciseTime) || [];
+  return exerciseTimeData.reduce((a, b) => a + b, 0);
+});
 </script>
 
 <template>
@@ -35,5 +47,11 @@ const forwardedProps = useForwardProps(delegatedProps)
     v-bind="forwardedProps"
   >
     <slot />
+    <div class="w-full">
+      <span class="font-semibold">{{ day }}</span>
+      <div v-if="totalExerciseTime > 0" class="text-xs w-full h-full py-7">
+        <p class="border w-full">{{ totalExerciseTime }}</p>
+      </div>
+    </div>
   </CalendarCellTrigger>
 </template>

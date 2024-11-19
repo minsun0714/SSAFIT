@@ -9,7 +9,6 @@ import {
 import { computed, type HTMLAttributes } from 'vue'
 import {
   CalendarCell,
-  CalendarCellTrigger,
   CalendarGrid,
   CalendarGridBody,
   CalendarGridHead,
@@ -20,6 +19,7 @@ import {
   CalendarNextButton,
   CalendarPrevButton,
 } from '.'
+import CalendarDate from '@/components/Exercise/CalendarDate.vue'
 
 const props = defineProps<CalendarRootProps & { class?: HTMLAttributes['class'] }>()
 
@@ -56,7 +56,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
         <CalendarGridBody>
           <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`">
             <CalendarCell v-for="weekDate in weekDates" :key="weekDate.toString()" :date="weekDate">
-              <CalendarCellTrigger :day="weekDate" :month="month.value" />
+              <CalendarDate :week-date="weekDate" :month="month.value" v-bind="forwarded" />
             </CalendarCell>
           </CalendarGridRow>
         </CalendarGridBody>

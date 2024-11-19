@@ -18,12 +18,19 @@ interface ExerciseTimerResponse extends Exercise {
   caloriesBurned: number
   fatBurned: number
 }
-
+type CardType = 'MINUTE' | 'KCAL' | 'KG'
 interface ExerciseCard {
   title: string
   cardIconUrl: string
-  cardType: ''
+  cardType: CardType
   currentValue: number
   lastValue: number
   up: boolean
+}
+
+interface PagedExerciseTypeResponse extends MET {
+  currentPage: number
+  pageSize: number
+  totalPages: number
+  totalItems: number
 }

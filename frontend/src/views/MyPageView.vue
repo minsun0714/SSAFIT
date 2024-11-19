@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import CommonTab from '@/components/common/CommonTab.vue'
+import ExerciseGrassRecord from '@/components/Exercise/ExerciseGrassRecord.vue';
 import MyProfile from '@/components/MyPage/MyProfile.vue'
 import { Routes } from '@/utils/enum'
 
@@ -16,6 +17,7 @@ const routesMap = [
 <template>
   <main>
     <MyProfile />
+    <ExerciseGrassRecord />
     <CommonTab :tabs="tabs" :routesMap="routesMap" />
     <RouterView />
   </main>
