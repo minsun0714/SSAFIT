@@ -17,12 +17,10 @@ const timer = new Timer(time, isRunning)
 </script>
 
 <template>
-  <div>
-    <DialogHeader>
-      <DialogTitle>오늘의 운동</DialogTitle>
-      <DialogDescription>
-        Make changes to your profile here. Click save when you're done.
-      </DialogDescription>
+  <div class="w-full flex flex-col justify-center items-center">
+    <DialogHeader class="flex gap-y-6 p-8 w-2/3">
+      <DialogDescription class="text-xs"> 현재 선택한 운동 </DialogDescription>
+      <DialogTitle class="text-xl">요가</DialogTitle>
     </DialogHeader>
     <div class="flex flex-col justify-center items-center">
       <div class="font-bold text-4xl">
@@ -32,7 +30,7 @@ const timer = new Timer(time, isRunning)
         :
         <span>{{ pad(time % 60) }}</span>
       </div>
-      <div class="w-full flex flex-row justify-evenly p-6">
+      <div class="w-[250px] flex flex-row justify-between p-6">
         <div
           :class="[
             'bg-blue-400 flex justify-center items-center gap-1 border rounded-full w-16 h-16 cursor-pointer',
