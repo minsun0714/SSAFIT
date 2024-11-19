@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -23,6 +22,8 @@ const { weekDate, month } = defineProps<{
 const { data } = ExerciseLogApiFacade.useFetchExerciseLogsByDate(
   weekDate.year + '-' + pad(weekDate.month) + '-' + pad(weekDate.day),
 )
+
+const {mutate} = ExerciseLogApiFacade.useDeleteExerciseLog()
 
 const totalExerciseTime = computed(() => {
   const exerciseTimeData = data.value?.map((d) => d.exerciseTime) || []
@@ -54,7 +55,10 @@ const totalKcalBurn = computed(() => {
           <li v-for="d in data" :key="d.exerciseLogId">
             {{ d.exerciseType }}
             {{ d.exerciseTime }}초 {{ d.caloriesBurned }}kcal
+            {{ d.exerciseLogId }}
+            <button @click="()=> mutate({exerciseLogId: d.exerciseLogId as any})">삭제</button>
           </li>
+
         </ul>
         <div v-else>해당 날짜의 운동 데이터가 없습니다.</div>
       </DialogContent>

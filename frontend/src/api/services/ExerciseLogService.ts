@@ -22,7 +22,7 @@ class ExerciseLogService {
   }
 
   private static async _deleteExerciseLog(exerciseLogId: number): Promise<void> {
-    await api.delete(this.path + `${exerciseLogId}`)
+    await api.delete(this.path + `/${exerciseLogId}`)
   }
 
   // Public 메서드로 외부에서 사용할 수 있도록 제공

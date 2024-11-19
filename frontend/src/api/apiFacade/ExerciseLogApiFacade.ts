@@ -34,7 +34,12 @@ class ExerciseLogApiFacade {
   }
 
   static useDeleteExerciseLog() {
-    return useMutation({ mutationFn: ({exerciseLogId}: {exerciseLogId: number}) => ExerciseLogService.deleteExerciseLog(exerciseLogId) })
+    return useMutation({
+      mutationFn: ({exerciseLogId}: {exerciseLogId: number}) => ExerciseLogService.deleteExerciseLog(exerciseLogId),
+      onSuccess: () => {
+        queryClient.refetchQueries()
+      }
+    })
   }
 }
 
