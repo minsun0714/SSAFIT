@@ -4,6 +4,7 @@ import com.ssafy.ssafit.domain.ExerciseMetData;
 import com.ssafy.ssafit.dto.response.PagedResponseDTO;
 import com.ssafy.ssafit.service.ExerciseTypeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,8 @@ public class ExerciseTypeController {
             @RequestParam(required = false) String exerciseType
     )
     {
-
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         PagedResponseDTO<ExerciseMetData> pagedExerciseTypeResponse = exerciseTypeService.getPagedExerciseTypeResponse(page, size, exerciseType);
 
         return ResponseEntity.ok(pagedExerciseTypeResponse);
