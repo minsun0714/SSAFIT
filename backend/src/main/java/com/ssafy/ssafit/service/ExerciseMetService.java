@@ -52,8 +52,8 @@ public class ExerciseMetService {
         ExerciseMetResponse response = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path(url)
-                        .queryParam("page", page)
-                        .queryParam("perPage", perPage)
+                        .queryParam("page", 1)
+                        .queryParam("perPage", 600)
                         .queryParam("serviceKey", serviceKey)
                         .build())
                 .header("Authorization", authorizationHeader)
