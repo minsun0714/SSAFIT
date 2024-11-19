@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import VideoPlay from '../components/Video/VideoPlay.vue'
+import VideoIntro from '../components/Video/VideoIntro.vue'
+
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <VideoIntro />
+    <VideoPlay />
   </main>
 </template>

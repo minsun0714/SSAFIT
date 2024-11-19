@@ -8,7 +8,7 @@
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*"
-  ],
+, "shims-vue-agile.d.ts", "vue-agile.d.ts"  ],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "lib": ["dom", "esnext"],

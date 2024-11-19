@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "shims-vue-agile.d.ts", "vue-agile.d.ts"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "lib": ["dom", "esnext"],
