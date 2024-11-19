@@ -1,0 +1,48 @@
+CREATE DATABASE ssafit;
+USE ssafit;
+
+DROP TABLE members;
+CREATE TABLE IF NOT EXISTS members (
+    member_id VARCHAR(20) PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    nickname VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    profile_img VARCHAR(255),
+    role ENUM('ROLE_ADMIN', 'ROLE_USER') NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+SELECT * FROM members;
+
+DELETE FROM members WHERE member_id = 'minsun';
+
+CREATE TABLE IF NOT EXISTS exercise_log (
+	exercise_log_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    member_id VARCHAR(50) NOT NULL, -- 회원 ID
+    exercise_date DATE NOT NULL, -- 운동 날짜
+    exercise_type VARCHAR(50) NOT NULL, -- 운동 유형 (근력 또는 유산소)
+    exercise_time DOUBLE NOT NULL, -- 운동 시간 (분)
+    calories_burned DOUBLE NOT NULL, -- 소모된 칼로리
+    fat_burned DOUBLE NOT NULL, -- 소모된 지방량 (g)
+    FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+DROP TABLE exercise_log;
+SELECT * FROM exercise_log;
+
+SELECT *
+FROM exercise_log
+WHERE member_id = 'minsun'
+  AND DATE(exercise_date) = '2024-11-17';
+
+SELECT
+	IFNULL(SUM(exercise_time), 0.0) AS totalExerciseTime,
+	IFNULL(SUM(calories_burned), 0.0) AS totalCaloriesBurned,
+	IFNULL(SUM(fat_burned), 0.0) AS totalFatBurned
+	FROM
+        exercise_log
+	WHERE
+        member_id = 'minsun'
+	AND WEEK(exercise_date, 1) = WEEK(now())
+	AND YEAR(exercise_date) = YEAR(now());
+
+SELECT WEEK(now())
