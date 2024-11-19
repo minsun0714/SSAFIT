@@ -1,6 +1,9 @@
 <template>
   <div class="popular-videos">
-    <h2>인기 영상</h2>
+    <h2>Most Viewed Videos</h2>
+    <h3>Discover the highest-rated videos, loved by our community.</h3>
+    <br>
+    <br>
     <div class="video-card-container">
       <VideoCard
         v-for="(video, index) in popularVideos"
@@ -51,5 +54,11 @@ h2 {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+}
+h3 {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+  color: #555;
 }
 </style>

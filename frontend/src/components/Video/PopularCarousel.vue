@@ -1,16 +1,8 @@
-<template>
-  <div class="welcome-container">
-    <PopularVideos :popularVideos="popularVideos" />
-    <PopularCarousel />
-    <LatestVideos :latestVideos="latestVideos" />
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import PopularVideos from "@/components/Video/PopularVideo.vue";
-import LatestVideos from "@/components/Video/LatestVideo.vue";
-import PopularCarousel from "@/components/Video/PopularCarousel.vue";
+import { Card, CardContent } from '@/components/ui/card'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import VideoCard from '@/components/common/VideoCard.vue'
+import { ref } from 'vue'
 
 const videoData = ref([
   {
@@ -58,27 +50,57 @@ const videoData = ref([
     videoId: 5,
     rating: 5
   }
-]);
-
-// computed properties
-const popularVideos = computed(() => {
-  return [...videoData.value]
-    .sort((a, b) => b.viewCount - a.viewCount)
-    .slice(0, 3);
-});
-
-const latestVideos = computed(() => {
-  return [...videoData.value]
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) // 올바른 비교
-    .slice(0, 3);
-});
+])
 </script>
 
+<template>
+  <Carousel
+    class="relative w-full max-w-sm"
+    :opts="{
+      align: 'start',
+    }"
+  >
+    <CarouselContent class="-ml-1">
+      <CarouselItem
+        v-for="(video, index) in videoData"
+        :key="video.videoId"
+        class="pl-1 md:basis-1/2 lg:basis-1/3"
+      >
+        <div class="p-1">
+          <Card>
+            <CardContent class="flex aspect-square items-center justify-center p-6">
+              <!-- VideoCard Component Rendering -->
+              <VideoCard
+                :title="video.title"
+                :nickname="video.nickname"
+                :viewCount="video.viewCount"
+                :createdAt="video.createdAt"
+                :thumbnailImgUrl="video.thumbnailImgUrl"
+                :videoId="video.videoId"
+                :rating="video.rating"
+              />
+            </CardContent>
+          </Card>
+        </div>
+      </CarouselItem>
+    </CarouselContent>
+    <CarouselPrevious />
+    <CarouselNext />
+  </Carousel>
+</template>
+
 <style scoped>
-.welcome-container {
-  padding: 20px;
+.video-card-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+h2 {
+  margin-top: 30px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
 }
 </style>

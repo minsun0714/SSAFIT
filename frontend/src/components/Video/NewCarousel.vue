@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
-import firstThumbnail from '@/assets/Home/1.png';
+import firstThumbnail from '@/assets/Home/1.jpg';
 
 const videos = [
   {

@@ -1,6 +1,9 @@
 <template>
   <div class="latest-videos">
-    <h2>최신 영상</h2>
+    <br>
+    <h2>Latest Videos</h2>
+    <h3>Check out the newest content for fresh inspiration!</h3>
+    <br>
     <div class="video-card-container">
       <VideoCard
         v-for="(video, index) in latestVideos"
@@ -33,6 +36,7 @@ interface Video {
 defineProps<{
   latestVideos: Video[];
 }>();
+
 </script>
 
 <style scoped>
@@ -48,5 +52,12 @@ h2 {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+}
+
+h3 {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+  color: #555;
 }
 </style>
