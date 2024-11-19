@@ -27,15 +27,14 @@
 
   .video-container {
   width: 100%;
-  max-width: 1000px; /* 화면 크기에 맞게 최대 너비 설정 */
+  max-width: 1000px;
   aspect-ratio: 16 / 9;
   margin-bottom: 20px;
 }
 
 .video-iframe {
   width: 100%;
-  height: 450px; /* 고정 높이 설정 */
-  border: none;
+  height: 450px;
 }
 
 
