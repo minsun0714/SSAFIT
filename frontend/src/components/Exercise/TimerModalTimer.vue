@@ -22,7 +22,6 @@ const timer = new Timer(time, isRunning)
 const { mutate } = ExerciseLogApiFacade.useCreateExerciseLog()
 
 const handleClickSaveTime = () => {
-  console.log("hi")
   mutate({exerciseDate: new Date(), exerciseType: exercise, exerciseTime: time.value})
 }
 </script>

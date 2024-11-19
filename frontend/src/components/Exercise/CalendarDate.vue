@@ -36,7 +36,7 @@ const totalKcalBurn = computed(() => {
 <template>
   <div class="w-full">
     <Dialog>
-      <DialogTrigger class="w-full text-end flex justify-end h-24">
+      <DialogTrigger class="w-full text-end flex flex-col h-24">
         <CalendarCellTrigger :day="weekDate" :month="month" />
       </DialogTrigger>
       <DialogContent>

@@ -57,6 +57,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
           <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`">
             <CalendarCell v-for="weekDate in weekDates" :key="weekDate.toString()" :date="weekDate">
               <CalendarDate :week-date="weekDate" :month="month.value" v-bind="forwarded" />
+
             </CalendarCell>
           </CalendarGridRow>
         </CalendarGridBody>

@@ -33,7 +33,7 @@ const totalExerciseTime = computed(() => {
       cn(
         buttonVariants({ variant: 'ghost' }),
         'relative h-12 w-12 font-normal flex justify-center items-center',
-        '[&[data-today]]:flex [&[data-today]]:justify-center [&[data-today]]:w-12 [&[data-today]]:rounded-full [&[data-today]]:bg-blue-400  [&[data-today]]:text-white',
+        '[&[data-today]]:flex [&[data-today]]:justify-center [&[data-today]]:w-full [&[data-today]]:bg-blue-400  [&[data-today]]:text-white',
         // Selected
         'w-full',
         // Disabled
@@ -47,11 +47,11 @@ const totalExerciseTime = computed(() => {
     v-bind="forwardedProps"
   >
     <slot />
-    <div class="w-full">
+    <div class="w-full text-end">
       <span class="font-semibold">{{ day }}</span>
-      <div v-if="totalExerciseTime > 0" class="text-xs w-full h-full py-7">
-        <p class="border w-full">{{ totalExerciseTime }}</p>
-      </div>
     </div>
   </CalendarCellTrigger>
+  <div v-if="totalExerciseTime > 0" class="text-xs w-full h-full">
+    <p class="bg-pink-300 text-transparent">_</p>
+  </div>
 </template>
