@@ -1,10 +1,9 @@
 <template>
-  <div class="video-card">
+  <div class="video-card" @click="navigateToVideo">
     <img :src="thumbnailImgUrl" alt="Thumbnail" class="thumbnail" />
     <div class="info">
       <h3 class="title">{{ title }}</h3>
       <p class="nickname">{{ nickname }}</p>
-      <!-- 조회수와 날짜를 한 줄로 배치 -->
       <div class="details">
         <p class="created-at">{{ createdAt }}</p>
         <p class="view-count">조회수 {{ viewCount }}</p>
@@ -13,16 +12,28 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "VideoCard",
-  props: {
-    title: String,
-    nickname: String,
-    viewCount: String,
-    createdAt: String,
-    thumbnailImgUrl: String,
-  },
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { Routes } from '../../utils/enum';
+
+const props = defineProps<{
+  title: string,
+  nickname: string,
+  viewCount: number,
+  createdAt: string,
+  thumbnailImgUrl: string,
+  videoId: number,
+  rating: number
+}>()
+
+
+const router = useRouter();
+
+const navigateToVideo = () => {
+  router.push({
+    name: Routes.VIDEO,
+    params: { id: props.videoId }
+  });
 };
 </script>
 
@@ -36,6 +47,12 @@ export default {
   padding: 10px;
   background-color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.video-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .thumbnail {
