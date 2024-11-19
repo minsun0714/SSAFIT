@@ -13,9 +13,11 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
     "@tanstack/vue-query": "^5.60.5",
     "@vee-validate/zod": "^4.14.7",
     "@vueuse/core": "^11.2.0",
+    "ant-design-vue": "^4.2.6",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
