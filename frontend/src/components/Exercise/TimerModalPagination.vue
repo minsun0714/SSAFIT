@@ -42,8 +42,8 @@ const handlePageChange = (page: number) => {
     @change="handlePageChange"
   >
     <PaginationList v-slot="{ items }" class="flex justify-center items-center gap-1 p-8 ">
-      <PaginationFirst />
-      <PaginationPrev />
+      <PaginationFirst  @click="() => handlePageChange(1)"/>
+      <PaginationPrev @click="() => handlePageChange(currentPage - 1)"/>
       <template v-for="(item, index) in items">
         <PaginationListItem v-if="item.type === 'page'" :key="index" :value="item.value" as-child>
           <Button
@@ -55,8 +55,8 @@ const handlePageChange = (page: number) => {
           </Button>
         </PaginationListItem>
       </template>
-      <PaginationNext />
-      <PaginationLast />
+      <PaginationNext @click="() => handlePageChange(currentPage + 1)"/>
+      <PaginationLast @click="() => handlePageChange(data?.totalPages || 1)"/>
     </PaginationList>
   </Pagination>
 </template>
