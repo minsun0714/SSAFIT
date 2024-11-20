@@ -42,7 +42,7 @@ watch(
       <input
         type="text"
         v-model="exerciseType"
-        class="border border-none border-input-none outline-none"
+        class="border border-none border-input-none outline-none w-full"
       />
     </div>
     <div v-if="data?.data.length">
