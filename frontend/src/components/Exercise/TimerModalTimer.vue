@@ -22,13 +22,13 @@ const timer = new Timer(time, isRunning)
 const { mutate } = ExerciseLogApiFacade.useCreateExerciseLog()
 
 const handleClickSaveTime = () => {
-  mutate({exerciseDate: new Date(), exerciseType: exercise, exerciseTime: time.value})
+  mutate({ exerciseDate: new Date(), exerciseType: exercise, exerciseTime: time.value })
 }
 </script>
 
 <template>
-  <div class="w-full flex flex-col justify-center items-center">
-    <DialogHeader class="flex gap-y-6 p-8 w-2/3">
+  <div class="p-8 rounded-md w-full flex flex-col justify-center items-center">
+    <DialogHeader class="flex gap-y-6 p-8 w-full border rounded-md">
       <DialogDescription class="text-xs"> 현재 선택한 운동 </DialogDescription>
       <DialogTitle class="text-xl">{{ exercise }}</DialogTitle>
     </DialogHeader>
@@ -63,6 +63,6 @@ const handleClickSaveTime = () => {
         </div>
       </div>
     </div>
-    <DialogFooter><TimerModalSaveButton @click="handleClickSaveTime"/></DialogFooter>
+    <DialogFooter><TimerModalSaveButton @click="handleClickSaveTime" /></DialogFooter>
   </div>
 </template>
