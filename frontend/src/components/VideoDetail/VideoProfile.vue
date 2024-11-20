@@ -1,4 +1,5 @@
 <template>
+  <br>
   <div class="video-intro">
     <div class="thumbnail">
       <img :src="videoData.thumbnailImgUrl" :alt="videoData.title" />

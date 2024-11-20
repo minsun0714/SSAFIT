@@ -1,6 +1,8 @@
 <template>
   <div class="video-card" @click="navigateToVideo">
-    <img :src="thumbnailImgUrl" alt="Thumbnail" class="thumbnail" />
+    <div class="thumbnail-wrapper">
+      <img :src="thumbnailImgUrl" alt="Thumbnail" class="thumbnail" />
+    </div>
     <div class="info">
       <h3 class="title">{{ title }}</h3>
       <p class="nickname">{{ nickname }}</p>
@@ -26,7 +28,6 @@ const props = defineProps<{
   rating: number
 }>()
 
-
 const router = useRouter();
 
 const navigateToVideo = () => {
@@ -42,24 +43,30 @@ const navigateToVideo = () => {
   display: flex;
   flex-direction: column;
   width: 360px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
   padding: 10px;
   background-color: white;
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
   cursor: pointer;
-  transition: box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .video-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.thumbnail-wrapper {
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 .thumbnail {
   width: 100%;
   height: 220px;
   object-fit: cover;
-  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.video-card:hover .thumbnail {
+  transform: scale(1.05);
 }
 
 .info {

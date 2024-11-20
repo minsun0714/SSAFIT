@@ -18,6 +18,7 @@
       />
     </div>
   </div>
+  <br>
 </template>
 
 <script setup lang="ts">
@@ -44,7 +45,7 @@ defineProps({
 <style scoped>
 .video-card-container {
   display: flex;
-  gap: 20px;
+  gap: 40px;
   flex-wrap: wrap;
   justify-content: center;
 }
