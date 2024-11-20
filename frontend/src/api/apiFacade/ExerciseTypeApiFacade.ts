@@ -5,8 +5,8 @@ import { useRoute } from 'vue-router'
 class ExerciseTypeApiFacade {
   static useFetchPagedExerciseType(page: number) {
     const route = useRoute()
-    const exerciseType = route.query.exerciseType
-    console.log("exerciseType", exerciseType)
+    const exerciseType = route.query.exerciseType || ''
+    console.log('exerciseType', exerciseType)
     return useQuery({
       queryKey: [exerciseType, page],
       queryFn: () => ExerciseTypeService.fetchPagedExerciseType(page, exerciseType as string),

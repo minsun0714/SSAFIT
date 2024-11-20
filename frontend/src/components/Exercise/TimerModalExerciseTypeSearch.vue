@@ -42,8 +42,8 @@ watch(
 </script>
 
 <template>
-  <div>
-    <div class="flex flex-row justify-start items-center border p-3 my-3 gap-y-2">
+  <div class="w-[480px] p-4">
+    <div class="flex flex-row justify-start border rounded-sm items-center p-3 my-3 gap-2">
       <SlMagnifier />
       <input
         type="text"
@@ -53,18 +53,23 @@ watch(
     </div>
     <Table class="border">
       <TableHeader>
-        <TableRow>
-          <TableHead>운동명</TableHead>
-          <TableHead>시간당 예상 칼로리 소모량</TableHead>
+        <TableRow class="flex flex-row items-center justify-center">
+          <TableHead class="flex items-center justify-center w-full border">운동명</TableHead>
+          <TableHead class="flex items-center justify-center w-full border"
+            >시간(h)당 예상 칼로리 소모량</TableHead
+          >
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow v-for="(item, index) in data?.data" :key="index" class="cursor-pointer">
-          <TableCell class="flex justify-center" @click="() => handleClickExercise(item.운동명)">{{
-            item.운동명
-          }}</TableCell>
-          <TableCell class=""
-            >{{ item['MET 계수'] }} X {{ 60 }} = {{ item['MET 계수'] * 60 }}</TableCell
+        <TableRow
+          v-for="(item, index) in data?.data"
+          :key="index"
+          class="cursor-pointer flex flex-row"
+          @click="() => handleClickExercise(item.운동명)"
+        >
+          <TableCell class="flex justify-center w-full">{{ item.운동명 }}</TableCell>
+          <TableCell class="flex justify-center w-full"
+            >{{ item['MET 계수'] }} X {{ 60 }} = {{ item['MET 계수'] * 60 }}kcal</TableCell
           >
         </TableRow>
       </TableBody>
