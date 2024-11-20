@@ -1,5 +1,5 @@
 import api from '../apiClient'
-import type { PagedExerciseTypeResponse } from '../interfaces/response'
+import type { ExerciseType, PaginationResponse } from '../interfaces/response'
 
 class ExerciseTypeService {
   private static path = '/api/exercise-type'
@@ -9,7 +9,7 @@ class ExerciseTypeService {
     page: number,
     size: number,
     exerciseType: string,
-  ): Promise<PagedExerciseTypeResponse> {
+  ): Promise<PaginationResponse<ExerciseType>> {
     const response = await api.get(this.path, {
       params: {
         page,
@@ -26,7 +26,7 @@ class ExerciseTypeService {
     page: number,
     perPage: number,
     exerciseType: string,
-  ): Promise<PagedExerciseTypeResponse> {
+  ): Promise<PaginationResponse<ExerciseType>> {
     return await this._fetchPagedExerciseType(page, perPage, exerciseType)
   }
 }
