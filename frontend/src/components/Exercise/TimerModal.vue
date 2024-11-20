@@ -12,15 +12,19 @@ const currentStep = ref<number>(0)
 
 <template>
   <div>
-    <Dialog>
+    <Dialog class="flex flex-col">
       <DialogTrigger class="border w-[300px] rounded-sm flex justify-center my-10">
         <BlueButton text="운동하기" />
       </DialogTrigger>
-      <DialogContent class="flex flex-row">
+      <DialogContent class="flex flex-row flex justify-center items-center pt-6">
         <!-- currentStep에 따라 렌더링할 컴포넌트 전환 -->
         <template v-if="currentStep === 0">
-          <TimerModalExerciseTypeTable />
-          <BlueButton text="다음" @click="currentStep += 1" />
+          <div class="">
+            <TimerModalExerciseTypeTable />
+            <div class="py-3 w-full flex justify-end">
+              <BlueButton text="다음" @click="currentStep += 1" />
+            </div>
+          </div>
         </template>
         <template v-else>
           <TimerModalTimer />

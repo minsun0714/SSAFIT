@@ -43,7 +43,7 @@ watch(
 
 <template>
   <div>
-    <div class="flex flex-row justify-start items-center border p-3 gap-2">
+    <div class="flex flex-row justify-start items-center border p-3 my-3 gap-y-2">
       <SlMagnifier />
       <input
         type="text"
@@ -51,7 +51,7 @@ watch(
         class="border border-none border-input-none outline-none"
       />
     </div>
-    <Table>
+    <Table class="border">
       <TableHeader>
         <TableRow>
           <TableHead>운동명</TableHead>
@@ -60,8 +60,12 @@ watch(
       </TableHeader>
       <TableBody>
         <TableRow v-for="(item, index) in data?.data" :key="index" class="cursor-pointer">
-          <TableCell @click="() => handleClickExercise(item.운동명)">{{ item.운동명 }}</TableCell>
-          <TableCell>{{ item['MET 계수'] }} X {{ 60 }} = {{ item['MET 계수'] * 60 }}</TableCell>
+          <TableCell class="flex justify-center" @click="() => handleClickExercise(item.운동명)">{{
+            item.운동명
+          }}</TableCell>
+          <TableCell class=""
+            >{{ item['MET 계수'] }} X {{ 60 }} = {{ item['MET 계수'] * 60 }}</TableCell
+          >
         </TableRow>
       </TableBody>
     </Table>
