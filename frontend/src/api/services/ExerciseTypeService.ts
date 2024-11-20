@@ -7,12 +7,13 @@ class ExerciseTypeService {
 
   private static async _fetchPagedExerciseType(
     page: number,
+    size: number,
     exerciseType: string,
   ): Promise<PagedExerciseTypeResponse[]> {
     const response = await api.get(this.path, {
       params: {
         page,
-        perPage: 10,
+        size,
         exerciseType,
       },
     })
@@ -23,9 +24,10 @@ class ExerciseTypeService {
   // Public 메서드로 외부에서 사용할 수 있도록 제공
   static async fetchPagedExerciseType(
     page: number,
+    perPage: number,
     exerciseType: string,
   ): Promise<PagedExerciseTypeResponse[]> {
-    return await this._fetchPagedExerciseType(page, exerciseType)
+    return await this._fetchPagedExerciseType(page, perPage, exerciseType)
   }
 }
 

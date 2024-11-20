@@ -8,13 +8,6 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-import { FormControl, FormField, FormItem } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-
-import { toTypedSchema } from '@vee-validate/zod'
-import { useForm } from 'vee-validate'
-import * as z from 'zod'
-
 import { SlMagnifier } from 'vue3-icons/sl'
 import { useExerciseStore } from '@/stores/exerciseType'
 import ExerciseTypeApiFacade from '@/api/apiFacade/ExerciseTypeApiFacade'
@@ -28,7 +21,7 @@ const route = useRoute()
 
 const exerciseType = ref(route.query.exerciseType || '')
 
-const { data, refetch } = ExerciseTypeApiFacade.useFetchPagedExerciseType(1)
+const { data, refetch } = ExerciseTypeApiFacade.useFetchPagedExerciseType(1, 5)
 
 watch(
   exerciseType,
