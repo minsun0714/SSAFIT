@@ -22,7 +22,7 @@ const route = useRoute()
 
 const exerciseType = ref(route.query.exerciseType || '')
 
-const { data, refetch } = ExerciseTypeApiFacade.useFetchPagedExerciseType(1, 5)
+const { data, refetch } = ExerciseTypeApiFacade.useFetchPagedExerciseType(5)
 
 watch(
   exerciseType,
