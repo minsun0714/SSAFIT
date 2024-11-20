@@ -35,7 +35,7 @@ watch(
 </script>
 
 <template>
-  <div class="w-[480px] p-4">
+  <div class="w-[480px] h-[600px] p-4">
     <div class="flex flex-row justify-start border rounded-sm items-center p-3 my-3 gap-2">
       <SlMagnifier />
       <input
