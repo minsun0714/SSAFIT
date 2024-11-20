@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/table'
 
 import { SlMagnifier } from 'vue3-icons/sl'
+import { FaRegFaceFrownOpen } from 'vue3-icons/fa6'
 import { useExerciseStore } from '@/stores/exerciseType'
 import ExerciseTypeApiFacade from '@/api/apiFacade/ExerciseTypeApiFacade'
 import { ref, watch } from 'vue'
@@ -44,29 +45,36 @@ watch(
         class="border border-none border-input-none outline-none"
       />
     </div>
-    <Table class="border">
-      <TableHeader>
-        <TableRow class="flex flex-row items-center justify-center">
-          <TableHead class="flex items-center justify-center w-full border">운동명</TableHead>
-          <TableHead class="flex items-center justify-center w-full border"
-            >시간(h)당 예상 칼로리 소모량</TableHead
+    <div v-if="data?.data.length">
+      <Table class="border">
+        <TableHeader>
+          <TableRow class="flex flex-row items-center justify-center">
+            <TableHead class="flex items-center justify-center w-full border">운동명</TableHead>
+            <TableHead class="flex items-center justify-center w-full border"
+              >시간(h)당 예상 칼로리 소모량</TableHead
+            >
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow
+            v-for="(item, index) in data?.data"
+            :key="index"
+            class="cursor-pointer flex flex-row"
+            @click="() => handleClickExercise(item.운동명)"
           >
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow
-          v-for="(item, index) in data?.data"
-          :key="index"
-          class="cursor-pointer flex flex-row"
-          @click="() => handleClickExercise(item.운동명)"
-        >
-          <TableCell class="flex justify-center w-full">{{ item.운동명 }}</TableCell>
-          <TableCell class="flex justify-center w-full"
-            >{{ item['MET 계수'] }} X {{ 60 }} = {{ item['MET 계수'] * 60 }}kcal</TableCell
-          >
-        </TableRow>
-      </TableBody>
-    </Table>
-    <TimerModalPagination :data="data" />
+            <TableCell class="flex justify-center w-full">{{ item.운동명 }}</TableCell>
+            <TableCell class="flex justify-center w-full"
+              >{{ item['MET 계수'] }} X {{ 60 }} = {{ item['MET 계수'] * 60 }}kcal</TableCell
+            >
+          </TableRow>
+        </TableBody>
+      </Table>
+      <TimerModalPagination :data="data" />
+    </div>
+    <div v-else class="flex justify-center items-center h-1/2">
+      <p class="flex flex-row justify-center items-center gap-x-2">
+        <FaRegFaceFrownOpen />검색 결과가 없습니다.
+      </p>
+    </div>
   </div>
 </template>
