@@ -9,12 +9,12 @@ import {
 } from '@/components/ui/table'
 
 import { SlMagnifier } from 'vue3-icons/sl'
-import { FaRegFaceFrownOpen } from 'vue3-icons/fa6'
 import { useExerciseStore } from '@/stores/exerciseType'
 import ExerciseTypeApiFacade from '@/api/apiFacade/ExerciseTypeApiFacade'
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import TimerModalPagination from './TimerModalPagination.vue'
+import TimerModalNoResult from './TimerModalNoResult.vue'
 
 const { handleClickExercise } = useExerciseStore()
 
@@ -71,10 +71,6 @@ watch(
       </Table>
       <TimerModalPagination :data="data" />
     </div>
-    <div v-else class="flex justify-center items-center h-1/2">
-      <p class="flex flex-row justify-center items-center gap-x-2">
-        <FaRegFaceFrownOpen />검색 결과가 없습니다.
-      </p>
-    </div>
+    <TimerModalNoResult />
   </div>
 </template>
