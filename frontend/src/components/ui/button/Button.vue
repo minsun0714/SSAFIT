@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<Props>(), {
   <Primitive
     :as="as"
     :as-child="asChild"
-    :class="cn(buttonVariants({ variant, size }), props.class, 'blue-button')"
+    :class="cn(buttonVariants({ variant, size }), props.class)"
   >
     <slot />
   </Primitive>
@@ -28,15 +28,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 <style scoped>
 /* 파란색 버튼 스타일 */
-.blue-button {
-  background-color: #007bff;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  border: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
 
 .blue-button:hover {
   background-color: black;

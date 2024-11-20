@@ -13,6 +13,7 @@ import { useExerciseStore } from '@/stores/exerciseType'
 import ExerciseTypeApiFacade from '@/api/apiFacade/ExerciseTypeApiFacade'
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import TimerModalPagination from './TimerModalPagination.vue'
 
 const { handleClickExercise } = useExerciseStore()
 
@@ -66,5 +67,6 @@ watch(
         </TableRow>
       </TableBody>
     </Table>
+    <TimerModalPagination :data="data" />
   </div>
 </template>
