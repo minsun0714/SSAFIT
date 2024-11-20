@@ -28,8 +28,6 @@ const route = useRoute()
 
 const exerciseType = ref(route.query.exerciseType || '')
 
-
-
 const { data, refetch } = ExerciseTypeApiFacade.useFetchPagedExerciseType(1)
 console.log(data.value)
 
@@ -63,7 +61,7 @@ watch(
       <TableBody>
         <TableRow v-for="(item, index) in data?.data" :key="index" class="cursor-pointer">
           <TableCell @click="() => handleClickExercise(item.운동명)">{{ item.운동명 }}</TableCell>
-          <TableCell>{{ item['MET 계수'] }}</TableCell>
+          <TableCell>{{ item['MET 계수'] }} X {{ 60 }} = {{ item['MET 계수'] * 60 }}</TableCell>
         </TableRow>
       </TableBody>
     </Table>
