@@ -16,7 +16,7 @@ const currentStep = ref<number>(0)
       <DialogTrigger class="border w-[300px] rounded-sm flex justify-center my-10">
         <BlueButton text="운동하기" />
       </DialogTrigger>
-      <DialogContent class="flex flex-row flex justify-center items-center pt-6">
+      <DialogContent class="flex flex-row justify-center items-center pt-6">
         <template v-if="currentStep === 0">
           <div class="">
             <TimerModalExerciseTypeTable />

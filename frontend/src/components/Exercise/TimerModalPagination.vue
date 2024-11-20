@@ -41,7 +41,7 @@ const handlePageChange = (page: number) => {
     :default-page="currentPage"
     @change="handlePageChange"
   >
-    <PaginationList v-slot="{ items }" class="flex justify-center items-center gap-1 p-4">
+    <PaginationList v-slot="{ items }" class="flex justify-center items-center gap-1 p-8 ">
       <PaginationFirst />
       <PaginationPrev />
       <template v-for="(item, index) in items">
