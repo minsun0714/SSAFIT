@@ -71,6 +71,6 @@ watch(
       </Table>
       <TimerModalPagination :data="data" />
     </div>
-    <TimerModalNoResult />
+    <div v-if="data?.totalItems === 0"><TimerModalNoResult /></div>
   </div>
 </template>
