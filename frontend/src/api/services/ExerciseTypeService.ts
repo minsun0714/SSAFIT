@@ -9,10 +9,9 @@ class ExerciseTypeService {
     page: number,
     exerciseType: string,
   ): Promise<PagedExerciseTypeResponse[]> {
-    console.log(page, exerciseType)
     const response = await api.get(this.path, {
       params: {
-        page: 1,
+        page,
         perPage: 10,
         exerciseType,
       },

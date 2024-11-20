@@ -29,7 +29,6 @@ const route = useRoute()
 const exerciseType = ref(route.query.exerciseType || '')
 
 const { data, refetch } = ExerciseTypeApiFacade.useFetchPagedExerciseType(1)
-console.log(data.value)
 
 watch(
   exerciseType,
