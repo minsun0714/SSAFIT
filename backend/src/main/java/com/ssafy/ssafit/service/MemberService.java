@@ -46,6 +46,8 @@ public class MemberService {
                 .role(Role.ROLE_ADMIN)
                 .build();
 
+        System.out.println(member.getPassword());
+
         memberMapper.insertMember(member);
 
         JwtToken jwtToken = authService.authenticateAndGenerateToken(memberRequestDTO.getMemberId(), memberRequestDTO.getPassword());
@@ -78,6 +80,7 @@ public class MemberService {
 
         member.setProfileImg(memberRequestDTO.getProfileImg());
         member.setNickname(memberRequestDTO.getNickname());
+        member.setWeight(memberRequestDTO.getWeight());
 
         memberMapper.updateMember(member);
 

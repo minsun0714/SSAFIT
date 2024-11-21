@@ -16,4 +16,5 @@ public class MemberInfoResponseDTO {
     private String nickname;
     private String profileImg;
     private Role role;
+    private int weight;
 }

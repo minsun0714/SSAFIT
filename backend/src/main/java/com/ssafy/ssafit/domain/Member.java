@@ -26,6 +26,7 @@ public class Member implements UserDetails {
     private String password;
     private String profileImg;
     private Role role; // Enum 타입
+    private int weight;
     private Date createdAt;
 
     @Builder.Default
@@ -43,7 +44,7 @@ public class Member implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return this.password;
     }
 
     @Override

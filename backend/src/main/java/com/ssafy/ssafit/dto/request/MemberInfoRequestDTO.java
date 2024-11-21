@@ -14,5 +14,5 @@ public class MemberInfoRequestDTO {
     private String password;
     private String passwordConfirm;
     private String profileImg;
-    private boolean isFollowerListOpen;
+    private int weight;
 }

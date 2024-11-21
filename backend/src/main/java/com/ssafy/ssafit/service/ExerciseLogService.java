@@ -1,8 +1,10 @@
 package com.ssafy.ssafit.service;
 
 import com.ssafy.ssafit.dao.ExerciseLogMapper;
+import com.ssafy.ssafit.dao.MemberMapper;
 import com.ssafy.ssafit.domain.ExerciseLog;
 import com.ssafy.ssafit.domain.ExerciseMetData;
+import com.ssafy.ssafit.domain.Member;
 import com.ssafy.ssafit.dto.request.ExerciseInfoRequestDTO;
 import com.ssafy.ssafit.dto.response.ExerciseCardDataDTO;
 import com.ssafy.ssafit.dto.response.ExerciseInfoResponseDTO;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.ssafy.ssafit.utils.DTOMapper.toExerciseCardDataDTO;
@@ -25,6 +28,7 @@ import static com.ssafy.ssafit.utils.DTOMapper.toExerciseInfoDTO;
 @RequiredArgsConstructor
 public class ExerciseLogService {
 
+    private final MemberMapper memberMapper;
     private final ExerciseLogMapper exerciseLogMapper;
     private final ExerciseMetService exerciseMetService;
 
@@ -36,8 +40,9 @@ public class ExerciseLogService {
         // MET 데이터를 가져옴
         ExerciseMetData exerciseMetData = exerciseMetService.getMetData(exerciseInfoRequestDTO.getExerciseType());
 
+        Member member = memberMapper.findByMemberId(memberId).orElseThrow();
         // 체중은 사용자로부터 입력받는다고 가정 (필요시 RequestDTO에 weight 필드 추가)
-        double weight = 60;
+        int weight = Optional.of(member.getWeight()).orElse(65);
 
         // 초 단위 운동 시간을 시간 단위로 변환
         double exerciseTimeInHours = exerciseInfoRequestDTO.getExerciseTime() / 3600.0;

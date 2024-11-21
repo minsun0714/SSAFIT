@@ -23,7 +23,8 @@
         name,
         nickname,
         profile_img AS profileImg,
-        role
+        role,
+        weight
         FROM members
         WHERE member_id = #{memberId};
     </select>
@@ -34,7 +35,8 @@
         SET
         password = #{password},
         nickname = #{nickname},
-        profile_img = #{profileImg}
+        profile_img = #{profileImg},
+        weight = #{weight}
         WHERE member_id = #{memberId};
     </update>
 
