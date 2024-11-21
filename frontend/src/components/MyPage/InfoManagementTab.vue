@@ -8,6 +8,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input'
 import BlueButton from '../common/BlueButton.vue'
 import profileImg from '@/assets/NavigationBar/profileImg.svg'
+import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
 
 const formSchema = toTypedSchema(
   z.object({
@@ -16,21 +17,25 @@ const formSchema = toTypedSchema(
     nickname: z.string().min(2).max(50),
     password: z.string().min(8).max(50),
     passwordConfirm: z.string().min(8).max(50),
-    profileImg: z.any(),
-    showFollowList: z.boolean(),
+    profileImg: z.string().nullable(),
   }),
 )
+
+const { data } = MemberApiFacade.useFetchUserInfo()
+
+const { mutate } = MemberApiFacade.useUpdateUser()
 
 const form = useForm({
   validationSchema: formSchema,
   initialValues: {
-    name: '이민선',
-    memberId: 'minsun',
+    name: data.value.name,
+    memberId: data?.value.memberId,
+    nickname: data?.value.nickname,
   },
 })
 
 const onSubmit = form.handleSubmit((values) => {
-  console.log('Form submitted!', values)
+  mutate(values)
 })
 
 // 이미지 미리보기를 위한 상태
@@ -108,7 +113,7 @@ const handleFileChange = (event: Event) => {
           <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
             <FormLabel class="w-full">비밀번호 변경</FormLabel>
             <FormControl>
-              <Input type="text" v-bind="componentField" class="min-w-[280px]" />
+              <Input type="password" v-bind="componentField" class="min-w-[280px]" />
             </FormControl>
           </div>
           <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
@@ -121,7 +126,7 @@ const handleFileChange = (event: Event) => {
           <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
             <FormLabel class="w-full">비밀번호 확인</FormLabel>
             <FormControl>
-              <Input type="text" v-bind="componentField" class="min-w-[280px]" />
+              <Input type="password" v-bind="componentField" class="min-w-[280px]" />
             </FormControl>
           </div>
           <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
