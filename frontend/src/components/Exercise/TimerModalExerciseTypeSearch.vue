@@ -28,7 +28,7 @@ const { data, refetch } = ExerciseTypeApiFacade.useFetchPagedExerciseType(5)
 watch(
   exerciseType,
   (newKeyword) => {
-    router.push({ query: { ...route.query, exerciseType: newKeyword } })
+    router.push({ query: { ...route.query, exerciseType: newKeyword, page: 1 } })
     refetch()
   },
   { immediate: true },
