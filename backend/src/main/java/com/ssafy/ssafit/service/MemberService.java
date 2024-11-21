@@ -10,15 +10,22 @@ import com.ssafy.ssafit.domain.Member;
 import com.ssafy.ssafit.dto.response.SignUpResponseDTO;
 import com.ssafy.ssafit.exception.MemberNotAuthenticatedException;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.UUID;
 
 import static com.ssafy.ssafit.utils.CookieUtils.setRefreshTokenCookie;
@@ -29,12 +36,20 @@ import static com.ssafy.ssafit.utils.DTOMapper.toSignUpResponseDTO;
 @Service
 @Transactional
 public class MemberService {
+    private final S3Client s3Client;
+
+    @Value("${aws.s3.bucket-name}")
+    private String bucketName;
+
+    @Value("${aws.s3.region}")
+    private String region;
 
     private final AuthService authService;
     private final MemberMapper memberMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public MemberService(AuthService authservice, MemberMapper memberMapper, PasswordEncoder passwordEncoder) {
+    public MemberService(S3Client s3Client, AuthService authservice, MemberMapper memberMapper, PasswordEncoder passwordEncoder) {
+        this.s3Client = s3Client;
         this.authService = authservice;
         this.memberMapper = memberMapper;
         this.passwordEncoder = passwordEncoder;
@@ -127,18 +142,23 @@ public class MemberService {
         return (String) authentication.getPrincipal();
     }
 
-    private String uploadProfileImage(MultipartFile profileImg) {
+    public String uploadProfileImage(MultipartFile profileImg) {
         try {
-            // 파일 저장 경로 설정 (예: 로컬 디렉토리 또는 클라우드 스토리지)
-            String uploadDir = "C:/path/to/upload/directory";
+            // 고유한 파일 이름 생성
             String fileName = UUID.randomUUID() + "_" + profileImg.getOriginalFilename();
 
-            // 파일 저장
-            File destinationFile = new File(uploadDir + "/" + fileName);
-            profileImg.transferTo(destinationFile);
+            // S3에 파일 업로드
+            PutObjectResponse response = s3Client.putObject(
+                    PutObjectRequest.builder()
+                            .bucket(bucketName)
+                            .key("uploads/" + fileName)
+                            .contentType(profileImg.getContentType())
+                            .build(),
+                    RequestBody.fromInputStream(profileImg.getInputStream(), profileImg.getSize())
+            );
 
-            // 저장된 파일 경로 반환
-            return "/uploads/" + fileName;
+            // 업로드된 파일의 URL 반환
+            return String.format("https://%s.s3.%s.amazonaws.com/uploads/%s", bucketName, region, fileName);
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload profile image", e);
         }
