@@ -14,9 +14,14 @@ interface MemberInfoResponse extends Omit<Member, 'password'> {
 }
 
 export interface ExerciseTimerResponse extends Exercise {
-  exerciseLogId: string
+  exerciseLogId: number
   caloriesBurned: number
   fatBurned: number
+}
+
+export interface ExerciseLogResponse {
+  dailyTotalExerciseTime: number
+  exerciseLogVO: ExerciseTimerResponse[]
 }
 type CardType = 'MINUTE' | 'KCAL' | 'KG'
 interface ExerciseCard {

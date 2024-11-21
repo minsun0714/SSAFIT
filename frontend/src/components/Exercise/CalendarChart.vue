@@ -7,12 +7,12 @@ import { ExerciseTimerResponse } from '@/api/interfaces/response'
 // Chart.js 플러그인 등록
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-const { data } = defineProps<{
-  data: ExerciseTimerResponse[]
+const { exerciseLogVO } = defineProps<{
+  exerciseLogVO: ExerciseTimerResponse[]
 }>()
 
 const calendarChartStore = useCalendarChartStore()
-calendarChartStore.setChartData(data)
+calendarChartStore.setChartData(exerciseLogVO)
 </script>
 
 <template>

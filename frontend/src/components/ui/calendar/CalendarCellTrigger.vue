@@ -22,7 +22,7 @@ const { data } = ExerciseLogApiFacade.useFetchExerciseLogsByDate(
   year + '-' + pad(month) + '-' + pad(day),
 )
 const totalExerciseTime = computed(() => {
-  const exerciseTimeData = data.value?.map((d) => d.exerciseTime) || []
+  const exerciseTimeData = data.value?.exerciseLogVO.map((d) => d.exerciseTime) || []
   return exerciseTimeData.reduce((a, b) => a + b, 0)
 })
 </script>

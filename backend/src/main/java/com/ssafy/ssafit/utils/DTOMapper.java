@@ -36,8 +36,8 @@ public class DTOMapper {
                 .build();
     }
 
-    public static ExerciseInfoResponseDTO toExerciseInfoDTO(ExerciseLog exerciseLog) {
-        return ExerciseInfoResponseDTO.builder()
+    public static ExerciseLogVO toExerciseInfoDTO(ExerciseLog exerciseLog) {
+        return ExerciseLogVO.builder()
                 .exerciseLogId(exerciseLog.getExerciseLogId())
                 .exerciseDate(exerciseLog.getExerciseDate())
                 .exerciseType(exerciseLog.getExerciseType())

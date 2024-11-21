@@ -1,6 +1,7 @@
 package com.ssafy.ssafit.dao;
 
 import com.ssafy.ssafit.domain.ExerciseLog;
+import com.ssafy.ssafit.dto.response.ExerciseLogVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.sql.Date;
@@ -15,9 +16,11 @@ public interface ExerciseLogMapper {
 
     Map<String, Double> selectLastWeekExerciseData(@Param("memberId") String memberId);
 
-    List<ExerciseLog> selectExerciseLogsByDate(@Param("memberId") String memberId, @Param("exerciseDate") Date exerciseDate);
+    List<ExerciseLogVO> selectExerciseLogsByDate(@Param("memberId") String memberId, @Param("exerciseDate") Date exerciseDate);
 
     Optional<ExerciseLog> selectOneExerciseLog(@Param("exerciseLogId") Long exerciseLogId);
+
+    Long selectTotalExerciseTimeByDate(@Param("memberId") String memberId, @Param("exerciseDate") Date exerciseDate);
 
     void deleteExerciseLog(@Param("exerciseLogId") Long exerciseLogId);
 }

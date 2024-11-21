@@ -24,6 +24,8 @@ const { data } = ExerciseLogApiFacade.useFetchExerciseLogsByDate(
   weekDate.year + '-' + pad(weekDate.month) + '-' + pad(weekDate.day),
 )
 
+console.log(data.value)
+
 const { mutate } = ExerciseLogApiFacade.useDeleteExerciseLog()
 </script>
 <template>
@@ -37,12 +39,12 @@ const { mutate } = ExerciseLogApiFacade.useDeleteExerciseLog()
           <DialogTitle>
             <div>{{ weekDate.year }}년 {{ weekDate.month }}월 {{ weekDate.day }}일 운동</div>
           </DialogTitle>
-          <DialogDescription> 총 운동 시간 : {{ 0 }}초 </DialogDescription>
+          <DialogDescription> 총 운동 시간 : {{ data?.dailyTotalExerciseTime }}초 </DialogDescription>
         </DialogHeader>
-        <CalendarChart :data="data || []" />
-        <ul v-if="data?.length">
+        <CalendarChart :exerciseLogVO="data?.exerciseLogVO || []" />
+        <ul v-if="data?.exerciseLogVO.length">
           <li
-            v-for="log in data"
+            v-for="log in data?.exerciseLogVO"
             :key="log.exerciseLogId"
             class="flex flex-row justify-between items-center w-full h-12 border-b"
           >

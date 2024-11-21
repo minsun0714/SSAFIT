@@ -4,6 +4,7 @@ import com.ssafy.ssafit.domain.ExerciseMetData;
 import com.ssafy.ssafit.dto.request.ExerciseInfoRequestDTO;
 import com.ssafy.ssafit.dto.response.ExerciseCardDataDTO;
 import com.ssafy.ssafit.dto.response.ExerciseInfoResponseDTO;
+import com.ssafy.ssafit.dto.response.ExerciseLogVO;
 import com.ssafy.ssafit.dto.response.PagedResponseDTO;
 import com.ssafy.ssafit.service.ExerciseLogService;
 import com.ssafy.ssafit.service.ExerciseMetService;
@@ -30,8 +31,8 @@ public class ExerciseLogController {
 
     // 운동 기록 생성
     @PostMapping
-    public ResponseEntity<ExerciseInfoResponseDTO> createExerciseLog(@Valid @RequestBody ExerciseInfoRequestDTO exerciseInfoRequestDTO) {
-        ExerciseInfoResponseDTO createdExerciseInfo = exerciseLogService.createExerciseLog(exerciseInfoRequestDTO);
+    public ResponseEntity<ExerciseLogVO> createExerciseLog(@Valid @RequestBody ExerciseInfoRequestDTO exerciseInfoRequestDTO) {
+        ExerciseLogVO createdExerciseInfo = exerciseLogService.createExerciseLog(exerciseInfoRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdExerciseInfo);
     }
 
@@ -43,9 +44,9 @@ public class ExerciseLogController {
 
     // 특정 날짜 운동 기록 조회
     @GetMapping("/{exerciseDate}")
-    public ResponseEntity<List<ExerciseInfoResponseDTO>> getExerciseLogsByDate(
+    public ResponseEntity<ExerciseInfoResponseDTO> getExerciseLogsByDate(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate exerciseDate) {
-        List<ExerciseInfoResponseDTO> logs = exerciseLogService.getExerciseLogsByDate(Date.valueOf(exerciseDate));
+        ExerciseInfoResponseDTO logs = exerciseLogService.getExerciseLogsByDate(Date.valueOf(exerciseDate));
         return ResponseEntity.ok(logs);
     }
 

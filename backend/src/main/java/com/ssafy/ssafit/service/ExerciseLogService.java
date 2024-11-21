@@ -8,8 +8,10 @@ import com.ssafy.ssafit.domain.Member;
 import com.ssafy.ssafit.dto.request.ExerciseInfoRequestDTO;
 import com.ssafy.ssafit.dto.response.ExerciseCardDataDTO;
 import com.ssafy.ssafit.dto.response.ExerciseInfoResponseDTO;
+import com.ssafy.ssafit.dto.response.ExerciseLogVO;
 import com.ssafy.ssafit.utils.DTOMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,7 @@ public class ExerciseLogService {
 
     // 운동 기록 생성
     @Transactional
-    public ExerciseInfoResponseDTO createExerciseLog(ExerciseInfoRequestDTO exerciseInfoRequestDTO) {
+    public ExerciseLogVO createExerciseLog(ExerciseInfoRequestDTO exerciseInfoRequestDTO) {
         String memberId = getAuthenticatedMemberId();
 
         // MET 데이터를 가져옴
@@ -79,14 +81,17 @@ public class ExerciseLogService {
     }
 
     // 특정 날짜의 운동 기록 조회
-    public List<ExerciseInfoResponseDTO> getExerciseLogsByDate(Date exerciseDate) {
+    public ExerciseInfoResponseDTO getExerciseLogsByDate(Date exerciseDate) {
         String memberId = getAuthenticatedMemberId();
 
-        List<ExerciseLog> exerciseLogs = exerciseLogMapper.selectExerciseLogsByDate(memberId, exerciseDate);
+        List<ExerciseLogVO> exerciseLogs = exerciseLogMapper.selectExerciseLogsByDate(memberId, exerciseDate);
 
-        return exerciseLogs.stream()
-                .map(DTOMapper::toExerciseInfoDTO)
-                .collect(Collectors.toList());
+        Long dailyTotalExerciseTime = exerciseLogMapper.selectTotalExerciseTimeByDate(memberId, exerciseDate);
+
+        return ExerciseInfoResponseDTO.builder()
+                .exerciseLogVO(exerciseLogs)
+                .dailyTotalExerciseTime(dailyTotalExerciseTime)
+                .build();
     }
 
     // 운동 기록 삭제

@@ -1,5 +1,5 @@
 import api from '../apiClient'
-import type { ExerciseTimerResponse } from '../interfaces/response'
+import type { ExerciseLogResponse, ExerciseTimerResponse } from '../interfaces/response'
 
 class ExerciseLogService {
   private static path = '/api/exercise-log'
@@ -17,7 +17,7 @@ class ExerciseLogService {
     return response.data
   }
 
-  private static async _fetchExerciseLogsByDate(date: string): Promise<ExerciseTimerResponse[]> {
+  private static async _fetchExerciseLogsByDate(date: string): Promise<ExerciseLogResponse> {
     const response = await api.get(this.path + `/${date}`)
     return response.data
   }
@@ -37,7 +37,7 @@ class ExerciseLogService {
     return await this._fetchCardDataList()
   }
 
-  static async fetchExerciseLogsByDate(date: string): Promise<ExerciseTimerResponse[]> {
+  static async fetchExerciseLogsByDate(date: string): Promise<ExerciseLogResponse> {
     return await this._fetchExerciseLogsByDate(date)
   }
 
