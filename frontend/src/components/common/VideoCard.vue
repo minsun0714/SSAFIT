@@ -19,12 +19,16 @@ import { useRouter } from 'vue-router';
 import { Routes } from '../../utils/enum';
 
 const props = defineProps<{
-  title: string,
+  videoId: number,
   nickname: string,
+  title: string,
   viewCount: number,
   createdAt: string,
+  part: string,
+  introduceText: string,
   thumbnailImgUrl: string,
-  videoId: number,
+  videoUrl: string,
+  status: string,
   rating: number
 }>()
 
