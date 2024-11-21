@@ -8,6 +8,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input'
 import BlueButton from '../common/BlueButton.vue'
 import profileImg from '@/assets/NavigationBar/profileImg.svg'
+import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
 
 const formSchema = toTypedSchema(
   z.object({
@@ -16,16 +17,18 @@ const formSchema = toTypedSchema(
     nickname: z.string().min(2).max(50),
     password: z.string().min(8).max(50),
     passwordConfirm: z.string().min(8).max(50),
-    profileImg: z.any(),
-    showFollowList: z.boolean(),
+    profileImg: z.string(),
   }),
 )
+
+const { data } = MemberApiFacade.useFetchUserInfo()
 
 const form = useForm({
   validationSchema: formSchema,
   initialValues: {
-    name: '이민선',
-    memberId: 'minsun',
+    name: data?.value.name,
+    memberId: data?.value.memberId,
+    nickname: data?.value.nickname,
   },
 })
 
@@ -33,10 +36,8 @@ const onSubmit = form.handleSubmit((values) => {
   console.log('Form submitted!', values)
 })
 
-// 이미지 미리보기를 위한 상태
 const previewImage = ref<string | null>(null)
 
-// 파일 선택 이벤트 처리
 const handleFileChange = (event: Event) => {
   const file = (event.target as HTMLInputElement)?.files?.[0]
   if (file) {
@@ -56,7 +57,7 @@ const handleFileChange = (event: Event) => {
     <div class="flex flex-col justify-center items-center gap-x-6 w-screen py-16">
       <FormField v-slot="{ componentField }" name="name">
         <FormItem class="flex flex-col w-full items-center">
-          <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
+          <div class="flex flex-row w-2/3 max-w-[500px] justify-center items-center">
             <FormLabel class="w-full">이름</FormLabel>
             <FormControl>
               <Input
@@ -74,7 +75,7 @@ const handleFileChange = (event: Event) => {
       </FormField>
       <FormField v-slot="{ componentField }" name="memberId">
         <FormItem class="flex flex-col w-full items-center">
-          <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
+          <div class="flex flex-row w-2/3 max-w-[500px] justify-center items-center">
             <FormLabel class="w-full">아이디</FormLabel>
             <FormControl>
               <Input
@@ -108,7 +109,7 @@ const handleFileChange = (event: Event) => {
           <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
             <FormLabel class="w-full">비밀번호 변경</FormLabel>
             <FormControl>
-              <Input type="text" v-bind="componentField" class="min-w-[280px]" />
+              <Input type="password" v-bind="componentField" class="min-w-[280px]" />
             </FormControl>
           </div>
           <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
@@ -121,7 +122,7 @@ const handleFileChange = (event: Event) => {
           <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
             <FormLabel class="w-full">비밀번호 확인</FormLabel>
             <FormControl>
-              <Input type="text" v-bind="componentField" class="min-w-[280px]" />
+              <Input type="password" v-bind="componentField" class="min-w-[280px]" />
             </FormControl>
           </div>
           <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
@@ -129,9 +130,6 @@ const handleFileChange = (event: Event) => {
           </div>
         </FormItem>
       </FormField>
-
-      <!-- 프로필 이미지 업로드 -->
-
       <FormField v-slot="{ componentField }" name="profileImg">
         <FormItem class="flex flex-col w-full items-center">
           <div class="flex flex-row w-2/3 max-w-[500px] justify-center items-center">
