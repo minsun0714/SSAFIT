@@ -1,14 +1,7 @@
 <script setup lang="ts">
+import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
 import profileImg from '@/assets/NavigationBar/profileImg.svg'
-const data = {
-  name: '이민선',
-  userId: 'minsun',
-  profileImg,
-  followerCount: 435,
-  followingCount: 416,
-  introduceText:
-    '운동을 좋아하는 강아지입니다 다들 너무 반갑고 제가 어쩌구저쩌구 운동 맣이좋아합니다. 멍멍멍러러러멍멍멍 멍멍멍러러러멍멍멍 멍멍멍러러러멍멍멍멍멍멍러러러멍멍멍멍멍멍러러러멍멍멍 멍멍멍러러러멍멍멍멍멍멍러러러멍멍',
-}
+const { data } = MemberApiFacade.useFetchUserInfo()
 </script>
 
 <template>
@@ -20,7 +13,7 @@ const data = {
       <div class="h-full flex flex-row justify-center items-center">
         <h1 class="w-full">
           <p class="font-bold text-xl">{{ data.name }}</p>
-          <p class="text-sm text-gray-500"># {{ data.userId }}</p>
+          <p class="text-sm text-gray-500"># {{ data.nickname }}</p>
         </h1>
         <h2 class="w-40 text-center">
           팔로워
