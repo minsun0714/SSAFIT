@@ -11,10 +11,12 @@
 </iframe>
       </div>
     </div>
+
+  <RelatedVideos />
   </template>
 
   <script setup lang="ts">
-
+import RelatedVideos from "./RelatedVideos.vue";
   </script>
 
   <style scoped>

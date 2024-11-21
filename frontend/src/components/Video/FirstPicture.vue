@@ -16,15 +16,26 @@
       </div>
 
       <button
-        class="bg-black hover:bg-blue-400 hover:text-white text-white font-bold py-2 px-6 rounded-lg shadow-lg transition-colors duration-300"
-      >
-      Start Moving
-      </button>
+    class="bg-black hover:bg-blue-400 hover:text-white text-white font-bold py-2 px-6 rounded-lg shadow-lg transition-colors duration-300"
+    @click="navigateToExercise"
+  >
+    Start Moving
+  </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { Routes } from '../../utils/enum';
+
+const router = useRouter();
+
+const navigateToExercise = () => {
+  router.push({
+    name: Routes.EXERCISE,
+  });
+};
 </script>
 
 <style scoped>
