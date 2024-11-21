@@ -8,8 +8,10 @@ import com.ssafy.ssafit.service.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/members")
@@ -37,13 +39,18 @@ public class MemberController {
     }
 
    // 유저 정보 업데이트
-    @PutMapping
-    public ResponseEntity<MemberInfoResponseDTO> updateUser(
-            @Valid
-            @RequestBody MemberInfoRequestDTO myInfoUpdateDTO) {
-        MemberInfoResponseDTO updatedUser = memberService.updateMember(myInfoUpdateDTO);
-        return ResponseEntity.ok(updatedUser);
-    }
+   @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+   public ResponseEntity<MemberInfoResponseDTO> updateUser(
+           @RequestPart(value = "profileImg", required = false) MultipartFile profileImg,
+           @RequestPart("memberInfo") MemberInfoRequestDTO myInfoUpdateDTO) {
+       System.out.println("Profile Image: " + (profileImg != null ? profileImg.getOriginalFilename() : "No file uploaded"));
+       System.out.println("Member Info: " + myInfoUpdateDTO);
+
+       // Service 로직 호출
+       MemberInfoResponseDTO updatedUser = memberService.updateMember(myInfoUpdateDTO, profileImg);
+       return ResponseEntity.ok(updatedUser);
+   }
+
 
     // 유저 삭제
     @DeleteMapping

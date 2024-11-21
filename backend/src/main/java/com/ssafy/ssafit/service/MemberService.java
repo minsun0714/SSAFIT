@@ -15,6 +15,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 import static com.ssafy.ssafit.utils.CookieUtils.setRefreshTokenCookie;
 import static com.ssafy.ssafit.utils.DTOMapper.toMemberInfoDTO;
@@ -68,24 +73,34 @@ public class MemberService {
 
     // 사용자 정보 업데이트
     @Transactional
-    public MemberInfoResponseDTO updateMember(MemberInfoRequestDTO memberRequestDTO) {
+    public MemberInfoResponseDTO updateMember(MemberInfoRequestDTO memberRequestDTO, MultipartFile profileImg) {
         String memberId = getAuthenticatedMemberId();
         Member member = memberMapper.findByMemberId(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));
 
+        // 비밀번호 변경 로직
         if (memberRequestDTO.getPassword() != null) {
             validatePasswordMatch(memberRequestDTO.getPassword(), memberRequestDTO.getPasswordConfirm());
             member.setPassword(passwordEncoder.encode(memberRequestDTO.getPassword())); // 보안상 해시 처리 필요
         }
 
-        member.setProfileImg(memberRequestDTO.getProfileImg());
+        // 프로필 이미지 업로드 처리
+        if (profileImg != null && !profileImg.isEmpty()) {
+            String uploadedImagePath = uploadProfileImage(profileImg);
+            member.setProfileImg(uploadedImagePath);
+        }
+
+        // 닉네임 및 기타 정보 업데이트
         member.setNickname(memberRequestDTO.getNickname());
         member.setWeight(memberRequestDTO.getWeight());
 
+        // DB 업데이트
         memberMapper.updateMember(member);
 
+        // 업데이트된 정보 반환
         return toMemberInfoDTO(member);
     }
+
 
     // 사용자 삭제
     @Transactional
@@ -110,5 +125,22 @@ public class MemberService {
             throw new MemberNotAuthenticatedException("Member not authenticated");
         }
         return (String) authentication.getPrincipal();
+    }
+
+    private String uploadProfileImage(MultipartFile profileImg) {
+        try {
+            // 파일 저장 경로 설정 (예: 로컬 디렉토리 또는 클라우드 스토리지)
+            String uploadDir = "C:/path/to/upload/directory";
+            String fileName = UUID.randomUUID() + "_" + profileImg.getOriginalFilename();
+
+            // 파일 저장
+            File destinationFile = new File(uploadDir + "/" + fileName);
+            profileImg.transferTo(destinationFile);
+
+            // 저장된 파일 경로 반환
+            return "/uploads/" + fileName;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to upload profile image", e);
+        }
     }
 }
