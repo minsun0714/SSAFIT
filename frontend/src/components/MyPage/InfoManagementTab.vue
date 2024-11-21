@@ -11,42 +11,44 @@ import profileImg from '@/assets/NavigationBar/profileImg.svg'
 import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
 
 // Zod 스키마 정의
-const formSchema = toTypedSchema(
-  z.object({
-    name: z.string(),
-    memberId: z.string(),
-    nickname: z
-      .string()
-      .min(2, '닉네임은 최소 2자 이상이어야 합니다.')
-      .max(50, '닉네임은 최대 50자까지 가능합니다.'),
-    password: z
-      .string()
-      .min(8, '비밀번호는 최소 8자 이상이어야 합니다.')
-      .max(50, '비밀번호는 최대 50자까지 가능합니다.'),
-    passwordConfirm: z.string().min(8).max(50),
-  }),
-)
+const zodSchema = z.object({
+  name: z.string(),
+  memberId: z.string(),
+  nickname: z
+    .string()
+    .min(2, '닉네임은 최소 2자 이상이어야 합니다.')
+    .max(50, '닉네임은 최대 50자까지 가능합니다.'),
+  password: z
+    .string()
+    .min(8, '비밀번호는 최소 8자 이상이어야 합니다.')
+    .max(50, '비밀번호는 최대 50자까지 가능합니다.'),
+  passwordConfirm: z.string().min(8).max(50),
+})
+
+const formSchema = toTypedSchema(zodSchema)
+
+type FormValues = z.infer<typeof zodSchema>
 
 // 서버에서 유저 데이터 불러오기
 const { data } = MemberApiFacade.useFetchUserInfo()
-
 const { mutate } = MemberApiFacade.useUpdateUser()
 
 // 폼 초기화
-const form = useForm({
+const form = useForm<FormValues>({
   validationSchema: formSchema,
   initialValues: {
     name: data?.value.name ?? '',
     memberId: data?.value.memberId ?? '',
     nickname: data?.value.nickname ?? '',
+    password: '',
+    passwordConfirm: '',
   },
 })
 
-// 파일 관리용 ref
+// 파일 업로드 및 미리보기
 const selectedFile = ref<File | null>(null)
 const previewImage = ref<string | null>(null)
 
-// 파일 변경 핸들러
 const handleFileChange = (event: Event) => {
   const file = (event.target as HTMLInputElement)?.files?.[0]
   if (file) {
@@ -62,19 +64,23 @@ const handleFileChange = (event: Event) => {
   }
 }
 
-// 폼 제출 핸들러
-const onSubmit = form.handleSubmit((values) => {
+// 폼 제출
+const onSubmit = form.handleSubmit((values: FormValues) => {
   const formData = new FormData()
-  formData.append('name', values.name)
-  formData.append('memberId', values.memberId)
-  formData.append('nickname', values.nickname)
-  formData.append('password', values.password)
-  formData.append('passwordConfirm', values.passwordConfirm)
+
   if (selectedFile.value) {
     formData.append('profileImg', selectedFile.value)
+  } else {
+    console.log('No file selected')
   }
 
-  mutate(values)
+  // FormData에 값 추가
+  Object.entries(values).forEach(([key, value]) => {
+    formData.append(key, value)
+  })
+
+  // 서버로 데이터 전송
+  mutate({...values, profileImg: selectedFile.value})
 })
 </script>
 

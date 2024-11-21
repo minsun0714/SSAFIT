@@ -4,9 +4,9 @@ interface SignUpRequest extends Member {
 
 interface LoginRequest extends Omit<Member, 'name' | 'nickname'> {}
 
-interface MemberInfoRequest extends Omit<Member, 'name'> {
+export interface MemberInfoRequest extends Omit<Member, 'name'> {
   passwordConfirm: string
-  profileImg: string
+  profileImg: File | null
 }
 
 interface ExerciseTimerRequest extends Exercise {}
