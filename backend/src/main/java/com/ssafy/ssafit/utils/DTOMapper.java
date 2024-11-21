@@ -98,6 +98,8 @@ public class DTOMapper {
     }
 
     public static <T> PagedResponseDTO<T> toPagedResponseDTO(int page, int size, int totalDataCount, List<T> data) {
+        System.out.println(totalDataCount);
+
         int totalPages = (int) Math.ceil((double) totalDataCount / size);
 
         return new PagedResponseDTO<>(

@@ -87,7 +87,7 @@ public class ExerciseMetService {
     }
 
 
-    public int getTotalDataCount() {
+    public int getTotalDataCount(String exerciseType) {
         ExerciseMetResponse response = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path(url)
@@ -104,6 +104,12 @@ public class ExerciseMetService {
             throw new IllegalArgumentException("총 데이터 개수를 가져올 수 없습니다.");
         }
 
-        return response.getData().size();
+        List<ExerciseMetData> filteredData = (exerciseType == null || exerciseType.trim().isEmpty())
+                ? response.getData()
+                : response.getData().stream()
+                .filter(data -> data.getExerciseType().toLowerCase().contains(exerciseType.toLowerCase()))
+                .toList();
+
+        return filteredData.size();
     }
 }

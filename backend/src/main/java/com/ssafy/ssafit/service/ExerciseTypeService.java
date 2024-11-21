@@ -18,8 +18,8 @@ public class ExerciseTypeService {
 
         List<ExerciseMetData> exerciseMetDataList = exerciseMetService.getMetDataByPage(page, size, exerciseType);
 
-        int totalItems = exerciseMetService.getTotalDataCount();
-
+        int totalItems = exerciseMetService.getTotalDataCount(exerciseType);
+        System.out.println("total items: " + totalItems);
         return toPagedResponseDTO(page, size, totalItems, exerciseMetDataList);
     }
 }

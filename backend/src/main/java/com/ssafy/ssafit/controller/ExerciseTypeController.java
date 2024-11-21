@@ -23,7 +23,7 @@ public class ExerciseTypeController {
     @GetMapping
     public ResponseEntity<PagedResponseDTO<ExerciseMetData>> getPagedExerciseTypes(
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "5") int size,
             @RequestParam(required = false) String exerciseType
     )
     {
