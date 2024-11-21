@@ -10,164 +10,152 @@ import BlueButton from '../common/BlueButton.vue'
 import profileImg from '@/assets/NavigationBar/profileImg.svg'
 import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
 
+// Zod 스키마 정의
 const formSchema = toTypedSchema(
   z.object({
     name: z.string(),
     memberId: z.string(),
-    nickname: z.string().min(2).max(50),
-    password: z.string().min(8).max(50),
+    nickname: z
+      .string()
+      .min(2, '닉네임은 최소 2자 이상이어야 합니다.')
+      .max(50, '닉네임은 최대 50자까지 가능합니다.'),
+    password: z
+      .string()
+      .min(8, '비밀번호는 최소 8자 이상이어야 합니다.')
+      .max(50, '비밀번호는 최대 50자까지 가능합니다.'),
     passwordConfirm: z.string().min(8).max(50),
-    profileImg: z.string(),
   }),
 )
 
+// 서버에서 유저 데이터 불러오기
 const { data } = MemberApiFacade.useFetchUserInfo()
 
+const { mutate } = MemberApiFacade.useUpdateUser()
+
+// 폼 초기화
 const form = useForm({
   validationSchema: formSchema,
   initialValues: {
-    name: data?.value.name,
-    memberId: data?.value.memberId,
-    nickname: data?.value.nickname,
+    name: data?.value.name ?? '',
+    memberId: data?.value.memberId ?? '',
+    nickname: data?.value.nickname ?? '',
   },
 })
 
-const onSubmit = form.handleSubmit((values) => {
-  console.log('Form submitted!', values)
-})
-
+// 파일 관리용 ref
+const selectedFile = ref<File | null>(null)
 const previewImage = ref<string | null>(null)
 
+// 파일 변경 핸들러
 const handleFileChange = (event: Event) => {
   const file = (event.target as HTMLInputElement)?.files?.[0]
   if (file) {
+    selectedFile.value = file
     const reader = new FileReader()
     reader.onload = () => {
       previewImage.value = reader.result as string
     }
     reader.readAsDataURL(file)
   } else {
+    selectedFile.value = null
     previewImage.value = null
   }
 }
+
+// 폼 제출 핸들러
+const onSubmit = form.handleSubmit((values) => {
+  const formData = new FormData()
+  formData.append('name', values.name)
+  formData.append('memberId', values.memberId)
+  formData.append('nickname', values.nickname)
+  formData.append('password', values.password)
+  formData.append('passwordConfirm', values.passwordConfirm)
+  if (selectedFile.value) {
+    formData.append('profileImg', selectedFile.value)
+  }
+
+  mutate(values)
+})
 </script>
 
 <template>
-  <form class="flex flex-col justify-center items-center space-y-10" @submit="onSubmit">
+  <form class="flex flex-col justify-center items-center space-y-10" @submit.prevent="onSubmit">
     <div class="flex flex-col justify-center items-center gap-x-6 w-screen py-16">
+      <!-- 이름 필드 -->
       <FormField v-slot="{ componentField }" name="name">
-        <FormItem class="flex flex-col w-full items-center">
-          <div class="flex flex-row w-2/3 max-w-[500px] justify-center items-center">
-            <FormLabel class="w-full">이름</FormLabel>
-            <FormControl>
-              <Input
-                type="text"
-                disabled
-                v-bind="componentField"
-                class="min-w-[280px] border border-none"
-              />
-            </FormControl>
-          </div>
-          <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
-            <FormMessage />
-          </div>
+        <FormItem>
+          <FormLabel>이름</FormLabel>
+          <FormControl>
+            <Input type="text" disabled v-bind="componentField" />
+          </FormControl>
         </FormItem>
       </FormField>
+
+      <!-- 아이디 필드 -->
       <FormField v-slot="{ componentField }" name="memberId">
-        <FormItem class="flex flex-col w-full items-center">
-          <div class="flex flex-row w-2/3 max-w-[500px] justify-center items-center">
-            <FormLabel class="w-full">아이디</FormLabel>
-            <FormControl>
-              <Input
-                type="text"
-                disabled
-                v-bind="componentField"
-                class="min-w-[280px] border border-none"
-              />
-            </FormControl>
-          </div>
-          <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
-            <FormMessage />
-          </div>
+        <FormItem>
+          <FormLabel>아이디</FormLabel>
+          <FormControl>
+            <Input type="text" disabled v-bind="componentField" />
+          </FormControl>
         </FormItem>
       </FormField>
+
+      <!-- 닉네임 필드 -->
       <FormField v-slot="{ componentField }" name="nickname">
-        <FormItem class="flex flex-col w-full items-center">
-          <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
-            <FormLabel class="w-full">닉네임</FormLabel>
-            <FormControl>
-              <Input type="text" v-bind="componentField" class="min-w-[280px]" />
-            </FormControl>
-          </div>
-          <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
-            <FormMessage />
-          </div>
+        <FormItem>
+          <FormLabel>닉네임</FormLabel>
+          <FormControl>
+            <Input type="text" v-bind="componentField" />
+          </FormControl>
+          <FormMessage />
         </FormItem>
       </FormField>
+
+      <!-- 비밀번호 필드 -->
       <FormField v-slot="{ componentField }" name="password">
-        <FormItem class="flex flex-col w-full items-center">
-          <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
-            <FormLabel class="w-full">비밀번호 변경</FormLabel>
-            <FormControl>
-              <Input type="password" v-bind="componentField" class="min-w-[280px]" />
-            </FormControl>
-          </div>
-          <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
-            <FormMessage />
-          </div>
+        <FormItem>
+          <FormLabel>비밀번호 변경</FormLabel>
+          <FormControl>
+            <Input type="password" v-bind="componentField" />
+          </FormControl>
+          <FormMessage />
         </FormItem>
       </FormField>
+
+      <!-- 비밀번호 확인 필드 -->
       <FormField v-slot="{ componentField }" name="passwordConfirm">
-        <FormItem class="flex flex-col w-full items-center">
-          <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
-            <FormLabel class="w-full">비밀번호 확인</FormLabel>
-            <FormControl>
-              <Input type="password" v-bind="componentField" class="min-w-[280px]" />
-            </FormControl>
-          </div>
-          <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
-            <FormMessage />
-          </div>
+        <FormItem>
+          <FormLabel>비밀번호 확인</FormLabel>
+          <FormControl>
+            <Input type="password" v-bind="componentField" />
+          </FormControl>
+          <FormMessage />
         </FormItem>
       </FormField>
-      <FormField v-slot="{ componentField }" name="profileImg">
-        <FormItem class="flex flex-col w-full items-center">
-          <div class="flex flex-row w-2/3 max-w-[500px] justify-center items-center">
-            <FormControl>
-              <FormLabel class="w-full">프로필 이미지</FormLabel>
-              <div>
-                <div class="h-40 overflow-hidden h-20 flex flex-col justify-center items-center">
-                  <img
-                    v-if="previewImage"
-                    :src="previewImage"
-                    alt="Preview"
-                    class="w-28 h-28 object-cover rounded-full border border-gray-200"
-                  />
-                  <img
-                    v-else
-                    :src="profileImg"
-                    class="w-28 h-28 object-cover rounded-full border border-gray-200"
-                  />
-                </div>
-                <label
-                  class="custom-file-upload min-w-[280px] border-none underline flex flex-col items-center"
-                >
-                  <span class="bg-white cursor-pointer">이미지 선택</span>
-                  <Input
-                    type="file"
-                    v-bind="componentField"
-                    class="hidden"
-                    @change="handleFileChange"
-                  />
-                </label>
-              </div>
-            </FormControl>
-          </div>
-          <div class="min-h-5 flex justify-end w-2/3 max-w-[500px]">
-            <FormMessage />
-          </div>
-        </FormItem>
-      </FormField>
+
+      <!-- 프로필 이미지 업로드 -->
+      <div class="flex flex-col w-2/3 max-w-[500px] items-center">
+        <label class="text-gray-700">프로필 이미지</label>
+        <div class="flex flex-col items-center">
+          <img
+            v-if="previewImage"
+            :src="previewImage"
+            alt="Preview"
+            class="w-28 h-28 object-cover rounded-full border border-gray-200"
+          />
+          <img
+            v-else
+            :src="profileImg"
+            alt="Default"
+            class="w-28 h-28 object-cover rounded-full border border-gray-200"
+          />
+          <label class="custom-file-upload mt-4">
+            <span class="cursor-pointer text-blue-500 underline">이미지 선택</span>
+            <input type="file" class="hidden" @change="handleFileChange" />
+          </label>
+        </div>
+      </div>
     </div>
 
     <!-- 제출 버튼 -->

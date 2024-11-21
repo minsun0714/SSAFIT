@@ -35,9 +35,10 @@ class MemberApiFacade {
     })
   }
 
-  static useUpdateUser(updatedUserInfo: MemberInfoRequest) {
+  static useUpdateUser() {
     return useMutation({
-      mutationFn: () => MemberService.updateUserInfo(updatedUserInfo),
+      mutationFn: (updatedUserInfo: MemberInfoRequest) =>
+        MemberService.updateUserInfo(updatedUserInfo),
     })
   }
 
