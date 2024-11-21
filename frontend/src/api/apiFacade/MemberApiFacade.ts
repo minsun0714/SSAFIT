@@ -39,6 +39,9 @@ class MemberApiFacade {
     return useMutation({
       mutationFn: (updatedUserInfo: MemberInfoRequest) =>
         MemberService.updateUserInfo(updatedUserInfo),
+      onSuccess: () => {
+        queryClient.refetchQueries()
+      },
     })
   }
 
