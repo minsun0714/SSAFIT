@@ -16,7 +16,7 @@ import { useRoute, useRouter } from 'vue-router'
 import TimerModalPagination from './TimerModalPagination.vue'
 import TimerModalNoResult from './TimerModalNoResult.vue'
 
-const { handleClickExercise } = useExerciseStore()
+const exerciseStore = useExerciseStore()
 
 const router = useRouter()
 const route = useRoute()
@@ -45,6 +45,11 @@ watch(
         class="border border-none border-input-none outline-none w-full"
       />
     </div>
+    <p
+      class="h-12 mb-2 bg-blue-400 text-white font-bold rounded-md flex justify-center items-center"
+    >
+      {{ exerciseStore.exercise ? exerciseStore.exercise : '운동을 선택해주세요.' }}
+    </p>
     <div v-if="data?.data.length">
       <Table class="border">
         <TableHeader>
@@ -60,7 +65,8 @@ watch(
             v-for="(item, index) in data?.data"
             :key="index"
             class="cursor-pointer flex flex-row"
-            @click="() => handleClickExercise(item.운동명)"
+            @click="exerciseStore.handleClickExercise(item.운동명)"
+            :class="exerciseStore.exercise === item.운동명 && 'outline-2'"
           >
             <TableCell class="flex justify-center w-full">{{ item.운동명 }}</TableCell>
             <TableCell class="flex justify-center w-full"
