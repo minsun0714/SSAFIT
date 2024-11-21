@@ -1,21 +1,20 @@
-package com.ssafy.ssafit.domain;
+package com.ssafy.ssafit.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.net.MalformedURLException;
 
-import java.net.URL;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Video {
+public class VideoDetailVO {
     private String videoId;
-    private Member member;
+    private String channel;
+    private String member;
     private String title;
     private int viewCount;
     private Date createdAt;
@@ -25,12 +24,4 @@ public class Video {
     private String videoUrl;
     private String status;
     private double rating;
-
-    public URL getThumbnailImgUrlAsUrl() throws MalformedURLException {
-        return new URL(thumbnailImgUrl);
-    }
-
-    public URL getVideoUrlAsUrl() throws MalformedURLException {
-        return new URL(videoUrl);
-    }
 }
