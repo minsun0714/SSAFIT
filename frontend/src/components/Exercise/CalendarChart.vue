@@ -16,7 +16,7 @@ calendarChartStore.setChartData(data)
 </script>
 
 <template>
-  <div class="w-[400px] h-[400px]">
+  <div class="w-full h-[400px] flex justify-center">
     <Doughnut :data="calendarChartStore.chartData" />
   </div>
 </template>

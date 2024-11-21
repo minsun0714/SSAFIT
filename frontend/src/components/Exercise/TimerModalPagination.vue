@@ -12,7 +12,7 @@ import {
 import Button from '../ui/button/Button.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { computed } from 'vue'
-import { PaginationResponse } from '@/api/interfaces/response';
+import { PaginationResponse } from '@/api/interfaces/response'
 
 defineProps<{
   data?: PaginationResponse<unknown>
@@ -41,9 +41,9 @@ const handlePageChange = (page: number) => {
     :default-page="currentPage"
     @change="handlePageChange"
   >
-    <PaginationList v-slot="{ items }" class="flex justify-center items-center gap-1 p-8 ">
-      <PaginationFirst  @click="() => handlePageChange(1)"/>
-      <PaginationPrev @click="() => handlePageChange(currentPage - 1)"/>
+    <PaginationList v-slot="{ items }" class="flex justify-center items-center gap-1 p-8">
+      <PaginationFirst @click="() => handlePageChange(1)" />
+      <PaginationPrev @click="() => handlePageChange(currentPage - 1)" />
       <template v-for="(item, index) in items">
         <PaginationListItem v-if="item.type === 'page'" :key="index" :value="item.value" as-child>
           <Button
@@ -55,8 +55,8 @@ const handlePageChange = (page: number) => {
           </Button>
         </PaginationListItem>
       </template>
-      <PaginationNext @click="() => handlePageChange(currentPage + 1)"/>
-      <PaginationLast @click="() => handlePageChange(data?.totalPages || 1)"/>
+      <PaginationNext @click="() => handlePageChange(currentPage + 1)" />
+      <PaginationLast @click="() => handlePageChange(data?.totalPages || 1)" />
     </PaginationList>
   </Pagination>
 </template>
