@@ -68,13 +68,11 @@ const router = createRouter({
       path: '/videos',
       name: Routes.VIDEOS,
       component: () => import('../views/VideoListView.vue'),
-      children: [
-        {
-          path: 'create',
-          name: Routes.CREATE_VIDEO,
-          component: () => import('../views/VideoCreateView.vue'),
-        },
-      ],
+    },
+    {
+      path: '/createVideo',
+      name: Routes.CREATE_VIDEO,
+      component: () => import('../views/VideoCreateView.vue'),
     },
     {
       path: '/exercise',

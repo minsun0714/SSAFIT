@@ -275,7 +275,6 @@ const changeCategory = (category: 'Run' | 'Strength' | 'Relax') => {
   </div>
 </div>
 
-
     <!-- Video Category Section -->
     <div class="flex-1">
       <div class="mb-4">

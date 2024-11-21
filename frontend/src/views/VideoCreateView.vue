@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import RegistForm from "@/components/VideoRegister/RegistForm.vue";
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <RegistForm />
   </main>
 </template>
