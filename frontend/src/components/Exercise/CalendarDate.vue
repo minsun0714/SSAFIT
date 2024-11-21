@@ -13,6 +13,7 @@ import { FaRegTrashAlt } from 'vue3-icons/fa'
 
 import { type DateValue } from '@internationalized/date'
 import { pad } from '@/utils/helperFunction'
+import CalendarChart from './CalendarChart.vue'
 
 const { weekDate, month } = defineProps<{
   weekDate: DateValue
@@ -38,6 +39,7 @@ const { mutate } = ExerciseLogApiFacade.useDeleteExerciseLog()
           </DialogTitle>
           <DialogDescription> 총 운동 시간 : {{ 0 }}초 </DialogDescription>
         </DialogHeader>
+        <CalendarChart :data="data || []" />
         <ul v-if="data?.length">
           <li
             v-for="log in data"

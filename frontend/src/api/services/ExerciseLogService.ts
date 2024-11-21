@@ -1,4 +1,5 @@
 import api from '../apiClient'
+import type { ExerciseTimerResponse } from '../interfaces/response'
 
 class ExerciseLogService {
   private static path = '/api/exercise-log'

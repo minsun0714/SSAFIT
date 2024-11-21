@@ -1,5 +1,3 @@
-import { string } from 'zod'
-
 interface SignUpResponse extends Omit<Member, 'password'> {
   profileImg: string
   accessToken: string
@@ -15,7 +13,7 @@ interface MemberInfoResponse extends Omit<Member, 'password'> {
   role: 'ROLE_ADMIN' | 'ROLE_USER'
 }
 
-interface ExerciseTimerResponse extends Exercise {
+export interface ExerciseTimerResponse extends Exercise {
   exerciseLogId: string
   caloriesBurned: number
   fatBurned: number

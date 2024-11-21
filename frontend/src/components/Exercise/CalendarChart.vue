@@ -1,0 +1,22 @@
+<script setup lang="ts">
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Doughnut } from 'vue-chartjs'
+import { useCalendarChartStore } from '@/stores/calendarChart'
+import { ExerciseTimerResponse } from '@/api/interfaces/response'
+
+// Chart.js 플러그인 등록
+ChartJS.register(ArcElement, Tooltip, Legend)
+
+const { data } = defineProps<{
+  data: ExerciseTimerResponse[]
+}>()
+
+const calendarChartStore = useCalendarChartStore()
+calendarChartStore.setChartData(data)
+</script>
+
+<template>
+  <div class="w-[400px] h-[400px]">
+    <Doughnut :data="calendarChartStore.chartData" />
+  </div>
+</template>
