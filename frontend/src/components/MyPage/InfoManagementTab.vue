@@ -56,7 +56,7 @@ const handleFileChange = (event: Event) => {
     <div class="flex flex-col justify-center items-center gap-x-6 w-screen py-16">
       <FormField v-slot="{ componentField }" name="name">
         <FormItem class="flex flex-col w-full items-center">
-          <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
+          <div class="flex flex-row w-2/3 max-w-[500px] justify-center items-center">
             <FormLabel class="w-full">이름</FormLabel>
             <FormControl>
               <Input
@@ -74,7 +74,7 @@ const handleFileChange = (event: Event) => {
       </FormField>
       <FormField v-slot="{ componentField }" name="memberId">
         <FormItem class="flex flex-col w-full items-center">
-          <div class="flex flex-row w-2/3 max-w-[500px] justify-center">
+          <div class="flex flex-row w-2/3 max-w-[500px] justify-center items-center">
             <FormLabel class="w-full">아이디</FormLabel>
             <FormControl>
               <Input
