@@ -5,6 +5,13 @@ export class Timer {
   private time: Ref<number>
   private isRunning: Ref<boolean>
 
+  public static confirmTimerReset = () => {
+    const isConfirmed = confirm("타이머가 초기화됩니다. 정지하시겠습니까?")
+    if (!isConfirmed){
+      return;
+    }
+  }
+
   constructor(time: Ref<number>, isRunning: Ref<boolean>) {
     this.time = time
     this.isRunning = isRunning
@@ -36,6 +43,7 @@ export class Timer {
   }
 
   reset() {
+    Timer.confirmTimerReset()
     this.pause() // 타이머 멈춤
     this.time.value = 0 // 시간 초기화
   }

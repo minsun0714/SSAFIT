@@ -22,7 +22,10 @@ const timer = new Timer(time, isRunning)
 const { mutate } = ExerciseLogApiFacade.useCreateExerciseLog()
 
 const handleClickSaveTime = () => {
-  mutate({ exerciseDate: new Date(), exerciseType: exercise, exerciseTime: time.value })
+  mutate({ exerciseDate: new Date(), exerciseType: exercise || '', exerciseTime: time.value })
+
+  Timer.confirmTimerReset()
+  time.value = 0
 }
 </script>
 

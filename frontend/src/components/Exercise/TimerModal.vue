@@ -6,8 +6,25 @@ import BlueButton from '../common/BlueButton.vue'
 import TimerModalExerciseTypeTable from './TimerModalExerciseTypeSearch.vue'
 import TimerModalTimer from './TimerModalTimer.vue'
 import { Button } from 'ant-design-vue'
+import { useExerciseStore } from '@/stores/exerciseType'
+import { Timer } from '@/utils/helperClass'
 
 const currentStep = ref<number>(0)
+
+const exerciseStore = useExerciseStore()
+
+const handleClickNext = () => {
+  if (!exerciseStore.exercise) {
+    alert('운동을 선택해주세요')
+    return
+  }
+  currentStep.value += 1
+}
+
+const handleClickPrevious = () => {
+  Timer.confirmTimerReset()
+  currentStep.value -= 1
+}
 </script>
 
 <template>
@@ -21,7 +38,7 @@ const currentStep = ref<number>(0)
           <div class="">
             <TimerModalExerciseTypeTable />
             <div class="py-3 w-full flex justify-end">
-              <Button text="다음" @click="currentStep += 1">다음</Button>
+              <Button text="다음" @click="handleClickNext">다음</Button>
             </div>
           </div>
         </template>
@@ -29,7 +46,7 @@ const currentStep = ref<number>(0)
           <div>
             <TimerModalTimer />
             <div class="py-3 w-full flex justify-start">
-              <Button text="이전" @click="currentStep -= 1">이전</Button>
+              <Button text="이전" @click="handleClickPrevious">이전</Button>
             </div>
           </div>
         </template>
