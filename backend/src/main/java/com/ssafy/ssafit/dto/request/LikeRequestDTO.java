@@ -1,4 +1,4 @@
-package com.ssafy.ssafit.domain;
+package com.ssafy.ssafit.dto.request;
 
 import com.ssafy.ssafit.domain.Member;
 import lombok.AllArgsConstructor;
@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class Review {
-    private String reviewId;
+public class LikeRequestDTO {
+    private Long likeId;
     private Member member;
     private String videoId;
-    private Date createdAt;
-    private String content;
-
+    private Date likedAt;
 }

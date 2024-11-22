@@ -2,8 +2,15 @@
 <br>
 <div class="text-center space-y-4">
   <h1 class="text-3xl font-bold">Video Playlist</h1>
-  <div class="text-xl">Make exercise more fun with music!</div>
+  <div
+    class="text-xl animated-gradient-text"
+    :class="{ 'animate': isAnimating }"
+  >
+    Make exercise more fun with music!
+  </div>
 </div>
+
+
 <br>
 
   <div>
@@ -86,7 +93,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import VideoCard from '@/components/common/VideoCard.vue';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-vue-next';
@@ -406,8 +413,40 @@ function handlePageChange(page: number) {
 function handleMenuClick({ key }: { key: string }) {
   selectedSort.value = key;
 }
+
+const isAnimating = ref(true);
+
+onMounted(() => {
+  // 5초 후 애니메이션 멈추기
+  setTimeout(() => {
+    isAnimating.value = false;
+  }, 500); // 5초 (5000ms)
+});
+
 </script>
 
 <style scoped>
+.animated-gradient-text {
+  font-size: 1.25rem;
+  background: linear-gradient(90deg,#FFFFFF, #FF5733, #E50914, #FF5733, #FFFFFF, #E50914,  #FF5733, #FFFFFF);
+  background-size: 200% 100%; /* 그라데이션의 크기를 크게 설정 */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-move 6s ease-in-out infinite; /* 속도를 느리게 조정하고 easing 적용 */
+}
+
+@keyframes gradient-move {
+  0% {
+    background-position: 0% 50%; /* 부드러운 시작 */
+  }
+  50% {
+    background-position: 100% 50%; /* 중간 지점에서 방향 변경 */
+  }
+  100% {
+    background-position: 0% 50%; /* 다시 시작점으로 */
+  }
+}
+
 
 </style>

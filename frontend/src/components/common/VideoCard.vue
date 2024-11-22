@@ -48,9 +48,10 @@ const navigateToVideo = () => {
   flex-direction: column;
   width: 360px;
   padding: 10px;
-  background-color: white;
+  background-color: black; /* 배경 검은색 */
   cursor: pointer;
   transition: transform 0.2s ease;
+  color: white; /* 글씨 흰색 */
 }
 
 .video-card:hover {
@@ -81,26 +82,27 @@ const navigateToVideo = () => {
   font-size: 16px;
   font-weight: bold;
   margin: 0;
+  color: white; /* 제목 흰색 */
 }
 
 .nickname {
   font-size: 14px;
-  color: #555;
+  color: #bbb; /* 닉네임 약간 밝은 회색 */
 }
 
 .details {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: #888;
+  color: white; /* 기본 텍스트 색 흰색 */
 }
 
 .view-count {
-  color: #0066ff;
+  color: #E50914; /* 조회수 빨간색 */
   font-weight: bold;
 }
 
 .created-at {
-  color: #888;
+  color: #bbb; /* 생성 날짜 밝은 회색 */
 }
 </style>

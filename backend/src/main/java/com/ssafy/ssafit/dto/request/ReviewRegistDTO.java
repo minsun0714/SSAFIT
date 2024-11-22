@@ -1,4 +1,4 @@
-package com.ssafy.ssafit.domain;
+package com.ssafy.ssafit.dto.request;
 
 import com.ssafy.ssafit.domain.Member;
 import lombok.AllArgsConstructor;
@@ -12,11 +12,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Review {
+public class ReviewRegistDTO {
     private String reviewId;
     private Member member;
     private String videoId;
     private Date createdAt;
     private String content;
-
 }
