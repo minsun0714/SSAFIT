@@ -33,12 +33,25 @@ class ExerciseLogApiFacade {
     })
   }
 
+  static useFetchExerciseGrass() {
+    return useQuery({
+      queryKey: ['exerciseGrass'],
+      queryFn: async () => {
+        const data = await ExerciseLogService.fetchExerciseGrass()
+        return data
+      },
+      staleTime: 0,
+      gcTime: 0,
+    })
+  }
+
   static useDeleteExerciseLog() {
     return useMutation({
-      mutationFn: ({exerciseLogId}: {exerciseLogId: number}) => ExerciseLogService.deleteExerciseLog(exerciseLogId),
+      mutationFn: ({ exerciseLogId }: { exerciseLogId: number }) =>
+        ExerciseLogService.deleteExerciseLog(exerciseLogId),
       onSuccess: () => {
         queryClient.refetchQueries()
-      }
+      },
     })
   }
 }

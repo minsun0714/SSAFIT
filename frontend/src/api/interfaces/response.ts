@@ -45,3 +45,9 @@ export interface PaginationResponse<T> {
   totalItems: number
   data: T[]
 }
+
+export interface ExerciseGrass {
+  date: string
+  level: 0 | 1 | 2 | 3 | 4
+  exerciseTime: number
+}

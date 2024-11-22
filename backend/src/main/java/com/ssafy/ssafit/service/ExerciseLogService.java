@@ -7,6 +7,7 @@ import com.ssafy.ssafit.domain.ExerciseMetData;
 import com.ssafy.ssafit.domain.Member;
 import com.ssafy.ssafit.dto.request.ExerciseInfoRequestDTO;
 import com.ssafy.ssafit.dto.response.ExerciseCardDataDTO;
+import com.ssafy.ssafit.dto.response.ExerciseGrassVO;
 import com.ssafy.ssafit.dto.response.ExerciseInfoResponseDTO;
 import com.ssafy.ssafit.dto.response.ExerciseLogVO;
 import com.ssafy.ssafit.utils.DTOMapper;
@@ -18,9 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.ssafy.ssafit.utils.DTOMapper.toExerciseCardDataDTO;
@@ -86,12 +87,43 @@ public class ExerciseLogService {
 
         List<ExerciseLogVO> exerciseLogs = exerciseLogMapper.selectExerciseLogsByDate(memberId, exerciseDate);
 
-        Long dailyTotalExerciseTime = exerciseLogMapper.selectTotalExerciseTimeByDate(memberId, exerciseDate);
+        int dailyTotalExerciseTime = exerciseLogMapper.selectTotalExerciseTimeByDate(memberId, exerciseDate);
 
         return ExerciseInfoResponseDTO.builder()
                 .exerciseLogVO(exerciseLogs)
                 .dailyTotalExerciseTime(dailyTotalExerciseTime)
                 .build();
+    }
+
+    public List<ExerciseGrassVO> getYearlyExerciseGrass() {
+        String memberId = getAuthenticatedMemberId();
+
+        // 오늘 날짜와 1년 전 날짜 계산
+        LocalDate today = LocalDate.now();
+        LocalDate oneYearAgo = today.minusYears(1);
+
+        // 1년간 날짜별 운동 데이터 작성
+        List<ExerciseGrassVO> result = new ArrayList<>();
+        LocalDate currentDate = oneYearAgo;
+
+        while (!currentDate.isAfter(today)) {
+            // 운동 시간 조회
+            int dailyTotalExerciseTime = exerciseLogMapper.selectTotalExerciseTimeByDate(memberId, Date.valueOf(currentDate));
+
+            // 운동 레벨 계산
+            int level = dailyTotalExerciseTime == 0 ? 0 : Math.min((int) (dailyTotalExerciseTime / 30) + 1, 4);
+
+            // LocalDate를 문자열로 변환 (yyyy-MM-dd 형식)
+            String currentDateStr = currentDate.toString();
+
+            // VO 생성 및 리스트에 추가
+            result.add(new ExerciseGrassVO(currentDateStr, level, dailyTotalExerciseTime));
+
+            // 하루 증가
+            currentDate = currentDate.plusDays(1);
+        }
+
+        return result;
     }
 
     // 운동 기록 삭제

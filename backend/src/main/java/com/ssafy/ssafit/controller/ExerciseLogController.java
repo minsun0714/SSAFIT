@@ -2,10 +2,7 @@ package com.ssafy.ssafit.controller;
 
 import com.ssafy.ssafit.domain.ExerciseMetData;
 import com.ssafy.ssafit.dto.request.ExerciseInfoRequestDTO;
-import com.ssafy.ssafit.dto.response.ExerciseCardDataDTO;
-import com.ssafy.ssafit.dto.response.ExerciseInfoResponseDTO;
-import com.ssafy.ssafit.dto.response.ExerciseLogVO;
-import com.ssafy.ssafit.dto.response.PagedResponseDTO;
+import com.ssafy.ssafit.dto.response.*;
 import com.ssafy.ssafit.service.ExerciseLogService;
 import com.ssafy.ssafit.service.ExerciseMetService;
 import jakarta.validation.Valid;
@@ -48,6 +45,12 @@ public class ExerciseLogController {
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate exerciseDate) {
         ExerciseInfoResponseDTO logs = exerciseLogService.getExerciseLogsByDate(Date.valueOf(exerciseDate));
         return ResponseEntity.ok(logs);
+    }
+
+    @GetMapping("/grass")
+    public ResponseEntity<List<ExerciseGrassVO>> getYearlyExerciseGrass() {
+        List<ExerciseGrassVO> exerciseLogVO = exerciseLogService.getYearlyExerciseGrass();
+        return ResponseEntity.ok(exerciseLogVO);
     }
 
     // 운동 기록 삭제

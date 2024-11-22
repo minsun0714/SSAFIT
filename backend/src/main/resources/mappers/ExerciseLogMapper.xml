@@ -41,8 +41,8 @@
     <select id="selectExerciseLogsByDate" parameterType="map" resultType="ExerciseLog">
         SELECT * FROM exercise_log WHERE member_id = #{memberId} AND DATE(exercise_date) = #{exerciseDate};
     </select>
-    <select id="selectTotalExerciseTimeByDate" parameterType="map" resultType="Long">
-        SELECT sum(exercise_time) FROM exercise_log WHERE member_id = #{memberId} AND DATE(exercise_date) = #{exerciseDate}
+    <select id="selectTotalExerciseTimeByDate" parameterType="map" resultType="int">
+        SELECT IFNULL(SUM(exercise_time), 0.0) FROM exercise_log WHERE member_id = #{memberId} AND DATE(exercise_date) = #{exerciseDate}
     </select>
     <delete id="deleteExerciseLog" parameterType="map">
         DELETE FROM exercise_log WHERE exercise_log_id = #{exerciseLogId};

@@ -16,5 +16,5 @@ import java.util.List;
 public class ExerciseInfoResponseDTO {
     private List<ExerciseLogVO> exerciseLogVO;
 
-    private Long dailyTotalExerciseTime;
+    private int dailyTotalExerciseTime;
 }

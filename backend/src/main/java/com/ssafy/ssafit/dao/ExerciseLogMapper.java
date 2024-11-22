@@ -20,7 +20,7 @@ public interface ExerciseLogMapper {
 
     Optional<ExerciseLog> selectOneExerciseLog(@Param("exerciseLogId") Long exerciseLogId);
 
-    Long selectTotalExerciseTimeByDate(@Param("memberId") String memberId, @Param("exerciseDate") Date exerciseDate);
+    int selectTotalExerciseTimeByDate(@Param("memberId") String memberId, @Param("exerciseDate") Date exerciseDate);
 
     void deleteExerciseLog(@Param("exerciseLogId") Long exerciseLogId);
 }

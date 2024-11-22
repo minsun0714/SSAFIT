@@ -6,7 +6,11 @@ const { data } = MemberApiFacade.useFetchUserInfo()
 <template>
   <div class="flex flex-row w-full border justify-center">
     <div class="p-12">
-      <img :src="'' + data?.profileImg" alt="프로필 사진" class="border min-w-28 min-h-28 rounded-full" />
+      <img
+        :src="'' + data?.profileImg"
+        alt="프로필 사진"
+        class="border min-w-28 min-h-28 rounded-full"
+      />
     </div>
     <div class="flex flex-col">
       <div class="h-full flex flex-row justify-center items-center">

@@ -1,5 +1,9 @@
 import api from '../apiClient'
-import type { ExerciseLogResponse, ExerciseTimerResponse } from '../interfaces/response'
+import type {
+  ExerciseGrass,
+  ExerciseLogResponse,
+  ExerciseTimerResponse,
+} from '../interfaces/response'
 
 class ExerciseLogService {
   private static path = '/api/exercise-log'
@@ -22,6 +26,11 @@ class ExerciseLogService {
     return response.data
   }
 
+  private static async _fetchExerciseGrass(): Promise<ExerciseGrass[]> {
+    const response = await api.get(this.path + '/grass')
+    return response.data
+  }
+
   private static async _deleteExerciseLog(exerciseLogId: number): Promise<void> {
     await api.delete(this.path + `/${exerciseLogId}`)
   }
@@ -39,6 +48,10 @@ class ExerciseLogService {
 
   static async fetchExerciseLogsByDate(date: string): Promise<ExerciseLogResponse> {
     return await this._fetchExerciseLogsByDate(date)
+  }
+
+  static async fetchExerciseGrass(): Promise<ExerciseGrass[]> {
+    return await this._fetchExerciseGrass()
   }
 
   static async deleteExerciseLog(exerciseLogId: number): Promise<void> {
