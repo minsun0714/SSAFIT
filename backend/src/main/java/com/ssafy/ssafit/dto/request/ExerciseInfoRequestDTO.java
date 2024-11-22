@@ -1,7 +1,6 @@
 package com.ssafy.ssafit.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.ssafy.ssafit.domain.ExerciseType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;

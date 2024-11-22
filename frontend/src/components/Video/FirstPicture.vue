@@ -16,7 +16,7 @@
       </div>
 
       <button
-    class="bg-black hover:bg-blue-400 hover:text-white text-white font-bold py-2 px-6 rounded-lg shadow-lg transition-colors duration-300"
+    class="bg-black hover:bg-[#E50914] hover:text-white text-white font-bold py-2 px-6 rounded-lg shadow-lg transition-colors duration-300"
     @click="navigateToExercise"
   >
     Start Moving

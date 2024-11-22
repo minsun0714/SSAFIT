@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import VideoCard from "@/components/common/VideoCard.vue";
-
+import BsChevronLeft from "vue3-icons";
 const allVideos = {
   Run: [
     {
@@ -262,39 +262,58 @@ const changeCategory = (category: 'Run' | 'Strength' | 'Relax') => {
   <br>
   <div class="flex space-x-8">
 <!-- Trending Videos Section -->
-<div class="w-1/4">
-  <div class="relative w-full h-full" style="max-width: 480px;">
-    <h2 class="absolute left-0 text-white text-2xl px-4 py-1 rounded z-10" style="top: 10px;">
-      Trending Videos
-    </h2>
-    <p class="absolute left-0 text-white text-xl px-4 py-1 rounded z-10" style="top: 50px;">
-      Discover the most popular videos!
-    </p>
-    <div class="absolute inset-0 bg-black bg-opacity-30 rounded z-0"></div>
-    <img src="@/assets/Home/run.jpg" alt="Popular" class="rounded shadow w-full h-full object-cover filter brightness-75 z-0" />
+  <div class="w-1/4">
+    <div class="relative w-full h-full" style="max-width: 480px;">
+      <h2 class="absolute left-0 text-white text-2xl px-4 py-1 rounded z-10" style="top: 10px;">
+        Trending Videos
+      </h2>
+      <p class="absolute left-0 text-white text-xl px-4 py-1 rounded z-10" style="top: 50px;">
+        Discover the most popular videos!
+      </p>
+      <div class="absolute inset-0 bg-black bg-opacity-30 rounded z-0"></div>
+      <img src="@/assets/Home/run.jpg" alt="Popular" class="rounded shadow w-full h-full object-cover filter brightness-75 z-0" />
+    </div>
   </div>
-</div>
 
     <!-- Video Category Section -->
     <div class="flex-1">
       <div class="mb-4">
-        <!-- Category Buttons -->
-        <div class="flex space-x-2">
-          <button
-            v-for="option in ['Run', 'Strength', 'Relax']"
-            :key="option"
-            @click="changeCategory(option)"
-            :class="{'bg-white text-blue-400': selectedOption === option, 'text-black': selectedOption !== option}">
-            {{ option }}
-          </button>
-        </div>
+  <!-- Category and Pagination Buttons -->
+  <div class="flex items-center justify-between space-x-4">
+    <!-- Category Buttons -->
+    <div class="flex space-x-2">
+      <button
+        v-for="option in ['Run', 'Strength', 'Relax']"
+        :key="option"
+        @click="changeCategory(option)"
+        :class="{'bg-black text-[#E50914] font-bold': selectedOption === option, 'text-white': selectedOption !== option}"
+        class="hover:font-bold"
+      >
+        {{ option }}
+      </button>
+    </div>
 
-        <!-- Pagination Buttons -->
-        <div class="flex space-x-2 mt-4">
-          <button @click="goToPreviousPage" :disabled="currentPage === 0">Previous</button>
-          <button @click="goToNextPage" :disabled="(currentPage + 1) * videosPerPage >= allVideos[selectedOption].length">Next</button>
-        </div>
-      </div>
+    <!-- Pagination Buttons -->
+    <div class="flex space-x-2">
+      <button
+        @click="goToPreviousPage"
+        :disabled="currentPage === 0"
+        :class="{'text-gray-500 cursor-not-allowed': currentPage === 0, 'text-white': currentPage !== 0}"
+      >
+        Previous
+      </button>
+      <button
+        @click="goToNextPage"
+        :disabled="(currentPage + 1) * videosPerPage >= allVideos[selectedOption].length"
+        :class="{'text-gray-500 cursor-not-allowed': (currentPage + 1) * videosPerPage >= allVideos[selectedOption].length,
+          'text-white': (currentPage + 1) * videosPerPage < allVideos[selectedOption].length}"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
+
 
       <!-- Video Grid -->
       <div class="grid grid-cols-2" style="gap: 20px;">
@@ -316,4 +335,5 @@ const changeCategory = (category: 'Run' | 'Strength' | 'Relax') => {
 </template>
 
 <style scoped>
+
 </style>
