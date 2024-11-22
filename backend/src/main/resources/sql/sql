@@ -46,3 +46,15 @@ SELECT
 	AND YEAR(exercise_date) = YEAR(now());
 
 SELECT WEEK(now())
+
+CREATE TABLE video (
+video_id VARCHAR(255) PRIMARY KEY,
+channel_title VARCHAR(255) NOT NULL,
+title VARCHAR(255) NOT NULL,
+view_count BIGINT NOT NULL,
+rating DOUBLE DEFAULT NULL,
+published_at DATE NOT NULL,
+description TEXT,
+part VARCHAR(50),
+video_status ENUM('APPROVED', 'PENDING',’REJECTED’) DEFAULT 'PENDING'
+);

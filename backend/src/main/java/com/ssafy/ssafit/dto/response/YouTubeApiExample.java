@@ -2,6 +2,10 @@ package com.ssafy.ssafit.dto.response;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ssafy.ssafit.domain.Member;
+import com.ssafy.ssafit.domain.Part;
+import com.ssafy.ssafit.domain.Video;
+import com.ssafy.ssafit.domain.VideoStatus;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -52,13 +56,20 @@ public class YouTubeApiExample {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         Date createdAt = formatter.parse(publishedAt);
 
-        // Print the extracted information
-        System.out.println("Title: " + title);
-        System.out.println("Channel: " + channelTitle);
-        System.out.println("Published At: " + publishedAt);
-        System.out.println("Thumbnail URL: " + thumbnailUrl);
-        System.out.println("View Count: " + viewCount);
-        System.out.println("Embedding URL: " + embedUrl);
-        System.out.println("Description: " + description);
+        Video video = new Video();
+
+        video.setVideoId(videoId);
+        video.setChannelTitle(channelTitle);
+        video.setTitle(title);
+        video.setViewCount(viewCount);
+        video.setPublishedAt(createdAt);
+        video.setPart(null);
+        video.setVideoStatus(VideoStatus.PENDING);
+        video.setMember(null);
+        video.setRating(1);
+        video.setIntroduceText(null);
+        video.setDescription(description);
+
+        System.out.println(video.toString());
     }
 }

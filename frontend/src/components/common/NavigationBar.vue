@@ -16,7 +16,7 @@ const logout = () => {
 </script>
 
 <template>
-  <header class="p-10 flex flex-row justify-between items-center bg-[#121212]">
+  <header class="p-10 flex flex-row justify-between items-center bg-black">
     <nav class="w-full flex flex-row justify-between items-center h-98 font-bold">
       <RouterLink :to="{ name: Routes.HOME }" class="logo-text">SSAFIT</RouterLink>
       <div class="flex flex-row gap-x-6">

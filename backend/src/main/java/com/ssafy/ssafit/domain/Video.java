@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.net.MalformedURLException;
 
-import java.net.URL;
 import java.util.Date;
 
 @Data

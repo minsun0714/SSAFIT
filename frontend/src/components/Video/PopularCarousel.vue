@@ -278,31 +278,42 @@ const changeCategory = (category: 'Run' | 'Strength' | 'Relax') => {
     <!-- Video Category Section -->
     <div class="flex-1">
       <div class="mb-4">
-        <!-- Category Buttons -->
-        <div class="flex space-x-2">
-          <button
-            v-for="option in ['Run', 'Strength', 'Relax']"
-            :key="option"
-            @click="changeCategory(option)"
-            :class="{'bg-black text-[#E50914] font-bold': selectedOption === option, 'text-white': selectedOption !== option}"
-            class="hover:font-bold">
-            {{ option }}
-          </button>
-        </div>
+  <!-- Category and Pagination Buttons -->
+  <div class="flex items-center justify-between space-x-4">
+    <!-- Category Buttons -->
+    <div class="flex space-x-2">
+      <button
+        v-for="option in ['Run', 'Strength', 'Relax']"
+        :key="option"
+        @click="changeCategory(option)"
+        :class="{'bg-black text-[#E50914] font-bold': selectedOption === option, 'text-white': selectedOption !== option}"
+        class="hover:font-bold"
+      >
+        {{ option }}
+      </button>
+    </div>
 
-        <!-- Pagination Buttons -->
-        <div class="flex space-x-2 mt-4">
-          <BsChevronLeft
-  class="w-6 h-6 text-white hover:text-gray-300 disabled:text-gray-500"
-  @click="goToPreviousPage"
-  :class="{ 'opacity-50 cursor-not-allowed': currentPage === 0 }"
-/>
+    <!-- Pagination Buttons -->
+    <div class="flex space-x-2">
+      <button
+        @click="goToPreviousPage"
+        :disabled="currentPage === 0"
+        :class="{'text-gray-500 cursor-not-allowed': currentPage === 0, 'text-white': currentPage !== 0}"
+      >
+        Previous
+      </button>
+      <button
+        @click="goToNextPage"
+        :disabled="(currentPage + 1) * videosPerPage >= allVideos[selectedOption].length"
+        :class="{'text-gray-500 cursor-not-allowed': (currentPage + 1) * videosPerPage >= allVideos[selectedOption].length,
+          'text-white': (currentPage + 1) * videosPerPage < allVideos[selectedOption].length}"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
 
-
-          <button @click="goToPreviousPage" :disabled="currentPage === 0">Previous</button>
-          <button @click="goToNextPage" :disabled="(currentPage + 1) * videosPerPage >= allVideos[selectedOption].length">Next</button>
-        </div>
-      </div>
 
       <!-- Video Grid -->
       <div class="grid grid-cols-2" style="gap: 20px;">
