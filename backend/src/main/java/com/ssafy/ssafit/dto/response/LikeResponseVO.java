@@ -1,4 +1,4 @@
 package com.ssafy.ssafit.dto.response;
 
-public class VideoDetailVO {
+public class LikeResponseVO {
 }
