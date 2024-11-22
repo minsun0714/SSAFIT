@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import VideoCard from "@/components/common/VideoCard.vue";
-
+import BsChevronLeft from "vue3-icons";
 const allVideos = {
   Run: [
     {
@@ -262,18 +262,18 @@ const changeCategory = (category: 'Run' | 'Strength' | 'Relax') => {
   <br>
   <div class="flex space-x-8">
 <!-- Trending Videos Section -->
-<div class="w-1/4">
-  <div class="relative w-full h-full" style="max-width: 480px;">
-    <h2 class="absolute left-0 text-white text-2xl px-4 py-1 rounded z-10" style="top: 10px;">
-      Trending Videos
-    </h2>
-    <p class="absolute left-0 text-white text-xl px-4 py-1 rounded z-10" style="top: 50px;">
-      Discover the most popular videos!
-    </p>
-    <div class="absolute inset-0 bg-black bg-opacity-30 rounded z-0"></div>
-    <img src="@/assets/Home/run.jpg" alt="Popular" class="rounded shadow w-full h-full object-cover filter brightness-75 z-0" />
+  <div class="w-1/4">
+    <div class="relative w-full h-full" style="max-width: 480px;">
+      <h2 class="absolute left-0 text-white text-2xl px-4 py-1 rounded z-10" style="top: 10px;">
+        Trending Videos
+      </h2>
+      <p class="absolute left-0 text-white text-xl px-4 py-1 rounded z-10" style="top: 50px;">
+        Discover the most popular videos!
+      </p>
+      <div class="absolute inset-0 bg-black bg-opacity-30 rounded z-0"></div>
+      <img src="@/assets/Home/run.jpg" alt="Popular" class="rounded shadow w-full h-full object-cover filter brightness-75 z-0" />
+    </div>
   </div>
-</div>
 
     <!-- Video Category Section -->
     <div class="flex-1">
@@ -284,7 +284,7 @@ const changeCategory = (category: 'Run' | 'Strength' | 'Relax') => {
             v-for="option in ['Run', 'Strength', 'Relax']"
             :key="option"
             @click="changeCategory(option)"
-            :class="{'bg-white text-blue-400 font-bold': selectedOption === option, 'text-black': selectedOption !== option}"
+            :class="{'bg-black text-[#E50914] font-bold': selectedOption === option, 'text-white': selectedOption !== option}"
             class="hover:font-bold">
             {{ option }}
           </button>
@@ -292,6 +292,13 @@ const changeCategory = (category: 'Run' | 'Strength' | 'Relax') => {
 
         <!-- Pagination Buttons -->
         <div class="flex space-x-2 mt-4">
+          <BsChevronLeft
+  class="w-6 h-6 text-white hover:text-gray-300 disabled:text-gray-500"
+  @click="goToPreviousPage"
+  :class="{ 'opacity-50 cursor-not-allowed': currentPage === 0 }"
+/>
+
+
           <button @click="goToPreviousPage" :disabled="currentPage === 0">Previous</button>
           <button @click="goToNextPage" :disabled="(currentPage + 1) * videosPerPage >= allVideos[selectedOption].length">Next</button>
         </div>
@@ -317,4 +324,5 @@ const changeCategory = (category: 'Run' | 'Strength' | 'Relax') => {
 </template>
 
 <style scoped>
+
 </style>

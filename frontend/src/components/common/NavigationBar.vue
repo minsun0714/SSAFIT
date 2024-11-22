@@ -16,7 +16,7 @@ const logout = () => {
 </script>
 
 <template>
-  <header class="border p-10 flex flex-row justify-between items-center bg-[#121212]">
+  <header class="p-10 flex flex-row justify-between items-center bg-[#121212]">
     <nav class="w-full flex flex-row justify-between items-center h-98 font-bold">
       <RouterLink :to="{ name: Routes.HOME }" class="logo-text">SSAFIT</RouterLink>
       <div class="flex flex-row gap-x-6">
@@ -31,8 +31,8 @@ const logout = () => {
         <RouterLink :to="{ name: Routes.MYPAGE_LIKED_VIDEOS }">마이페이지</RouterLink>
         <button @click="logout">로그아웃</button>
       </div>
-      <div class="flex flex-row gap-x-1 text-blue-400" v-else>
-        <img :src="profileImg" alt="auth icon" />
+      <div class="flex flex-row gap-x-1 text-[#E50914]" v-else>
+        <!-- <img :src="profileImg" alt="auth icon" /> -->
         <RouterLink :to="{ name: Routes.LOGIN }">Login</RouterLink>
         /
         <RouterLink :to="{ name: Routes.SIGN_UP }">Register</RouterLink>
