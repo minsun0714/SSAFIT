@@ -36,6 +36,13 @@ public class DTOMapper {
                 .build();
     }
 
+    public static FollowVO toFollowVOMapper(List<FollowerVO> followerVOList, List<FollowerVO> followingVOList){
+        return FollowVO.builder()
+                .followerList(followerVOList)
+                .followingList(followingVOList)
+                .build();
+    }
+
     public static ExerciseLogVO toExerciseInfoDTO(ExerciseLog exerciseLog) {
         return ExerciseLogVO.builder()
                 .exerciseLogId(exerciseLog.getExerciseLogId())
