@@ -13,6 +13,8 @@ interface MemberInfoResponse extends Omit<Member, 'password'> {
   role: 'ROLE_ADMIN' | 'ROLE_USER'
 }
 
+export interface FollowInfoResponse extends Follow {}
+
 export interface ExerciseTimerResponse extends Exercise {
   exerciseLogId: number
   caloriesBurned: number

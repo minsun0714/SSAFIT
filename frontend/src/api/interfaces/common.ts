@@ -10,3 +10,8 @@ interface Exercise {
   exerciseType: string
   exerciseTime: number
 }
+
+interface Follow {
+  followingList: Member[]
+  followerList: Member[]
+}
