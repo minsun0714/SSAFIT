@@ -1,7 +1,9 @@
 <template>
   <div class="welcome-container">
     <PopularCarousel />
+    <hr>
     <PopularVideos :popularVideos="popularVideos" />
+    <hr>
     <LatestVideos :latestVideos="latestVideos" />
   </div>
 </template>

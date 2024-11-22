@@ -16,7 +16,7 @@ const logout = () => {
 </script>
 
 <template>
-  <header class="border p-10 flex flex-row justify-between items-center">
+  <header class="border p-10 flex flex-row justify-between items-center bg-[#121212]">
     <nav class="w-full flex flex-row justify-between items-center h-98 font-bold">
       <RouterLink :to="{ name: Routes.HOME }" class="logo-text">SSAFIT</RouterLink>
       <div class="flex flex-row gap-x-6">
@@ -46,15 +46,20 @@ const logout = () => {
   font-size: 2rem;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-weight: bold;
-  color: black;
+  color: #E50914;
   text-transform: uppercase;
 }
 
 .nav-link {
   font-size: 1.1rem;
   padding: 0.5rem;
-  color: black;
+  color: white;
   text-transform: capitalize;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #E50914;
 }
 
 </style>

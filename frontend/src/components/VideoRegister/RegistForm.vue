@@ -2,11 +2,8 @@
   <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-lg">
       <h1 class="text-4xl font-bold text-center mb-6 text-black">Create Your Activity</h1>
-<<<<<<< HEAD
-=======
       <iframe src="https://giphy.com/embed/VFDeGtRSHswfe" width="480" height="302" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
       <br>
->>>>>>> feat/VideoList
       <a-form
         ref="formRef"
         :model="formState"
@@ -46,10 +43,6 @@
       </a-form>
     </div>
   </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> feat/VideoList
 </template>
 
 <script lang="ts" setup>

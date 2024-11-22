@@ -15,22 +15,15 @@ import java.util.Date;
 @Builder
 public class Video {
     private String videoId;
-    private Member member;
+    private String channelTitle;
     private String title;
-    private int viewCount;
-    private Date createdAt;
-    private String part;
-    private String introduceText;
-    private String thumbnailImgUrl;
-    private String videoUrl;
-    private String status;
+    private Long viewCount;
+    private Date publishedAt;
+    private Part part;
+    private VideoStatus videoStatus;
+
+    private Member member;
     private double rating;
-
-    public URL getThumbnailImgUrlAsUrl() throws MalformedURLException {
-        return new URL(thumbnailImgUrl);
-    }
-
-    public URL getVideoUrlAsUrl() throws MalformedURLException {
-        return new URL(videoUrl);
-    }
+    private String introduceText;
+    private String description;
 }

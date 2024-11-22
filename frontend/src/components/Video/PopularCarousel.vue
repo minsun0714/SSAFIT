@@ -284,7 +284,8 @@ const changeCategory = (category: 'Run' | 'Strength' | 'Relax') => {
             v-for="option in ['Run', 'Strength', 'Relax']"
             :key="option"
             @click="changeCategory(option)"
-            :class="{'bg-white text-blue-400': selectedOption === option, 'text-black': selectedOption !== option}">
+            :class="{'bg-white text-blue-400 font-bold': selectedOption === option, 'text-black': selectedOption !== option}"
+            class="hover:font-bold">
             {{ option }}
           </button>
         </div>

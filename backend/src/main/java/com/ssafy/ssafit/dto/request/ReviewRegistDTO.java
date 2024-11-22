@@ -18,5 +18,4 @@ public class ReviewRegistDTO {
     private String videoId;
     private Date createdAt;
     private String content;
-
 }
