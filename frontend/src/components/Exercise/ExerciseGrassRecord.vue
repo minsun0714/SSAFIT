@@ -1,43 +1,49 @@
 <script setup lang="ts">
 import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
+import { getTimeFromSecond } from '@/utils/helperFunction'
+
 const { data } = ExerciseLogApiFacade.useFetchExerciseGrass()
-console.log(data)
+const today = new Date()
+const oneYearAgo = new Date(today)
+oneYearAgo.setFullYear(today.getFullYear() - 1)
+
+const dayOneYearAgo = oneYearAgo.getDay()
 </script>
 
 <template>
-  <div class="flex justify-center border">
-    {{ data }}
-    <!-- <div class="grid grid-flow-col auto-cols-max gap-1">
-      <div v-for="(month, monthIdx) in data" :key="monthIdx" class="flex flex-col items-center">
-        <div
-          :class="`grid gap-1`"
-          :style="{ gridTemplateColumns: `repeat(${month.calendar.length}, minmax(0, 1fr))` }"
-        >
-          <div v-for="(week, weekIdx) in month.calendar" :key="weekIdx" class="flex flex-col gap-1">
-            <HoverCard>
-              <HoverCardTrigger>
-                <div
-                  v-for="(day, dayIdx) in week"
-                  :key="dayIdx"
-                  class="w-4 h-4 rounded-sm"
-                  :class="{
-                    'bg-gray-200': day === 0,
-                    'bg-blue-100': day === 1,
-                    'bg-blue-300': day === 2,
-                    'bg-blue-500': day === 3,
-                    'bg-blue-700': day === 4,
-                  }"
-                ></div>
-              </HoverCardTrigger>
-              <HoverCardContent>
-                {{ month.month + '-' + weekIdx }}
-              </HoverCardContent>
-            </HoverCard>
-          </div>
-        </div>
-        <h3 class="text-xs text-gray-400 mb-2">{{ month.month }}</h3>
+  <section class="flex flex-col justify-center items-center p-4 border">
+    <div class="grid grid-rows-7 grid-flow-col gap-1 w-[1000px] border rounded-xl p-6">
+      <div v-for="emptySpace in dayOneYearAgo" :key="'empty-' + emptySpace" class="w-3 h-3"></div>
+      <div v-for="item in data" :key="item?.date" class="flex items-center">
+        <HoverCard>
+          <HoverCardTrigger as-child>
+            <span
+              class="w-3 h-3 rounded-xs border"
+              :class="{
+                'bg-blue-100': item.level === 1,
+                'bg-blue-200': item.level === 2,
+                'bg-blue-300': item.level === 3,
+                'bg-blue-400': item.level === 4,
+              }"
+            ></span>
+          </HoverCardTrigger>
+          <HoverCardContent class="w-55">
+            <div class="flex justify-between items-center space-x-4 text-gray-600">
+              <span>{{ item?.date }}</span>
+              <span>{{ getTimeFromSecond(item?.exerciseTime) }}</span>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
       </div>
-    </div> -->
-  </div>
+    </div>
+    <div class="w-[1000px] flex justify-end items-center gap-1 text-gray-500">
+      <span>Less</span>
+      <span class="w-3 h-3 rounded-sm bg-blue-100 border"></span>
+      <span class="w-3 h-3 rounded-sm bg-blue-200 border"></span>
+      <span class="w-3 h-3 rounded-sm bg-blue-300 border"></span>
+      <span class="w-3 h-3 rounded-sm bg-blue-400 border"></span>
+      <span>More</span>
+    </div>
+  </section>
 </template>
