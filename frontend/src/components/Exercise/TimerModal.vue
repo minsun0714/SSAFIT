@@ -8,21 +8,30 @@ import TimerModalTimer from './TimerModalTimer.vue'
 import { Button } from 'ant-design-vue'
 import { useExerciseStore } from '@/stores/exerciseType'
 import { Timer } from '@/utils/helperClass'
+import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
+import { FormField } from '../ui/form'
+import FormItem from '../ui/form/FormItem.vue'
+import FormLabel from '../ui/form/FormLabel.vue'
+import FormControl from '../ui/form/FormControl.vue'
+import Input from '../ui/input/Input.vue'
+import FormMessage from '../ui/form/FormMessage.vue'
+import { z } from 'zod'
+import { useForm } from 'vee-validate'
+import WeightInput from './WeightInput.vue'
 
 const currentStep = ref<number>(0)
 
 const exerciseStore = useExerciseStore()
 
+const formSchema = z.object({
+  weight: z.number().positive().default(0)
+})
+
 const handleClickNext = () => {
-  if (!exerciseStore.exercise) {
-    alert('운동을 선택해주세요')
-    return
-  }
   currentStep.value += 1
 }
 
 const handleClickPrevious = () => {
-  Timer.confirmTimerReset()
   currentStep.value -= 1
 }
 </script>
@@ -36,8 +45,17 @@ const handleClickPrevious = () => {
       <DialogContent class="flex flex-row justify-center items-center pt-6">
         <template v-if="currentStep === 0">
           <div class="">
+            <div class="py-3 w-full flex justify-end">
+              
+              <WeightInput :handle-click-next="handleClickNext"/>
+            </div>
+          </div>
+        </template>
+        <template v-else-if="currentStep === 1">
+          <div class="">
             <TimerModalExerciseTypeTable />
             <div class="py-3 w-full flex justify-end">
+              <Button text="이전" @click="handleClickPrevious">이전</Button>
               <Button text="다음" @click="handleClickNext">다음</Button>
             </div>
           </div>

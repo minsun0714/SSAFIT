@@ -41,6 +41,13 @@ class MemberService {
     return response.data
   }
 
+  private static async _updateWeight(weight: number): Promise<void> {
+    const response = await api.patch(this.path + '/weight', {
+      weight,
+    })
+    return response.data
+  }
+
   private static async _deleteUserInfo(): Promise<void> {
     await api.delete(this.path)
   }
@@ -56,6 +63,10 @@ class MemberService {
 
   static updateUserInfo(updatedUserInfo: MemberInfoRequest): Promise<MemberInfoResponse> {
     return this._updateUserInfo(updatedUserInfo)
+  }
+
+  static updateWeight(weight: number): Promise<void> {
+    return this._updateWeight(weight)
   }
 
   static deleteUserInfo(): Promise<void> {

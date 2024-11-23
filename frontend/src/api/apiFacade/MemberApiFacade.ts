@@ -46,6 +46,17 @@ class MemberApiFacade {
     })
   }
 
+  static useUpdateWeight() {
+    return useMutation({
+      mutationFn: (weight: number) =>
+        MemberService.updateWeight(weight),
+      onSuccess: () => {
+        queryClient.invalidateQueries()
+        queryClient.refetchQueries()
+      },
+    })
+  }
+
   static useDeleteUser() {
     return useMutation({ mutationFn: () => MemberService.deleteUserInfo() })
   }
