@@ -2,6 +2,7 @@ package com.ssafy.ssafit.controller;
 
 import com.ssafy.ssafit.dto.request.MemberInfoRequestDTO;
 import com.ssafy.ssafit.dto.request.SignUpRequestDTO;
+import com.ssafy.ssafit.dto.request.UpdateWeightRequestDTO;
 import com.ssafy.ssafit.dto.response.MemberInfoResponseDTO;
 import com.ssafy.ssafit.dto.response.SignUpResponseDTO;
 import com.ssafy.ssafit.service.MemberService;
@@ -57,6 +58,15 @@ public class MemberController {
        MemberInfoResponseDTO updatedUser = memberService.updateMember(myInfoUpdateDTO, profileImg);
        return ResponseEntity.ok(updatedUser);
    }
+
+    @PatchMapping("/weight")
+    public ResponseEntity<MemberInfoResponseDTO> updateWeight(@RequestBody UpdateWeightRequestDTO updateWeightRequestDTO) {
+        System.out.println("Weight Update Request: " + updateWeightRequestDTO);
+
+        // Service 로직 호출
+        MemberInfoResponseDTO updatedUser = memberService.updateWeight(updateWeightRequestDTO);
+        return ResponseEntity.ok(updatedUser);
+    }
 
 
     // 유저 삭제

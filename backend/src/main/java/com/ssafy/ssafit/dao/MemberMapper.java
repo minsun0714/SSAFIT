@@ -13,6 +13,8 @@ public interface MemberMapper {
 
     void updateMember(Member member);
 
+    void updateWeight(Member member);
+
     void deleteByMemberId(String memberId);
 
     boolean existsByMemberId(String memberId);

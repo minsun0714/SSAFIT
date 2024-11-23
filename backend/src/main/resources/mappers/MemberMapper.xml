@@ -40,6 +40,13 @@
         WHERE member_id = #{memberId};
     </update>
 
+    <update id="updateWeight" parameterType="Member">
+        UPDATE members
+        SET
+        weight = #{weight}
+        WHERE member_id = #{memberId};
+    </update>
+
     <!-- DELETE: 특정 회원 삭제 -->
     <delete id="deleteByMemberId" parameterType="string">
         DELETE FROM members

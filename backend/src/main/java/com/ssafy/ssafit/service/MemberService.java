@@ -5,6 +5,7 @@ import com.ssafy.ssafit.domain.JwtToken;
 import com.ssafy.ssafit.domain.Role;
 import com.ssafy.ssafit.dto.request.MemberInfoRequestDTO;
 import com.ssafy.ssafit.dto.request.SignUpRequestDTO;
+import com.ssafy.ssafit.dto.request.UpdateWeightRequestDTO;
 import com.ssafy.ssafit.dto.response.MemberInfoResponseDTO;
 import com.ssafy.ssafit.domain.Member;
 import com.ssafy.ssafit.dto.response.SignUpResponseDTO;
@@ -14,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -129,6 +131,30 @@ public class MemberService {
 
         // 업데이트된 정보 반환
         return toMemberInfoDTO(member);
+    }
+
+    public MemberInfoResponseDTO updateWeight(UpdateWeightRequestDTO updateWeightRequestDTO) {
+        // 사용자 ID를 인증 정보에서 가져온다고 가정
+        String memberId = getAuthenticatedMemberId();
+
+        // 사용자 정보 조회
+        Member member = memberMapper.findByMemberId(memberId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        String password = memberMapper.findPasswordByMemberId(memberId);
+
+        // 몸무게 업데이트
+        System.out.println(member);
+        member.setWeight(updateWeightRequestDTO.getWeight());
+        memberMapper.updateWeight(member);
+
+        // 업데이트된 정보를 반환
+        return toMemberInfoDTO(member);
+    }
+
+    private Long getCurrentUserId() {
+        // 예시: 인증된 사용자 ID를 반환
+        return 1L; // 실제 구현에서는 SecurityContextHolder 등을 사용
     }
 
 
