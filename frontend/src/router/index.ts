@@ -1,6 +1,32 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory,
+  type NavigationGuardNext,
+  type RouteLocationNormalized,
+} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { Routes } from '@/utils/enum'
+
+const isAuthenticated = () => {
+  return !!localStorage.getItem('token')
+}
+
+const requireAuth = (
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext,
+) => {
+  if (isAuthenticated()) {
+    next()
+  } else {
+    const userConfirmed = confirm('로그인이 필요한 요청입니다. 로그인 하시겠습니까?')
+    if (userConfirmed) {
+      next({ name: Routes.LOGIN })
+    } else {
+      next(false)
+    }
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,9 +47,11 @@ const router = createRouter({
       component: () => import('../views/SignUpView.vue'),
     },
     {
+      // 컴포넌트 가드 필요
       path: '/mypage',
       name: Routes.MY_PAGE,
       component: () => import('../views/MyPageView.vue'),
+      beforeEnter: requireAuth,
       children: [
         {
           path: 'liked-videos',
@@ -90,11 +118,13 @@ const router = createRouter({
       path: '/createVideo',
       name: Routes.CREATE_VIDEO,
       component: () => import('../views/VideoCreateView.vue'),
+      beforeEnter: requireAuth
     },
     {
       path: '/exercise',
       name: Routes.EXERCISE,
       component: () => import('../views/ExerciseView.vue'),
+      beforeEnter: requireAuth
     },
     { path: '/:catchAll(.*)', redirect: '/' }, // 404 처리
   ],
