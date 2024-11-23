@@ -29,7 +29,6 @@ class MemberApiFacade {
         const accessToken = response.accessToken
         localStorage.setItem('token', accessToken)
         router.push('/')
-        alert('회원가입 성공 후 로그인되었습니다.')
       },
       retry: 0,
     })
@@ -40,7 +39,9 @@ class MemberApiFacade {
       mutationFn: (updatedUserInfo: MemberInfoRequest) =>
         MemberService.updateUserInfo(updatedUserInfo),
       onSuccess: () => {
+        queryClient.invalidateQueries()
         queryClient.refetchQueries()
+        alert('수정되었습니다.')
       },
     })
   }

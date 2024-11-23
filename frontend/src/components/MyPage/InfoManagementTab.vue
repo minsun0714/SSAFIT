@@ -23,6 +23,7 @@ const zodSchema = z.object({
     .min(8, '비밀번호는 최소 8자 이상이어야 합니다.')
     .max(50, '비밀번호는 최대 50자까지 가능합니다.'),
   passwordConfirm: z.string().min(8).max(50),
+  weight: z.number().positive()
 })
 
 const formSchema = toTypedSchema(zodSchema)
@@ -43,6 +44,7 @@ const form = useForm<FormValues>({
     nickname: data?.value.nickname ?? '',
     password: '',
     passwordConfirm: '',
+    weight: data?.value.weight
   },
 })
 
@@ -118,6 +120,19 @@ const onSubmit = form.handleSubmit((values: FormValues) => {
           <FormMessage />
         </FormItem>
       </FormField>
+
+      <!-- 몸무게 필드 -->
+      <FormField v-slot="{ componentField }" name="weight">
+          <FormItem>
+            <FormLabel>몸무게</FormLabel>
+            <FormControl>
+              <Input type="number" v-bind="componentField" />
+            </FormControl>
+            <div class="min-h-5">
+              <FormMessage />
+            </div>
+          </FormItem>
+        </FormField>
 
       <!-- 비밀번호 필드 -->
       <FormField v-slot="{ componentField }" name="password">
