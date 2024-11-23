@@ -15,6 +15,7 @@ import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import TimerModalPagination from './TimerModalPagination.vue'
 import TimerModalNoResult from './TimerModalNoResult.vue'
+import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
 
 const exerciseStore = useExerciseStore()
 
@@ -23,7 +24,8 @@ const route = useRoute()
 
 const exerciseType = ref(route.query.exerciseType || '')
 
-const { data, refetch } = ExerciseTypeApiFacade.useFetchPagedExerciseType(5)
+const { data: pagedExerciseType, refetch } = ExerciseTypeApiFacade.useFetchPagedExerciseType(5)
+const { data: memberInfo } = MemberApiFacade.useFetchUserInfo()
 
 watch(
   exerciseType,
@@ -50,7 +52,7 @@ watch(
     >
       {{ exerciseStore.exercise ? exerciseStore.exercise : '운동을 선택해주세요.' }}
     </p>
-    <div v-if="data?.data.length">
+    <div v-if="pagedExerciseType?.data.length">
       <Table class="border">
         <TableHeader>
           <TableRow class="flex flex-row items-center justify-center">
@@ -62,7 +64,7 @@ watch(
         </TableHeader>
         <TableBody>
           <TableRow
-            v-for="(item, index) in data?.data"
+            v-for="(item, index) in pagedExerciseType?.data"
             :key="index"
             class="cursor-pointer flex flex-row"
             @click="exerciseStore.handleClickExercise(item.운동명)"
@@ -70,13 +72,14 @@ watch(
           >
             <TableCell class="flex justify-center w-full">{{ item.운동명 }}</TableCell>
             <TableCell class="flex justify-center w-full"
-              >{{ item['MET 계수'] }} X {{ 60 }} = {{ item['MET 계수'] * 60 }}kcal</TableCell
+              >{{ item['MET 계수'] }} X {{ memberInfo?.weight }} =
+              {{ item['MET 계수'] * memberInfo.weight }}kcal</TableCell
             >
           </TableRow>
         </TableBody>
       </Table>
-      <TimerModalPagination :data="data" />
+      <TimerModalPagination :data="pagedExerciseType" />
     </div>
-    <div v-if="data?.totalItems === 0"><TimerModalNoResult /></div>
+    <div v-if="pagedExerciseType?.totalItems === 0"><TimerModalNoResult /></div>
   </div>
 </template>

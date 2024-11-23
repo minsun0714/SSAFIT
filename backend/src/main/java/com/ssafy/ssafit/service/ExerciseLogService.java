@@ -44,7 +44,7 @@ public class ExerciseLogService {
         ExerciseMetData exerciseMetData = exerciseMetService.getMetData(exerciseInfoRequestDTO.getExerciseType());
 
         Member member = memberMapper.findByMemberId(memberId).orElseThrow();
-        // 체중은 사용자로부터 입력받는다고 가정 (필요시 RequestDTO에 weight 필드 추가)
+
         int weight = Optional.of(member.getWeight()).orElse(65);
 
         // 초 단위 운동 시간을 시간 단위로 변환
