@@ -53,6 +53,12 @@ public class ExerciseLogController {
         return ResponseEntity.ok(exerciseLogVO);
     }
 
+    @GetMapping("/grass/{memberId}")
+    public ResponseEntity<List<ExerciseGrassVO>> getYearlyExerciseGrassById(@PathVariable String memberId) {
+        List<ExerciseGrassVO> exerciseLogVO = exerciseLogService.getOthersYearlyExerciseGrass(memberId);
+        return ResponseEntity.ok(exerciseLogVO);
+    }
+
     // 운동 기록 삭제
     @DeleteMapping("/{exerciseLogId}")
     public ResponseEntity<Void> deleteExerciseLog(@PathVariable Long exerciseLogId) {

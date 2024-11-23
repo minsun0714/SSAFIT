@@ -31,6 +31,14 @@ public class FollowController {
         return ResponseEntity.ok(followVO);
     }
 
+    // 다른 사람의 팔로우 관계
+    @GetMapping("/{memberId}")
+    public ResponseEntity<FollowVO> getFollows(@PathVariable String memberId){
+        FollowVO followVO = followService.getOthersFollowRelationship(memberId);
+
+        return ResponseEntity.ok(followVO);
+    }
+
     // 언팔로우
     @DeleteMapping
     public ResponseEntity<Void> unfollow(@RequestParam String followerId){

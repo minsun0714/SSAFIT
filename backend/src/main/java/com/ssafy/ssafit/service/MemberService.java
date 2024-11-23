@@ -86,6 +86,21 @@ public class MemberService {
         return toMemberInfoDTO(member);
     }
 
+    // 특정 사용자의 데이터 조회
+    public MemberInfoResponseDTO getMemberInfoByMemberId(String memberId) {
+
+        Member member = memberMapper.findByMemberId(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Member not found"));
+
+        // 타인의 데이터는 제한된 정보만 반환
+        return MemberInfoResponseDTO.builder()
+                .memberId(memberId)
+                .name(member.getName())
+                .nickname(member.getNickname())
+                .profileImg(member.getProfileImg())
+                .build();
+    }
+
     // 사용자 정보 업데이트
     @Transactional
     public MemberInfoResponseDTO updateMember(MemberInfoRequestDTO memberRequestDTO, MultipartFile profileImg) {

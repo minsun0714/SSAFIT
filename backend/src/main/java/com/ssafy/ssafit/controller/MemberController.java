@@ -30,10 +30,18 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
-    // 특정 유저 조회
+    // 내 정보 조회
     @GetMapping
-    public ResponseEntity<MemberInfoResponseDTO> getUserById() {
+    public ResponseEntity<MemberInfoResponseDTO> getMemberById() {
         MemberInfoResponseDTO user = memberService.getMemberById();
+        return ResponseEntity.ok(user);
+    }
+
+    // 다른 사람 정보 조회
+    @GetMapping("/{memberId}")
+    public ResponseEntity<MemberInfoResponseDTO> getMemberById(@PathVariable String memberId) {
+        // 특정 사용자의 정보를 가져옴
+        MemberInfoResponseDTO user = memberService.getMemberInfoByMemberId(memberId);
         return ResponseEntity.ok(user);
     }
 

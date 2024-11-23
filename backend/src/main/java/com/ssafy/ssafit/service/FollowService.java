@@ -42,6 +42,14 @@ public class FollowService {
         return toFollowVOMapper(followers, followings);
     }
 
+    public FollowVO getOthersFollowRelationship(String memberId) {
+
+        List<FollowerVO> followers = followMapper.selectFollowers(memberId);
+        List<FollowerVO> followings = followMapper.selectFollowings(memberId);
+
+        return toFollowVOMapper(followers, followings);
+    }
+
     public void unfollow(String followerId) {
         String memberId = getAuthenticatedMemberId();
 

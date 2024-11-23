@@ -126,6 +126,35 @@ public class ExerciseLogService {
         return result;
     }
 
+    public List<ExerciseGrassVO> getOthersYearlyExerciseGrass(String memberId) {
+        // 오늘 날짜와 1년 전 날짜 계산
+        LocalDate today = LocalDate.now();
+        LocalDate oneYearAgo = today.minusYears(1);
+
+        // 1년간 날짜별 운동 데이터 작성
+        List<ExerciseGrassVO> result = new ArrayList<>();
+        LocalDate currentDate = oneYearAgo;
+
+        while (!currentDate.isAfter(today)) {
+            // 운동 시간 조회
+            int dailyTotalExerciseTime = exerciseLogMapper.selectTotalExerciseTimeByDate(memberId, Date.valueOf(currentDate));
+
+            // 운동 레벨 계산
+            int level = dailyTotalExerciseTime == 0 ? 0 : Math.min((int) (dailyTotalExerciseTime / 30) + 1, 4);
+
+            // LocalDate를 문자열로 변환 (yyyy-MM-dd 형식)
+            String currentDateStr = currentDate.toString();
+
+            // VO 생성 및 리스트에 추가
+            result.add(new ExerciseGrassVO(currentDateStr, level, dailyTotalExerciseTime));
+
+            // 하루 증가
+            currentDate = currentDate.plusDays(1);
+        }
+
+        return result;
+    }
+
     // 운동 기록 삭제
     @Transactional
     public void deleteExerciseLog(Long exerciseLogId) {
