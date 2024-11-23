@@ -13,6 +13,7 @@ import { useExerciseStore } from '@/stores/exerciseType'
 import ExerciseTypeApiFacade from '@/api/apiFacade/ExerciseTypeApiFacade'
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useDebounce } from '@vueuse/core'
 import TimerModalPagination from './TimerModalPagination.vue'
 import TimerModalNoResult from './TimerModalNoResult.vue'
 import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
@@ -24,11 +25,14 @@ const route = useRoute()
 
 const exerciseType = ref(route.query.exerciseType || '')
 
+const debouncedExerciseType = useDebounce(exerciseType, 300)
+
 const { data: pagedExerciseType, refetch } = ExerciseTypeApiFacade.useFetchPagedExerciseType(5)
 const { data: memberInfo } = MemberApiFacade.useFetchUserInfo()
 
+// 디바운싱된 값이 변경될 때 동작
 watch(
-  exerciseType,
+  debouncedExerciseType,
   (newKeyword) => {
     router.push({ query: { ...route.query, exerciseType: newKeyword, page: 1 } })
     refetch()
