@@ -48,6 +48,23 @@ const router = createRouter({
       ],
     },
     {
+      path: '/mypage/:memberId',
+      name: 'others-mypage',
+      component: () => import('../views/MyPageView.vue'),
+      children: [
+        {
+          path: 'liked-videos',
+          name: 'others-liked-videos',
+          component: () => import('../components/MyPage/LikedVideoListTab.vue'),
+        },
+        {
+          path: 'reviews',
+          name: 'others-reviews',
+          component: () => import('../components/MyPage/MyReviewListTab.vue'),
+        },
+      ],
+    },
+    {
       path: '/video/:id',
       name: Routes.VIDEO,
       component: () => import('../views/VideoDetailView.vue'),
@@ -55,14 +72,14 @@ const router = createRouter({
         {
           path: 'video-play',
           name: Routes.VIDEO_PLAY,
-          component: () => import('../components/VideoDetail/VideoPlayTab.vue')
+          component: () => import('../components/VideoDetail/VideoPlayTab.vue'),
         },
         {
           path: 'video-reviews',
           name: Routes.VIDEO_REVIEWS,
           component: () => import('../components/VideoDetail/VideoReviewListTab.vue'),
         },
-      ]
+      ],
     },
     {
       path: '/videos',

@@ -8,7 +8,7 @@ interface LoginResponse {
   accessToken: string
 }
 
-interface MemberInfoResponse extends Omit<Member, 'password'> {
+export interface MemberInfoResponse extends Omit<Member, 'password'> {
   profileImg: string
   role: 'ROLE_ADMIN' | 'ROLE_USER'
 }
