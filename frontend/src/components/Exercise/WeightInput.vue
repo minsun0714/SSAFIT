@@ -37,7 +37,9 @@ const form = useForm<FormValues>({
 })
 
 const onSubmit = form.handleSubmit((value) => {
-  mutateAsync(value.weight).then(() => handleClickNext())
+  mutateAsync(value.weight)
+    .then(() => handleClickNext())
+    .catch((error) => alert(error.message))
 })
 </script>
 
