@@ -20,9 +20,10 @@
         exercise_log
         WHERE
         member_id = #{memberId}
-        AND WEEK(exercise_date, 1) = WEEK(now())
+        AND WEEK(exercise_date, 0) = WEEK(now(), 0)  -- 0: 주의 시작이 일요일
         AND YEAR(exercise_date) = YEAR(now())
     </select>
+
     <select id="selectLastWeekExerciseData" parameterType="string" resultMap="exerciseDataMap">
         SELECT
         ROUND(IFNULL(SUM(exercise_time), 0.0), 2) AS totalExerciseTime,
@@ -32,9 +33,9 @@
         exercise_log
         WHERE
         member_id = #{memberId}
-        AND WEEK(exercise_date, 1) = WEEK(now(), 1)
-        AND YEAR(exercise_date) = YEAR(now())
+        AND YEARWEEK(exercise_date, 0) = YEARWEEK(NOW(), 0) - 1  -- 지난 주
     </select>
+
     <select id="selectOneExerciseLog" parameterType="Long" resultType="ExerciseLog">
         SELECT * FROM exercise_log WHERE exercise_log_id = #{exerciseLogId};
     </select>
