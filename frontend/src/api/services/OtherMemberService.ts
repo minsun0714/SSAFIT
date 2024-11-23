@@ -12,12 +12,12 @@ class OtherMemberService {
    * Private: 특정 사용자 정보 조회
    */
   private static async _fetchUserInfo(memberId: string): Promise<MemberInfoResponse> {
-    const response = await api.get(`${this.path}/${memberId}`)
+    const response = await api.get(`${this.path}/members/${memberId}`)
     return response.data
   }
 
   private static async _fetchExerciseGrass(memberId: string): Promise<ExerciseGrass[]> {
-    const response = await api.get(`${this.path}/grass/${memberId}`)
+    const response = await api.get(`${this.path}/exercise-log/grass/${memberId}`)
     return response.data
   }
 
