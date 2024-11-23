@@ -31,6 +31,7 @@ type FormValues = z.infer<typeof zodSchema>
 
 // 서버에서 유저 데이터 불러오기
 const { data } = MemberApiFacade.useFetchUserInfo()
+console.log(data?.value.profileImg)
 const { mutate } = MemberApiFacade.useUpdateUser()
 
 // 폼 초기화

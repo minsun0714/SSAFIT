@@ -6,6 +6,7 @@ import { PurpleCardIcon } from '../../assets'
 import TimerModal from './TimerModal.vue'
 
 const { data } = ExerciseLogApiFacade.useFetchCardDataList()
+console.log(data?.value?.[0]?.profileImg)
 </script>
 
 <template>
@@ -27,7 +28,7 @@ const { data } = ExerciseLogApiFacade.useFetchCardDataList()
               }}{{ cardData.cardType }}
             </p>
           </div>
-          <img :src="PurpleCardIcon" alt="icon" class="h-12 w-12" />
+          <img :src="cardData?.cardIconUrl" alt="icon" class="h-12 w-12" />
         </div>
         <p class="flex items-center w-full text-xs px-4 pb-3">
           <img :src="cardData.up ? Up : Down" alt="change" class="h-4 w-4 m-2" />

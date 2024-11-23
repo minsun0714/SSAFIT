@@ -63,7 +63,7 @@ public class DTOMapper {
 
         ExerciseCardDataDTO exerciseTimeCard = ExerciseCardDataDTO.builder()
                 .title("이번주 운동시간")
-                .cardIconUrl("exercise_time_icon.png")
+                .cardIconUrl("https://ssafit.s3.ap-northeast-2.amazonaws.com/uploads/d2526f13-8486-4410-9a18-f3132b271ca6_GreenCardIcon.svg")
                 .cardType(CardType.MINUTE)
                 .currentValue(thisWeekExerciseTime)
                 .lastValue(lastWeekExerciseTime)
@@ -78,7 +78,7 @@ public class DTOMapper {
 
         ExerciseCardDataDTO caloriesBurnedCard = ExerciseCardDataDTO.builder()
                 .title("이번주 소모 칼로리")
-                .cardIconUrl("calories_burned_icon.png")
+                .cardIconUrl("https://ssafit.s3.ap-northeast-2.amazonaws.com/uploads/64473e21-8128-47bb-8670-62e01e15e9e9_YellowCardIcon.svg")
                 .cardType(CardType.KCAL)
                 .currentValue(thisWeekCaloriesBurned)
                 .lastValue(lastWeekCaloriesBurned)
@@ -93,7 +93,7 @@ public class DTOMapper {
 
         ExerciseCardDataDTO fatBurnedCard = ExerciseCardDataDTO.builder()
                 .title("이번주 없애버린 지방")
-                .cardIconUrl("fat_burned_icon.png")
+                .cardIconUrl("https://ssafit.s3.ap-northeast-2.amazonaws.com/uploads/d8ea42aa-24aa-46ee-b008-c52d1f80a0ea_PurpleCardIcon.svg")
                 .cardType(CardType.KG)
                 .currentValue(thisWeekFatBurned)
                 .lastValue(lastWeekFatBurned)
