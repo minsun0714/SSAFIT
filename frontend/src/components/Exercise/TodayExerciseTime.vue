@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
 import TimerModal from './TimerModal.vue'
-import { getStringDateFromDate, getTimeFromSecond } from '@/utils/helperFunction';
+import { getStringDateFromDate, getTimeFromSecond } from '@/utils/helperFunction'
 
 const { data } = ExerciseLogApiFacade.useFetchExerciseLogsByDate(getStringDateFromDate(new Date()))
-console.log(getStringDateFromDate(new Date()))
 </script>
 
 <template>
