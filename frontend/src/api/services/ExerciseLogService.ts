@@ -28,7 +28,6 @@ class ExerciseLogService {
 
   private static async _fetchExerciseGrass(): Promise<ExerciseGrass[]> {
     const response = await api.get(this.path + '/grass')
-    console.log(response.data)
     return response.data
   }
 
@@ -37,26 +36,26 @@ class ExerciseLogService {
   }
 
   // Public 메서드로 외부에서 사용할 수 있도록 제공
-  static async createExerciseLog(
+  static createExerciseLog(
     exerciseLogInfo: ExerciseTimerRequest,
   ): Promise<ExerciseTimerResponse> {
-    return await this._createExerciseLog(exerciseLogInfo)
+    return this._createExerciseLog(exerciseLogInfo)
   }
 
-  static async fetchCardDataList(): Promise<ExerciseCard[]> {
-    return await this._fetchCardDataList()
+  static fetchCardDataList(): Promise<ExerciseCard[]> {
+    return this._fetchCardDataList()
   }
 
-  static async fetchExerciseLogsByDate(date: string): Promise<ExerciseLogResponse> {
-    return await this._fetchExerciseLogsByDate(date)
+  static fetchExerciseLogsByDate(date: string): Promise<ExerciseLogResponse> {
+    return this._fetchExerciseLogsByDate(date)
   }
 
-  static async fetchExerciseGrass(): Promise<ExerciseGrass[]> {
-    return await this._fetchExerciseGrass()
+  static fetchExerciseGrass(): Promise<ExerciseGrass[]> {
+    return this._fetchExerciseGrass()
   }
 
-  static async deleteExerciseLog(exerciseLogId: number): Promise<void> {
-    return await this._deleteExerciseLog(exerciseLogId)
+  static deleteExerciseLog(exerciseLogId: number): Promise<void> {
+    return this._deleteExerciseLog(exerciseLogId)
   }
 }
 

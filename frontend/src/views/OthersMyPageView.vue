@@ -3,25 +3,20 @@ import CommonTab from '@/components/common/CommonTab.vue'
 import ExerciseGrassRecord from '@/components/MyPage/ExerciseGrassRecord.vue'
 import MyProfile from '@/components/MyPage/MyProfile.vue'
 import { Routes } from '@/utils/enum'
-import MyPageContext from './MyPageContext.vue'
+import OtherMemberMyPageContext from './OtherMemberMyPageContext.vue'
 
-const tabs = ['좋아요한 영상', '남긴 후기', '정보관리', 'Admin']
+const tabs = ['좋아요한 영상', '남긴 후기']
 
-const routesMap = [
-  Routes.MYPAGE_LIKED_VIDEOS,
-  Routes.MYPAGE_REVIEWS,
-  Routes.MYPAGE_INFO,
-  Routes.MYPAGE_ADMIN,
-]
+const routesMap = [Routes.MYPAGE_LIKED_VIDEOS, Routes.MYPAGE_REVIEWS]
 </script>
 
 <template>
   <main>
-    <MyPageContext>
+    <OtherMemberMyPageContext>
       <MyProfile />
       <ExerciseGrassRecord />
       <CommonTab :tabs="tabs" :routesMap="routesMap" />
       <RouterView />
-    </MyPageContext>
+    </OtherMemberMyPageContext>
   </main>
 </template>

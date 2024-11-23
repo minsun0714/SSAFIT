@@ -23,6 +23,7 @@ const logout = () => {
         <RouterLink :to="{ name: Routes.VIDEOS }" class="nav-link">Video</RouterLink>
         <RouterLink :to="{ name: Routes.EXERCISE }" class="nav-link">Record</RouterLink>
         <RouterLink :to="{ name: Routes.CREATE_VIDEO }" class="nav-link">Regist</RouterLink>
+        <RouterLink :to="'/mypage/kangmin'" class="nav-link">다른 사람 마이페이지</RouterLink>
         <a class="nav-link">About</a>
       </div>
       <div v-if="isSuccess" class="flex flex-row gap-x-2 text-blue-400">
@@ -46,7 +47,7 @@ const logout = () => {
   font-size: 2rem;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-weight: bold;
-  color: #E50914;
+  color: #e50914;
   text-transform: uppercase;
 }
 
@@ -59,7 +60,6 @@ const logout = () => {
 }
 
 .nav-link:hover {
-  color: #E50914;
+  color: #e50914;
 }
-
 </style>

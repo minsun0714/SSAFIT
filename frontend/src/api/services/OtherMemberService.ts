@@ -13,19 +13,16 @@ class OtherMemberService {
    */
   private static async _fetchUserInfo(memberId: string): Promise<MemberInfoResponse> {
     const response = await api.get(`${this.path}/members/${memberId}`)
-    console.log(response.data)
     return response.data
   }
 
   private static async _fetchExerciseGrass(memberId: string): Promise<ExerciseGrass[]> {
     const response = await api.get(`${this.path}/exercise-log/grass/${memberId}`)
-    console.log(response.data)
     return response.data
   }
 
   private static async _fetchFollowRelations(memberId: string): Promise<FollowInfoResponse> {
     const response = await api.get(`${this.path}/follows/${memberId}`)
-    console.log(response.data)
     return response.data
   }
 

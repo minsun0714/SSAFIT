@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
+import { inject, Ref } from 'vue'
 import MyProfileFollow from './MyProfileFollow.vue'
-const { data } = MemberApiFacade.useFetchUserInfo()
+import { MemberInfoResponse } from '@/api/interfaces/response'
 
+const data = inject<Ref<MemberInfoResponse | undefined>>('userInfo')
 </script>
 
 <template>
@@ -17,14 +18,14 @@ const { data } = MemberApiFacade.useFetchUserInfo()
     <div class="flex flex-col">
       <div class="h-full flex flex-row justify-center items-center">
         <h1 class="w-full">
-          <p class="font-bold text-xl">{{ data.name }}</p>
-          <p class="text-sm text-gray-500"># {{ data.nickname }}</p>
+          <p class="font-bold text-xl">{{ data?.name }}</p>
+          <p class="text-sm text-gray-500"># {{ data?.nickname }}</p>
         </h1>
         <MyProfileFollow />
       </div>
-      <p class="flex justify-center items-center h-full w-96 text-xs text-gray-400">
+      <!-- <p class="flex justify-center items-center h-full w-96 text-xs text-gray-400">
         {{ data.introduceText }}
-      </p>
+      </p> -->
     </div>
   </div>
 </template>

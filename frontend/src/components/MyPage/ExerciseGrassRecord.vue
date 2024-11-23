@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
+import { ExerciseGrass } from '@/api/interfaces/response'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
 import { getTimeFromSecond } from '@/utils/helperFunction'
+import { inject, Ref } from 'vue'
 
-const { data } = ExerciseLogApiFacade.useFetchExerciseGrass()
+const data = inject<Ref<ExerciseGrass[] | undefined>>('grassInfo')
+
 const today = new Date()
 const oneYearAgo = new Date(today)
 oneYearAgo.setFullYear(today.getFullYear() - 1)

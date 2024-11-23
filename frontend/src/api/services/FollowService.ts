@@ -1,5 +1,4 @@
 import api from '../apiClient'
-import type { MemberInfoRequest } from '../interfaces/request'
 import type { FollowInfoResponse } from '../interfaces/response'
 
 class FollowService {
@@ -17,7 +16,6 @@ class FollowService {
 
   private static async _fetchFollowRelations(): Promise<FollowInfoResponse> {
     const response = await api.get(this.path)
-    console.log(response.data)
     return response.data
   }
 
@@ -30,16 +28,16 @@ class FollowService {
   }
 
   // Public 메서드로 외부에서 사용할 수 있도록 제공
-  static follow(followerId: string): Promise<void> {
-    return this._follow(followerId)
+  static async follow(followerId: string): Promise<void> {
+    return await this._follow(followerId)
   }
 
   static fetchFollowRelations(): Promise<FollowInfoResponse> {
     return this._fetchFollowRelations()
   }
 
-  static unfollow(followerId: string): Promise<void> {
-    return this._unfollow(followerId)
+  static async unfollow(followerId: string): Promise<void> {
+    return await this._unfollow(followerId)
   }
 }
 

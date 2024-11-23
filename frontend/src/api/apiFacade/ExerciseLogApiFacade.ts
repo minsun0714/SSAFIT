@@ -37,11 +37,10 @@ class ExerciseLogApiFacade {
     return useQuery({
       queryKey: ['exerciseGrass'],
       queryFn: async () => {
-        const data = await ExerciseLogService.fetchExerciseGrass()
-        return data
+        const result = await ExerciseLogService.fetchExerciseGrass()
+        console.log(result)
+        return result
       },
-      staleTime: 0,
-      gcTime: 0,
     })
   }
 

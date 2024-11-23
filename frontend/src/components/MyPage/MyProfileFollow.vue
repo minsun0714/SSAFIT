@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import FollowApiFacade from '@/api/apiFacade/FollowAPIFacade'
+import { FollowInfoResponse } from '@/api/interfaces/response'
+import { inject, Ref } from 'vue'
 
-const { data } = FollowApiFacade.useFetchFollowRelations()
+const follows = inject<Ref<FollowInfoResponse | undefined>>('followInfo')
+console.log('follow' + follows)
 </script>
 
 <template>
   <h2 class="w-40 text-center">
     팔로워
-    <p class="font-bold">{{ data?.followerList.length }}</p>
+    <p class="font-bold">{{ follows?.followerList.length }}</p>
   </h2>
   <h2 class="w-40 text-center">
     팔로잉
-    <p class="font-bold">{{ data?.followingList.length }}</p>
+    <p class="font-bold">{{ follows?.followingList.length }}</p>
   </h2>
 </template>
