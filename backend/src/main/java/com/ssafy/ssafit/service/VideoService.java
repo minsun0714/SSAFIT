@@ -71,4 +71,13 @@ public class VideoService {
     public List<Video> searchVideos(String keyword) {
         return videoMapper.searchByKeyword(keyword);
     }
+
+    // admin에서 pending 상태인 비디오 조회
+    public List<Video> getPendingVideos(int page) { return videoMapper.selectPendingVideos(page); }
+
+    // admin에서 승인
+    public void updateStatusToApproved(String videoId) { videoMapper.updateStatusToApproved(videoId);}
+
+    // admin에서 거절
+    public void updateStatusToRejected(String videoId) { videoMapper.updateStatusToRejected(videoId);}
 }

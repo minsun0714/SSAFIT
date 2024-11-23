@@ -69,4 +69,24 @@
         AND (title LIKE CONCAT('%', #{keyword}, '%') OR channel_title LIKE CONCAT('%', #{keyword}, '%'))
     </select>
 
+    <!-- pending 상태인 비디오 시간 역순으로 조회 (상위 8개) -->
+    <select id="selectPendingVideos" parameterType="int" resultType="Video">
+        SELECT * FROM video
+        WHERE video_status = 'PENDING'
+        ORDER BY published_at
+        LIMIT 8
+    </select>
+
+    <update id="updateStatusToApproved">
+        UPDATE video
+        SET video_status = 'APPROVED'
+        WHERE video_id = #{videoId}
+    </update>
+
+    <update id="updateStatusToRejected">
+        UPDATE video
+        SET video_status = 'REJECTED'
+        WHERE video_id = #{videoId}
+    </update>
+
 </mapper>

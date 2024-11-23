@@ -33,4 +33,12 @@ public interface VideoMapper {
 
     // 비디오 검색 (제목, 채널 이름 기반) - VideoList page
     List<Video> searchByKeyword(@Param("keyword") String keyword);
+
+    // admin에서 pending 상태인 비디오 조회
+    List<Video> selectPendingVideos(int page);
+    // admin에서 비디오 승인
+    void updateStatusToApproved(String videoId);
+
+    // admin에서 비디오 거절
+    void updateStatusToRejected(String videoId);
 }
