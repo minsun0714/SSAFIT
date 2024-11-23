@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
+import MyProfileFollow from './MyProfileFollow.vue'
 const { data } = MemberApiFacade.useFetchUserInfo()
+
 </script>
 
 <template>
@@ -18,14 +20,7 @@ const { data } = MemberApiFacade.useFetchUserInfo()
           <p class="font-bold text-xl">{{ data.name }}</p>
           <p class="text-sm text-gray-500"># {{ data.nickname }}</p>
         </h1>
-        <h2 class="w-40 text-center">
-          팔로워
-          <p class="font-bold">{{ data.followerCount }}</p>
-        </h2>
-        <h2 class="w-40 text-center">
-          팔로잉
-          <p class="font-bold">{{ data.followingCount }}</p>
-        </h2>
+        <MyProfileFollow />
       </div>
       <p class="flex justify-center items-center h-full w-96 text-xs text-gray-400">
         {{ data.introduceText }}

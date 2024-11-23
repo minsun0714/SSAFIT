@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/vue-query'
 import { queryClient } from '@/main'
 import FollowService from '../services/FollowService'
 
-class MemberApiFacade {
+class FollowApiFacade {
   // 팔로우
   static useFetchFollowRelations() {
     return useQuery({
@@ -27,4 +27,4 @@ class MemberApiFacade {
   }
 }
 
-export default MemberApiFacade
+export default FollowApiFacade
