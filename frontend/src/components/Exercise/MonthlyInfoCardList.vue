@@ -2,7 +2,6 @@
 import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
 import { Up } from '../../assets'
 import { Down } from '../../assets'
-import { PurpleCardIcon } from '../../assets'
 import TimerModal from './TimerModal.vue'
 
 const { data } = ExerciseLogApiFacade.useFetchCardDataList()
