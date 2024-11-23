@@ -50,7 +50,7 @@ const router = createRouter({
     {
       path: '/mypage/:memberId',
       name: 'others-mypage',
-      component: () => import('../views/MyPageView.vue'),
+      component: () => import('../views/OthersMyPageView.vue'),
       children: [
         {
           path: 'liked-videos',

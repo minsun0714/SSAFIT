@@ -17,6 +17,7 @@ class FollowService {
 
   private static async _fetchFollowRelations(): Promise<FollowInfoResponse> {
     const response = await api.get(this.path)
+    console.log(response.data)
     return response.data
   }
 

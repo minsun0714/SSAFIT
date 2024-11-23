@@ -28,6 +28,7 @@ class ExerciseLogService {
 
   private static async _fetchExerciseGrass(): Promise<ExerciseGrass[]> {
     const response = await api.get(this.path + '/grass')
+    console.log(response.data)
     return response.data
   }
 
