@@ -2,6 +2,7 @@
 import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
 import { Up } from '../../assets'
 import { Down } from '../../assets'
+import { FaArrowRightLong } from 'vue3-icons/fa6'
 import TodayExerciseTime from './TodayExerciseTime.vue'
 
 const { data } = ExerciseLogApiFacade.useFetchCardDataList()
@@ -21,7 +22,7 @@ const { data } = ExerciseLogApiFacade.useFetchCardDataList()
             <p class="text-2xl text-gray-900">
               {{
                 cardData.cardType === 'MINUTE'
-                  ? cardData.currentValue.toLocaleString()
+                  ? (cardData.currentValue.toLocaleString() / 60).toFixed(2)
                   : cardData.currentValue
               }}{{ cardData.cardType }}
             </p>
@@ -29,12 +30,17 @@ const { data } = ExerciseLogApiFacade.useFetchCardDataList()
           <img :src="cardData?.cardIconUrl" alt="icon" class="h-12 w-12" />
         </div>
         <p class="flex items-center w-full text-xs px-4 pb-3">
-          <img :src="cardData.up ? Up : Down" alt="change" class="h-4 w-4 m-2" />
-          지난주보다
-          <span :class="cardData.up ? 'text-[#00B69B]' : 'text-[#F93C65]'">{{
-            cardData.currentValue - cardData.lastValue + cardData.cardType
-          }}</span>
-          {{ cardData.up ? ' 증가' : ' 감소' }}
+          <span v-if="cardData.currentValue === cardData.lastValue" class="flex border">
+            <FaArrowRightLong class="flex items-center border h-full"/>
+            지난주와 동일
+          </span>
+          <span v-else class="border flex items-center">
+            <img :src="cardData.up ? Up : Down" alt="change" class="h-4 w-4 m-2" />
+            <span :class="cardData.up ? 'text-[#00B69B]' : 'text-[#F93C65]'"
+              >{{ cardData.currentValue - cardData.lastValue + cardData.cardType }}
+              {{ cardData.up ? ' 증가' : ' 감소' }}</span
+            >
+          </span>
         </p>
       </li>
     </ul>
