@@ -2,10 +2,9 @@
 import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
 import { Up } from '../../assets'
 import { Down } from '../../assets'
-import TimerModal from './TimerModal.vue'
+import TodayExerciseTime from './TodayExerciseTime.vue'
 
 const { data } = ExerciseLogApiFacade.useFetchCardDataList()
-console.log(data?.value?.[0]?.profileImg)
 </script>
 
 <template>
@@ -39,11 +38,6 @@ console.log(data?.value?.[0]?.profileImg)
         </p>
       </li>
     </ul>
-    <div
-      class="w-full flex flex-col justify-center items-center text-white text-5xl p-10 font-bold"
-    >
-      <p>00 : 00 : 00</p>
-      <TimerModal :text="'운동하기'" />
-    </div>
+    <TodayExerciseTime />
   </div>
 </template>
