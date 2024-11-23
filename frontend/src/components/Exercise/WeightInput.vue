@@ -25,8 +25,6 @@ type FormValues = z.infer<typeof zodSchema>
 
 const { data } = MemberApiFacade.useFetchUserInfo()
 
-console.log('weight' + typeof data?.value.weight)
-
 const { mutateAsync } = MemberApiFacade.useUpdateWeight()
 
 const form = useForm<FormValues>({
