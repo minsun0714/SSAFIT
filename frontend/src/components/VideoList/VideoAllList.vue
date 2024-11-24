@@ -12,7 +12,7 @@
   <div>
     <!-- Search Bar -->
     <div class="flex justify-center">
-      <div class="relative w-full max-w-sm items-center mb-4">
+      <div class="relative w-full max-w-sm items-center mb-4 text-black">
         <Input
           id="search"
           type="text"
@@ -87,6 +87,8 @@ import VideoSearchApiFacade from '@/api/apiFacade/VideoSearchApiFacade'
 import CommonPagination from '../common/CommonPagination.vue'
 
 const { data: videos } = VideoSearchApiFacade.useFetchPaginatedAndSortedVideos()
+
+console.log(videos?.value)
 
 const searchQuery = ref('')
 const currentPage = ref(1)
