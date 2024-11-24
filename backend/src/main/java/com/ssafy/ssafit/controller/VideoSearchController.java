@@ -29,8 +29,15 @@ public class VideoSearchController {
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) int page,
             @RequestParam(required = false) int size,
-            @RequestParam(required = false) VideoSortType sort
+            @RequestParam(required = false, defaultValue = "RECENT") String sort
     ) {
+        VideoSortType sortType;
+        try {
+            sortType = VideoSortType.valueOf(sort.toUpperCase()); // String에서 Enum으로 변환
+        } catch (IllegalArgumentException e) {
+            sortType = VideoSortType.RECENT; // 기본값
+        }
+
         PagedResponseDTO<VideoCardVO> videoCardVOPagedResponseDTO = videoSearchService.getPaginatedAndSortedVideos(keyword, page, size, sort);
         return ResponseEntity.ok().build();
     }
