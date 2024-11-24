@@ -9,7 +9,7 @@ class AdminService {
     page: number,
     size: number,
   ): Promise<PaginationResponse<VideoResponse>> {
-    const response = await api.get(this.path, {
+    const response = await api.get(this.path + '/pending', {
       params: {
         page,
         size,
