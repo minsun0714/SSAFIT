@@ -25,6 +25,12 @@ public class DTOMapper {
                 .build();
     }
 
+    // Video -> VideoDetailDTO 변환
+    public static VideoDetailVO toVideoDetailDTO(Video video){
+        return VideoDetailVO.builder()
+                .
+    }
+
     // member와 accessToken을 이용해 SignUpResponseDTO로 변환
     public static SignUpResponseDTO toSignUpResponseDTO(Member member, String accessToken) {
         return SignUpResponseDTO.builder()

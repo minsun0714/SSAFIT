@@ -5,11 +5,15 @@ import com.ssafy.ssafit.domain.Member;
 import com.ssafy.ssafit.domain.Role;
 import com.ssafy.ssafit.domain.Video;
 import com.ssafy.ssafit.dto.request.VideoRegistDTO;
+import com.ssafy.ssafit.dto.response.VideoRegistVO;
+import com.ssafy.ssafit.utils.YouTubeUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.ssafy.ssafit.utils.DTOMapper.toSignUpResponseDTO;
 
 @Service
 @RequiredArgsConstructor
@@ -18,18 +22,25 @@ public class VideoService {
 
     // 비디오 등록
     public void registerVideo(VideoRegistDTO videoRegistDTO) {
-//        Member member = Member.builder()
-//                .memberId(memberRequestDTO.getMemberId())
-//                .password(passwordEncoder.encode(memberRequestDTO.getPassword())) // 보안상 해시 처리 필요
-//                .name(memberRequestDTO.getName())
-//                .nickname(memberRequestDTO.getNickname())
-//                .role(Role.ROLE_ADMIN)
-//                .build();
-//        String videoId = videoRegistDTO.getVideoUrl();
-//
-//        Video video = Video.builder()
-//                        .videoId(videoId).channelTitle()
-//        videoMapper.insertVideo(video);
+        Member member = Member.builder()
+                .memberId(memberRequestDTO.getMemberId())
+                .password(passwordEncoder.encode(memberRequestDTO.getPassword())) // 보안상 해시 처리 필요
+                .name(memberRequestDTO.getName())
+                .nickname(memberRequestDTO.getNickname())
+                .role(Role.ROLE_ADMIN)
+                .build();
+
+        String videoId = videoRegistDTO.getVideoUrl();
+        String apiKey = "AIzaSyAPZkqgH44ts-FP6w_IFCO_Jogj9ExR0FM"; // API 키
+
+        Video video = YouTubeUtils.fetchVideoDetails(videoId,apiKey);
+
+        video = Video.builder()
+                .videoId(videoId)
+                .channelTitle()
+
+
+        videoMapper.insertVideo(video);
     }
 
     // 인기순 리스트 조회 (상위 8개)
