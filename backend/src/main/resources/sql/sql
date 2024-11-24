@@ -56,5 +56,5 @@ rating DOUBLE DEFAULT NULL,
 published_at DATE NOT NULL,
 description TEXT,
 part VARCHAR(50),
-video_status ENUM('APPROVED', 'PENDING',’REJECTED’) DEFAULT 'PENDING'
+video_status ENUM('APPROVED', 'PENDING','REJECTED') DEFAULT 'PENDING'
 );

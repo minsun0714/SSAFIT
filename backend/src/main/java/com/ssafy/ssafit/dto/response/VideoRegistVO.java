@@ -15,13 +15,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class VideoDetailVO extends VideoCardVO {
+public class VideoRegistVO extends VideoCardVO {
     private String memberId;
     private double rating;
     private String introduceText;
     private String description;
 
-    public VideoDetailVO(
+    public VideoRegistVO(
             String videoId,
             String channelTitle,
             String title,

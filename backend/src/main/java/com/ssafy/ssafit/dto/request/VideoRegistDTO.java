@@ -1,5 +1,6 @@
 package com.ssafy.ssafit.dto.request;
 
+import com.ssafy.ssafit.domain.Part;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,6 @@ import java.util.regex.Pattern;
 @Builder
 public class VideoRegistDTO {
     private String videoUrl;
-    private String part;
+    private Part part;
     private String introduceText;
 }
