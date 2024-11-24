@@ -3,6 +3,7 @@ package com.ssafy.ssafit.service;
 import com.ssafy.ssafit.dao.VideoMapper;
 import com.ssafy.ssafit.domain.Video;
 import com.ssafy.ssafit.dto.request.VideoRegistDTO;
+import com.ssafy.ssafit.dto.response.VideoCardVO;
 import com.ssafy.ssafit.dto.response.VideoDetailVO;
 import com.ssafy.ssafit.dto.response.VideoRegistVO;
 import com.ssafy.ssafit.exception.MemberNotAuthenticatedException;
@@ -64,6 +65,7 @@ public class VideoService {
                 .introduceText(videoRegistDTO.getIntroduceText())
                 .build();
     }
+
     // 비디오 상세 정보 조회
     public VideoDetailVO getVideoById(String videoId) {
         Video video = videoMapper.findByVideoId(videoId);
@@ -82,6 +84,11 @@ public class VideoService {
                 .rating(video.getRating())
                 .introduceText(video.getIntroduceText())
                 .build();
+    }
+    //
+    public List<VideoCardVO> getAllVideos(int page, int size) {
+        int offset = page * size; // OFFSET 계산
+        return videoMapper.findAllVideos(size, offset);
     }
 
     // 인기순 리스트 조회 (상위 8개)

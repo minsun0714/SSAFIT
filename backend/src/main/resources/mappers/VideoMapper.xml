@@ -19,6 +19,17 @@
         WHERE video_id = #{videoId}
     </select>
 
+    <!-- 비디오 전체 목록 조회 -->
+    <select id="findAllVideos" resultType="com.ssafy.ssafit.dto.response.VideoCardVO" parameterType="map">
+        SELECT video_id AS videoId, title, channel_title AS channelTitle, view_count AS viewCount,
+        rating, published_at AS publishedAt, part, video_status AS videoStatus
+        FROM video
+        WHERE video_status = 'APPROVED'
+        ORDER BY published_at DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+
     <!-- main page 상위 영상 조회 -->
     <!-- 1. 인기순 리스트 조회 (상위 8개) -->
     <select id="findTop8ByViewCount" resultType="Video">
