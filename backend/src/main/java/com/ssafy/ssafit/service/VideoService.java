@@ -3,6 +3,7 @@ package com.ssafy.ssafit.service;
 import com.ssafy.ssafit.dao.VideoMapper;
 import com.ssafy.ssafit.domain.Video;
 import com.ssafy.ssafit.dto.request.VideoRegistDTO;
+import com.ssafy.ssafit.dto.response.VideoDetailVO;
 import com.ssafy.ssafit.dto.response.VideoRegistVO;
 import com.ssafy.ssafit.exception.MemberNotAuthenticatedException;
 import com.ssafy.ssafit.utils.YouTubeUtils;
@@ -63,6 +64,25 @@ public class VideoService {
                 .introduceText(videoRegistDTO.getIntroduceText())
                 .build();
     }
+    // 비디오 상세 정보 조회
+    public VideoDetailVO getVideoById(String videoId) {
+        Video video = videoMapper.findByVideoId(videoId);
+        System.out.println(video.toString());
+
+        return VideoDetailVO.builder()
+                .videoId(video.getVideoId())
+                .channelTitle(video.getChannelTitle())
+                .title(video.getTitle())
+                .viewCount(video.getViewCount())
+                .publishedAt(video.getPublishedAt())
+                .part(video.getPart())
+                .description(video.getDescription())
+                .videoStatus(video.getVideoStatus())
+                .memberId(video.getMemberId())
+                .rating(video.getRating())
+                .introduceText(video.getIntroduceText())
+                .build();
+    }
 
     // 인기순 리스트 조회 (상위 8개)
     public List<Video> getTop8ByViewCount() {
@@ -92,11 +112,6 @@ public class VideoService {
     // 최신순 전체 목록 조회
     public List<Video> getAllByLatest() {
         return videoMapper.findAllByLatest();
-    }
-
-    // 비디오 상세 정보 조회
-    public Optional<Video> getVideoById(String videoId) {
-        return videoMapper.findByVideoId(videoId);
     }
 
     // 비디오 검색

@@ -10,6 +10,9 @@ public interface VideoMapper {
     // 비디오 등록
     void insertVideo(Video video);
 
+    // 비디오 상세 정보 조회 - VideoDetail page
+    Video findByVideoId(String videoId);
+
     // 인기순 리스트 조회 (상위 8개) - main page
     List<Video> findTop8ByViewCount();
 
@@ -28,8 +31,7 @@ public interface VideoMapper {
     // 최신순 전체 목록 조회 - VideoList page
     List<Video> findAllByLatest();
 
-    // 비디오 상세 정보 조회 - VideoDetail page
-    Optional<Video> findByVideoId(String videoId);
+
 
     // 비디오 검색 (제목, 채널 이름 기반) - VideoList page
     List<Video> searchByKeyword(@Param("keyword") String keyword);
