@@ -44,8 +44,33 @@ console.log(follows?.value)
       </DialogFooter>
     </DialogContent>
   </Dialog>
-  <h2 class="w-40 text-center">
-    팔로잉
-    <p class="font-bold">{{ follows?.followingList.length }}</p>
-  </h2>
+  <Dialog>
+    <DialogTrigger as-child>
+      <h2 class="w-40 text-center">
+        팔로잉
+        <p class="font-bold">{{ follows?.followingList.length }}</p>
+      </h2>
+    </DialogTrigger>
+    <DialogContent class="sm:max-w-[425px]">
+      <DialogHeader>
+        <DialogTitle>팔로워 목록</DialogTitle>
+      </DialogHeader>
+      <ul>
+        <li
+          v-for="following in follows?.followingList"
+          :key="following?.memberId"
+          class="flex border rounded-lg p-4"
+        >
+          <div>
+            <img src="" alt="" />
+          </div>
+          <div>{{ following?.name }}</div>
+          <div>{{ following?.nickname }}</div>
+        </li>
+      </ul>
+      <DialogFooter>
+        <Button type="submit"> Save changes </Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>
