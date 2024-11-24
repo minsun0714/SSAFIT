@@ -5,7 +5,8 @@ import type {
   MemberInfoResponse,
   ExerciseGrass,
 } from '@/api/interfaces/response'
-import OtherMemberApiFacade from '@/api/apiFacade/OtherMemberApiFacade'
+import OtherMemberService from '@/api/services/OtherMemberService'
+import { useRoute } from 'vue-router'
 
 const userInfo: Ref<MemberInfoResponse | undefined> = ref(undefined)
 const followInfo: Ref<FollowInfoResponse | undefined> = ref(undefined)
@@ -15,16 +16,25 @@ provide('userInfo', userInfo)
 provide('followInfo', followInfo)
 provide('grassInfo', grassInfo)
 
-onMounted(() => {
-  const userResponse = OtherMemberApiFacade.useFetchUserInfo()
-  const followResponse = OtherMemberApiFacade.useFetchFollowRelations()
-  const grassResponse = OtherMemberApiFacade.useFetchExerciseGrass()
+const route = useRoute()
 
-  userInfo.value = userResponse.data.value
-  followInfo.value = followResponse.data.value
-  grassInfo.value = grassResponse.data.value
+onMounted(async () => {
+  const memberId = route.params.memberId
 
-  console.log(userInfo, followInfo, grassInfo)
+  const userResponse = async () => {
+    return await OtherMemberService.fetchUserInfo(memberId as string)
+  }
+
+  const grassResponse = async () => {
+    return await OtherMemberService.fetchExerciseGrass(memberId as string)
+  }
+  const followResponse = async () => {
+    return await OtherMemberService.fetchFollowRelations(memberId as string)
+  }
+
+  userInfo.value = await userResponse()
+  followInfo.value = await followResponse()
+  grassInfo.value = await grassResponse()
 })
 </script>
 

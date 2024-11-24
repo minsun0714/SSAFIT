@@ -5,11 +5,15 @@ import OtherMemberService from '@/api/services/OtherMemberService'
 class OtherMemberApiFacade {
   static useFetchUserInfo() {
     const route = useRoute()
-    const memberId = route.params.memberId as string
-
+    const memberId = (route.params.memberId as string)
     return useQuery({
-      queryKey: ['member', memberId],
-      queryFn: () => OtherMemberService.fetchUserInfo(memberId),
+      queryKey: ['user', memberId],
+      queryFn: async () => {
+        const result =  await OtherMemberService.fetchUserInfo(memberId)
+        console.log(result)
+        return result
+      },
+      retry: 0,
     })
   }
 
@@ -19,7 +23,11 @@ class OtherMemberApiFacade {
 
     return useQuery({
       queryKey: ['exerciseGrass', memberId],
-      queryFn: () => OtherMemberService.fetchExerciseGrass(memberId),
+      queryFn: async () => {
+        const result =  await OtherMemberService.fetchExerciseGrass(memberId)
+        console.log(result)
+        return result
+      },
     })
   }
 
@@ -29,7 +37,11 @@ class OtherMemberApiFacade {
 
     return useQuery({
       queryKey: ['follow', memberId],
-      queryFn: () => OtherMemberService.fetchFollowRelations(memberId),
+      queryFn: async () => {
+        const result =  await OtherMemberService.fetchFollowRelations(memberId)
+        console.log(result)
+        return result
+      },
     })
   }
 }

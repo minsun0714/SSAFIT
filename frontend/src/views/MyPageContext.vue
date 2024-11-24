@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, provide, onMounted, type Ref } from 'vue'
-import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
-import FollowApiFacade from '@/api/apiFacade/FollowAPIFacade'
-import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
 import type {
   FollowInfoResponse,
   MemberInfoResponse,
   ExerciseGrass,
 } from '@/api/interfaces/response'
+import MemberService from '@/api/services/MemberService'
+import ExerciseLogService from '@/api/services/ExerciseLogService'
+import FollowService from '@/api/services/FollowService'
 
 const userInfo: Ref<MemberInfoResponse | undefined> = ref(undefined)
 const followInfo: Ref<FollowInfoResponse | undefined> = ref(undefined)
@@ -17,16 +17,21 @@ provide('userInfo', userInfo)
 provide('followInfo', followInfo)
 provide('grassInfo', grassInfo)
 
-onMounted(() => {
-  const userResponse = MemberApiFacade.useFetchUserInfo()
-  const followResponse = FollowApiFacade.useFetchFollowRelations()
-  const grassResponse = ExerciseLogApiFacade.useFetchExerciseGrass()
+onMounted(async () => {
+  const userResponse = async () => {
+    return await MemberService.fetchUserInfo()
+  }
 
-  userInfo.value = userResponse.data.value
-  followInfo.value = followResponse.data.value
-  grassInfo.value = grassResponse.data.value
+  const grassResponse = async () => {
+    return await ExerciseLogService.fetchExerciseGrass()
+  }
+  const followResponse = async () => {
+    return await FollowService.fetchFollowRelations()
+  }
 
-  console.log(userInfo, followInfo, grassInfo)
+  userInfo.value = await userResponse()
+  followInfo.value = await followResponse()
+  grassInfo.value = await grassResponse()
 })
 </script>
 
