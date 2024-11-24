@@ -1,3 +1,5 @@
+import type { Follow } from "./common"
+
 interface SignUpResponse extends Omit<Member, 'password'> {
   profileImg: string
   accessToken: string

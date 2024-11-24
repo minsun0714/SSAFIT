@@ -8,8 +8,20 @@
         VALUES (#{memberId}, #{followerId});
     </insert>
 
-    <!-- SELECT: 내가 팔로우 하는 사람 -->
+    <!-- SELECT: 나를 팔로우 하는 사람 -->
     <select id="selectFollowers" parameterType="string" resultType="map">
+        SELECT
+        m.member_id AS memberId,
+        m.name AS name,
+        m.nickname AS nickname,
+        m.profile_img AS profileImg
+        FROM follow f
+        INNER JOIN members m ON f.member_id = m.member_id
+        WHERE f.follower_id = #{memberId};
+    </select>
+
+    <!-- SELECT: 내가 팔로우 하는 사람 -->
+    <select id="selectFollowings" parameterType="string" resultType="map">
         SELECT
         m.member_id AS memberId,
         m.name AS name,
@@ -20,17 +32,6 @@
         WHERE f.member_id = #{memberId};
     </select>
 
-    <!-- SELECT: 나를 팔로우 하는 사람 -->
-    <select id="selectFollowings" parameterType="string" resultType="map">
-        SELECT
-        m.member_id AS memberId,
-        m.name AS name,
-        m.nickname AS nickname,
-        m.profile_img AS profileImg
-        FROM follow f
-        INNER JOIN members m ON f.follower_id = m.member_id
-        WHERE f.follower_id = #{memberId};
-    </select>
     <!-- 특정 회원과 팔로워 ID로 팔로우 관계 존재 여부 확인 -->
     <select id="existsFollow" parameterType="map" resultType="boolean">
         SELECT COUNT(*)

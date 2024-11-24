@@ -6,9 +6,10 @@ class FollowService {
 
   // Private 메서드로 API 호출 로직 관리
   private static async _follow(followerId: string): Promise<void> {
-    const response = await api.post(this.path, {
+    console.log(followerId)
+    const response = await api.post(this.path, null, {
       params: {
-        follower_id: followerId,
+        followerId,
       },
     })
     return response.data
@@ -22,7 +23,7 @@ class FollowService {
   private static async _unfollow(followerId: string): Promise<void> {
     await api.delete(this.path, {
       params: {
-        follower_id: followerId,
+        followerId,
       },
     })
   }
