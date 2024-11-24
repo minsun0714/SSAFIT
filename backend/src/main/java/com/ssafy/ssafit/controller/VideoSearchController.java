@@ -38,8 +38,10 @@ public class VideoSearchController {
             sortType = VideoSortType.RECENT; // 기본값
         }
 
+        System.out.println(keyword);
+
         PagedResponseDTO<VideoCardVO> videoCardVOPagedResponseDTO = videoSearchService.getPaginatedAndSortedVideos(keyword, page, size, sort);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(videoCardVOPagedResponseDTO);
     }
 
     // 자동완성 API
