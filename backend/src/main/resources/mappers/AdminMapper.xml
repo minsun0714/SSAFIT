@@ -10,7 +10,7 @@
         SELECT
         *
         FROM video
-        WHERE status = 'PENDING'
+        WHERE video_status = 'PENDING'
         LIMIT #{size} OFFSET #{offset}
     </select>
 
@@ -18,13 +18,13 @@
     <select id="countPendingVideos" resultType="int">
         SELECT COUNT(*)
         FROM video
-        WHERE status = 'PENDING'
+        WHERE video_status = 'PENDING'
     </select>
 
     <!-- 비디오 상태 업데이트 -->
     <update id="updateVideoStatus">
         UPDATE video
-        SET status = #{status}
+        SET video_status = #{status}
         WHERE video_id = #{videoId}
     </update>
 
