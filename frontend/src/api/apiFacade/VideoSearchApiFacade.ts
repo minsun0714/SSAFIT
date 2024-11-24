@@ -1,23 +1,26 @@
 import { useQuery } from '@tanstack/vue-query'
 import VideoSearchService from '../services/VideoSearchService'
 import type { VideoSortType } from '../interfaces/common'
+import { useRoute } from 'vue-router'
+import { computed, ref } from 'vue'
 
 class VideoSearchApiFacade {
   // 페이지네이션
-  static useFetchPaginatedAndSortedVideos(
-    keyword: string,
-    page: number,
-    size: number,
-    sort: VideoSortType,
-  ) {
+  static useFetchPaginatedAndSortedVideos() {
+    const route = useRoute()
+
+    const page = computed(() => Number(route.query.page) || 1)
+    const keyword = ref(route.query.keyword || '')
+    const sort = computed(() => route.query.sort || 'RECENT')
+
     return useQuery({
-      queryKey: ['search', keyword, page, size, sort],
+      queryKey: ['search', keyword, page, sort],
       queryFn: async () => {
         const result = await VideoSearchService.getPaginatedAndSortedVideos(
-          keyword,
-          page,
-          size,
-          sort,
+          keyword.value as string,
+          page.value,
+          9,
+          sort.value as VideoSortType,
         )
         console.log(result)
         return result
