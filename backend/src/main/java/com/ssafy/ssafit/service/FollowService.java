@@ -39,6 +39,8 @@ public class FollowService {
         List<FollowerVO> followers = followMapper.selectFollowers(memberId);
         List<FollowerVO> followings = followMapper.selectFollowings(memberId);
 
+        System.out.println("followers" + followers);
+        System.out.println("followings" + followings);
         return toFollowVOMapper(followers, followings);
     }
 
