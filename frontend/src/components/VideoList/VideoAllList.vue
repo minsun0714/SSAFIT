@@ -78,38 +78,65 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, watch, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import VideoCard from '@/components/common/VideoCard.vue'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-vue-next'
 import { DownOutlined } from '@ant-design/icons-vue'
 import VideoSearchApiFacade from '@/api/apiFacade/VideoSearchApiFacade'
 import CommonPagination from '../common/CommonPagination.vue'
+import { VideoSortType } from '@/api/interfaces/common'
+
+const router = useRouter()
+const route = useRoute()
+
+const searchQuery = ref<string>((route.query.keyword as string) || '')
+const currentPage = ref<number>(Number(route.query.page) || 1)
+const selectedSort = ref<string>((route.query.sort as VideoSortType) || 'RECENT')
 
 const { data: videos } = VideoSearchApiFacade.useFetchPaginatedAndSortedVideos()
 
-console.log(videos?.value)
-
-const searchQuery = ref('')
-const currentPage = ref(1)
-const selectedSort = ref('조회순')
+function updateQueryString() {
+  router.push({
+    path: route.path,
+    query: {
+      keyword: searchQuery.value || undefined,
+      page: currentPage.value > 1 ? currentPage.value.toString() : undefined,
+      sort: selectedSort.value || undefined,
+    },
+  })
+}
 
 function handleSearch(query: string) {
   searchQuery.value = query
   currentPage.value = 1
+  updateQueryString()
 }
 
 function handleMenuClick({ key }: { key: string }) {
   selectedSort.value = key
+  currentPage.value = 1
+  updateQueryString()
 }
+
+// URL 쿼리스트링이 변경될 때 반응적으로 처리
+watch(
+  () => route.query,
+  (newQuery) => {
+    searchQuery.value = (newQuery.keyword as string) || ''
+    currentPage.value = Number(newQuery.page) || 1
+    selectedSort.value = (newQuery.sort as VideoSortType) || '조회순'
+  },
+)
 
 const isAnimating = ref(true)
 
 onMounted(() => {
-  // 5초 후 애니메이션 멈추기
+  // 0.5초 후 애니메이션 멈추기
   setTimeout(() => {
     isAnimating.value = false
-  }, 500) // 5초 (5000ms)
+  }, 500)
 })
 </script>
 
