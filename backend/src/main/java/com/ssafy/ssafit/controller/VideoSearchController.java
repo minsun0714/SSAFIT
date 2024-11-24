@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -23,7 +24,7 @@ public class VideoSearchController {
     private final VideoSearchService videoSearchService;
 
     // 비디오 검색 페이지네이션 + 소팅 + 검색
-    @PostMapping
+    @GetMapping
     public ResponseEntity<PagedResponseDTO<VideoCardVO>> getPaginatedAndSortedVideos(
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) int page,
@@ -32,5 +33,12 @@ public class VideoSearchController {
     ) {
         PagedResponseDTO<VideoCardVO> videoCardVOPagedResponseDTO = videoSearchService.getPaginatedAndSortedVideos(keyword, page, size, sort);
         return ResponseEntity.ok().build();
+    }
+
+    // 자동완성 API
+    @GetMapping("/autocomplete")
+    public ResponseEntity<List<String>> getAutocompleteSuggestions(@RequestParam String keyword) {
+        List<String> suggestions = videoSearchService.getAutocompleteSuggestions(keyword);
+        return ResponseEntity.ok(suggestions);
     }
 }

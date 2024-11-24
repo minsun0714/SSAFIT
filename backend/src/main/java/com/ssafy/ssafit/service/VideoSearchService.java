@@ -32,4 +32,8 @@ public class VideoSearchService {
         // 페이지네이션 정보를 포함한 응답 객체 생성
         return toPagedResponseDTO(page, size, totalCount, toVideoCardVO(videos));
     }
+
+    public List<String> getAutocompleteSuggestions(String keyword) {
+        return videoSearchMapper.getAutocompleteSuggestions(keyword); // 최대 5개 반환
+    }
 }

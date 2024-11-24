@@ -38,4 +38,11 @@
         WHERE title LIKE CONCAT('%', #{keyword}, '%') AND STATUS = 'APPROVED'
     </select>
 
+    <!-- 자동완성 -->
+    <select id="getAutocompleteSuggestions" resultType="String">
+        SELECT title
+        FROM videos
+        WHERE title LIKE CONCAT('%', #{keyword}, '%')
+        LIMIT #{limit}
+    </select>
 </mapper>
