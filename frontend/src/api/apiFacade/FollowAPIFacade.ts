@@ -9,6 +9,7 @@ class FollowApiFacade {
       queryKey: ['follow'],
       queryFn: async () => {
         const result = await FollowService.fetchFollowRelations()
+        console.log(result)
         return result
       },
     })

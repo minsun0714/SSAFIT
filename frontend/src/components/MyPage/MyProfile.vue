@@ -26,9 +26,7 @@ const data = inject<Ref<MemberInfoResponse | undefined>>('userInfo')
           <p class="font-bold text-xl">{{ data?.name }}</p>
           <p class="text-sm text-gray-500"># {{ data?.nickname }}</p>
         </h1>
-        <template v-if="memberId">
-          <MyProfileFollow />
-        </template>
+        <MyProfileFollow />
       </div>
       <div class="flex" v-if="memberId">
         <FollowButton />

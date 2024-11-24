@@ -13,6 +13,8 @@ const userInfo: Ref<MemberInfoResponse | undefined> = ref(MemberApiFacade.useFet
 const followInfo: Ref<FollowInfoResponse | undefined> = ref(FollowApiFacade.useFetchFollowRelations().data)
 const grassInfo: Ref<ExerciseGrass[] | undefined> = ref(ExerciseLogApiFacade.useFetchExerciseGrass().data)
 
+
+console.log(followInfo.value)
 provide('userInfo', userInfo)
 provide('followInfo', followInfo)
 provide('grassInfo', grassInfo)

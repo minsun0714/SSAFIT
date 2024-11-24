@@ -11,6 +11,7 @@ import { FollowInfoResponse } from '@/api/interfaces/response'
 import { inject, Ref } from 'vue'
 
 const follows = inject<Ref<FollowInfoResponse | undefined>>('followInfo')
+console.log(follows?.value)
 </script>
 
 <template>
