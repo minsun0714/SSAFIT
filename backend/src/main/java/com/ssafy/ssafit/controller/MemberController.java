@@ -26,6 +26,7 @@ public class MemberController {
     // 유저 생성 (회원가입)
     @PostMapping
     public ResponseEntity<SignUpResponseDTO> createUser(@Valid @RequestBody SignUpRequestDTO signUpFormDTO, HttpServletResponse response) {
+        System.out.println(signUpFormDTO);
         SignUpResponseDTO createdUser = memberService.createMember(signUpFormDTO, response);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);

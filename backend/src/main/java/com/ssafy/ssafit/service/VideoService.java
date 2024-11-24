@@ -18,18 +18,19 @@ public class VideoService {
 
     // 비디오 등록
     public void registerVideo(VideoRegistDTO videoRegistDTO) {
-//        Member member = Member.builder()
-//                .memberId(memberRequestDTO.getMemberId())
-//                .password(passwordEncoder.encode(memberRequestDTO.getPassword())) // 보안상 해시 처리 필요
-//                .name(memberRequestDTO.getName())
-//                .nickname(memberRequestDTO.getNickname())
-//                .role(Role.ROLE_ADMIN)
-//                .build();
-//        String videoId = videoRegistDTO.getVideoUrl();
-//
-//        Video video = Video.builder()
-//                        .videoId(videoId).channelTitle()
-//        videoMapper.insertVideo(video);
+        Member member = Member.builder()
+                .memberId(memberRequestDTO.getMemberId())
+                .password(passwordEncoder.encode(memberRequestDTO.getPassword())) // 보안상 해시 처리 필요
+                .name(memberRequestDTO.getName())
+                .nickname(memberRequestDTO.getNickname())
+                .role(Role.ROLE_ADMIN)
+                .build();
+        String videoId = videoRegistDTO.getVideoUrl();
+
+        Video video = Video.builder()
+                        .videoId(videoId)
+                        .channelTitle().
+        videoMapper.insertVideo(video);
     }
 
     // 인기순 리스트 조회 (상위 8개)

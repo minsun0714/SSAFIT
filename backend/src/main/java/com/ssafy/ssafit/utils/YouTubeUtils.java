@@ -22,7 +22,7 @@ public class YouTubeUtils {
         return null;
     }
 
-    //임베딩 ul 추출
+    //임베딩 url 추출
     public static String getEmbeddingUrl(String videoId) {
         if (videoId == null || videoId.isEmpty()) {
             return null;
