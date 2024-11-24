@@ -6,19 +6,20 @@ import type {
   ExerciseGrass,
 } from '@/api/interfaces/response'
 import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
-import FollowApiFacade from '@/api/apiFacade/FollowAPIFacade';
-import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade';
+import FollowApiFacade from '@/api/apiFacade/FollowAPIFacade'
+import ExerciseLogApiFacade from '@/api/apiFacade/ExerciseLogApiFacade'
 
 const userInfo: Ref<MemberInfoResponse | undefined> = ref(MemberApiFacade.useFetchUserInfo().data)
-const followInfo: Ref<FollowInfoResponse | undefined> = ref(FollowApiFacade.useFetchFollowRelations().data)
-const grassInfo: Ref<ExerciseGrass[] | undefined> = ref(ExerciseLogApiFacade.useFetchExerciseGrass().data)
+const followInfo: Ref<FollowInfoResponse | undefined> = ref(
+  FollowApiFacade.useFetchFollowRelations().data,
+)
+const grassInfo: Ref<ExerciseGrass[] | undefined> = ref(
+  ExerciseLogApiFacade.useFetchExerciseGrass().data,
+)
 
-
-console.log(followInfo.value)
 provide('userInfo', userInfo)
 provide('followInfo', followInfo)
 provide('grassInfo', grassInfo)
-
 </script>
 
 <template>

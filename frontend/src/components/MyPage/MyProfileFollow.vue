@@ -33,7 +33,7 @@ console.log(follows?.value)
           class="flex border rounded-lg p-4"
         >
           <div>
-            <img src="" alt="" />
+            <img :src="follower?.profileImg" alt="" />
           </div>
           <div>{{ follower?.name }}</div>
           <div>{{ follower?.nickname }}</div>
@@ -62,7 +62,7 @@ console.log(follows?.value)
           class="flex border rounded-lg p-4"
         >
           <div>
-            <img src="" alt="" />
+            <img :src="following?.profileImg" alt="" />
           </div>
           <div>{{ following?.name }}</div>
           <div>{{ following?.nickname }}</div>

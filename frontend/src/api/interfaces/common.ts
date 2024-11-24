@@ -1,3 +1,5 @@
+import type { MemberInfoResponse } from "./response"
+
 interface Member {
   memberId: string
   name: string
@@ -11,7 +13,7 @@ interface Exercise {
   exerciseTime: number
 }
 
-interface Follow {
-  followingList: Member[]
-  followerList: Member[]
+export interface Follow {
+  followingList: MemberInfoResponse[]
+  followerList: MemberInfoResponse[]
 }
