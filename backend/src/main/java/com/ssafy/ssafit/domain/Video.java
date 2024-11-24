@@ -20,7 +20,7 @@ public class Video {
     private Part part;
     private VideoStatus videoStatus;
 
-    private Member member;
+    private String memberId;
     private double rating;
     private String introduceText;
     private String description;

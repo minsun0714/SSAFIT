@@ -65,7 +65,7 @@ public class YouTubeApiExample {
         video.setPublishedAt(createdAt);
         video.setPart(null);
         video.setVideoStatus(VideoStatus.PENDING);
-        video.setMember(null);
+        video.setMemberId(null);
         video.setRating(1);
         video.setIntroduceText(null);
         video.setDescription(description);

@@ -1,13 +1,19 @@
 package com.ssafy.ssafit.service;
 
 import com.ssafy.ssafit.dao.VideoMapper;
-import com.ssafy.ssafit.domain.Member;
-import com.ssafy.ssafit.domain.Role;
 import com.ssafy.ssafit.domain.Video;
 import com.ssafy.ssafit.dto.request.VideoRegistDTO;
+import com.ssafy.ssafit.dto.response.VideoRegistVO;
+import com.ssafy.ssafit.exception.MemberNotAuthenticatedException;
+import com.ssafy.ssafit.utils.YouTubeUtils;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,20 +23,45 @@ public class VideoService {
     private final VideoMapper videoMapper;
 
     // 비디오 등록
-    public void registerVideo(VideoRegistDTO videoRegistDTO) {
-        Member member = Member.builder()
-                .memberId(memberRequestDTO.getMemberId())
-                .password(passwordEncoder.encode(memberRequestDTO.getPassword())) // 보안상 해시 처리 필요
-                .name(memberRequestDTO.getName())
-                .nickname(memberRequestDTO.getNickname())
-                .role(Role.ROLE_ADMIN)
-                .build();
-        String videoId = videoRegistDTO.getVideoUrl();
+    public VideoRegistVO registerVideo(VideoRegistDTO videoRegistDTO) throws ParseException, IOException, InterruptedException {
+        String videoId = YouTubeUtils.extractVideoId(videoRegistDTO.getVideoUrl()); //url에서 id추출
+        System.out.println(videoRegistDTO.toString());
+        Video video = YouTubeUtils.loadVideoInfo(videoId);
 
-        Video video = Video.builder()
-                        .videoId(videoId)
-                        .channelTitle().
-        videoMapper.insertVideo(video);
+        // 사용자 ID를 인증 정보에서 가져온다고 가정
+        String memberId = getAuthenticatedMemberId();
+
+        video = Video.builder()
+                .videoId(video.getVideoId())
+                .channelTitle(video.getChannelTitle())
+                .title(video.getTitle())
+                .viewCount(video.getViewCount())
+                .publishedAt(video.getPublishedAt())
+                .part(videoRegistDTO.getPart())
+                .description(video.getDescription())
+                .videoStatus(video.getVideoStatus())
+                .memberId(memberId)
+                .rating(video.getRating())
+                .introduceText(videoRegistDTO.getIntroduceText())
+                .build();
+
+        System.out.println(video.toString());
+
+        videoMapper.insertVideo(video); // DB에 video 정보 저장
+
+        return VideoRegistVO.builder()
+                .videoId(video.getVideoId())
+                .channelTitle(video.getChannelTitle())
+                .title(video.getTitle())
+                .viewCount(video.getViewCount())
+                .publishedAt(video.getPublishedAt())
+                .part(videoRegistDTO.getPart())
+                .description(video.getDescription())
+                .videoStatus(video.getVideoStatus())
+                .memberId(video.getMemberId())
+                .rating(video.getRating())
+                .introduceText(videoRegistDTO.getIntroduceText())
+                .build();
     }
 
     // 인기순 리스트 조회 (상위 8개)
@@ -81,4 +112,13 @@ public class VideoService {
 
     // admin에서 거절
     public void updateStatusToRejected(String videoId) { videoMapper.updateStatusToRejected(videoId);}
+
+    // 인증된 사용자 ID 가져오기
+    public String getAuthenticatedMemberId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !(authentication.getPrincipal() instanceof String)) {
+            throw new MemberNotAuthenticatedException("Member not authenticated");
+        }
+        return (String) authentication.getPrincipal();
+    }
 }
