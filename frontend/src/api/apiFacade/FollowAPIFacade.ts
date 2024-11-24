@@ -17,15 +17,25 @@ class FollowApiFacade {
   static useFollow() {
     return useMutation({
       mutationFn: (followerId: string) => FollowService.follow(followerId),
-      onSuccess: () => {
-        queryClient.refetchQueries()
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: ['follow'],
+          refetchType: 'active',
+        })
       },
-      retry: 0,
     })
   }
 
-  static useUnfollow(followerId: string) {
-    return useMutation({ mutationFn: () => FollowService.unfollow(followerId) })
+  static useUnfollow() {
+    return useMutation({
+      mutationFn: (followerId: string) => FollowService.unfollow(followerId),
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: ['follow'],
+          refetchType: 'active',
+        })
+      },
+    })
   }
 }
 

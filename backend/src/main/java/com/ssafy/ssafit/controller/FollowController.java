@@ -35,7 +35,7 @@ public class FollowController {
     @GetMapping("/{memberId}")
     public ResponseEntity<FollowVO> getFollows(@PathVariable String memberId){
         FollowVO followVO = followService.getOthersFollowRelationship(memberId);
-
+        System.out.println(followVO);
         return ResponseEntity.ok(followVO);
     }
 

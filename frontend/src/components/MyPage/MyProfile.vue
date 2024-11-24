@@ -2,6 +2,11 @@
 import { inject, Ref } from 'vue'
 import MyProfileFollow from './MyProfileFollow.vue'
 import { MemberInfoResponse } from '@/api/interfaces/response'
+import FollowButton from './FollowButton.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const memberId = route?.params?.memberId
 
 const data = inject<Ref<MemberInfoResponse | undefined>>('userInfo')
 </script>
@@ -21,11 +26,13 @@ const data = inject<Ref<MemberInfoResponse | undefined>>('userInfo')
           <p class="font-bold text-xl">{{ data?.name }}</p>
           <p class="text-sm text-gray-500"># {{ data?.nickname }}</p>
         </h1>
-        <MyProfileFollow />
+        <template v-if="memberId">
+          <MyProfileFollow />
+        </template>
       </div>
-      <!-- <p class="flex justify-center items-center h-full w-96 text-xs text-gray-400">
-        {{ data.introduceText }}
-      </p> -->
+      <div class="flex" v-if="memberId">
+        <FollowButton />
+      </div>
     </div>
   </div>
 </template>
