@@ -28,7 +28,7 @@ const { data } = AdminApiFacade.useFetchPendingVideos()
             <TableHead>승인 여부</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody v-if="data?.totalItems">
           <TableRow v-for="video in data?.data" :key="video?.videoId">
             <TableCell><img /></TableCell>
             <TableCell>{{ video?.title }}</TableCell>
@@ -44,6 +44,9 @@ const { data } = AdminApiFacade.useFetchPendingVideos()
             </TableCell>
           </TableRow>
         </TableBody>
+        <TableRow v-else>
+          <TableCell colspan="6" class="text-center border"> 등록된 영상이 없습니다. </TableCell>
+        </TableRow>
       </Table>
     </div>
   </div>
