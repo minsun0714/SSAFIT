@@ -10,3 +10,4 @@ export interface MemberInfoRequest extends Omit<Member, 'name'> {
 }
 
 interface ExerciseTimerRequest extends Exercise {}
+

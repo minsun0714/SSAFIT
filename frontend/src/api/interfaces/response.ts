@@ -1,4 +1,4 @@
-import type { Follow } from "./common"
+import type { Follow, Video } from './common'
 
 interface SignUpResponse extends Omit<Member, 'password'> {
   profileImg: string
@@ -55,3 +55,5 @@ export interface ExerciseGrass {
   level: 0 | 1 | 2 | 3 | 4
   exerciseTime: number
 }
+
+export interface VideoResponse extends Video {}

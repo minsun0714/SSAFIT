@@ -1,4 +1,4 @@
-import type { MemberInfoResponse } from "./response"
+import type { MemberInfoResponse } from './response'
 
 interface Member {
   memberId: string
@@ -16,4 +16,18 @@ interface Exercise {
 export interface Follow {
   followingList: MemberInfoResponse[]
   followerList: MemberInfoResponse[]
+}
+
+type VideoPart = 'Run' | 'Strength' | 'Relax'
+type VideoStatus = 'APPROVED' | 'PENDING' | 'REJECTED'
+export type VideoSortType = 'VIEW_CNT' | 'RECENT' | 'RATING'
+
+export interface Video {
+  videoId: string
+  channelTitle: string
+  title: string
+  viewCount: number
+  publishedAt: Date
+  part: VideoPart
+  videoStatus: VideoStatus
 }
