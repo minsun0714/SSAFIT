@@ -1,6 +1,6 @@
 import api from '../apiClient'
 import type { VideoSortType } from '../interfaces/common'
-import type { FollowInfoResponse } from '../interfaces/response'
+import type { PaginationResponse, VideoResponse } from '../interfaces/response'
 
 class VideoSearchService {
   private static path = '/api/video/search'
@@ -11,7 +11,7 @@ class VideoSearchService {
     page: number,
     size: number,
     sort: VideoSortType,
-  ): Promise<void> {
+  ): Promise<PaginationResponse<VideoResponse>> {
     const response = await api.get(this.path, {
       params: {
         keyword,
@@ -23,7 +23,7 @@ class VideoSearchService {
     return response.data
   }
 
-  private static async _getAutocompleteSuggestions(keyword: string): Promise<FollowInfoResponse> {
+  private static async _getAutocompleteSuggestions(keyword: string): Promise<string[]> {
     const response = await api.get(this.path + '/autocomplete', {
       params: {
         keyword,
@@ -38,11 +38,11 @@ class VideoSearchService {
     page: number,
     size: number,
     sort: VideoSortType,
-  ): Promise<void> {
+  ): Promise<PaginationResponse<VideoResponse>> {
     return await this._getPaginatedAndSortedVideos(keyword, page, size, sort)
   }
 
-  static getAutocompleteSuggestions(keyword: string): Promise<FollowInfoResponse> {
+  static getAutocompleteSuggestions(keyword: string): Promise<string[]> {
     return this._getAutocompleteSuggestions(keyword)
   }
 }

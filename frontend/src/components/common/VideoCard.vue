@@ -15,31 +15,31 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import { Routes } from '../../utils/enum';
+import { useRouter } from 'vue-router'
+import { Routes } from '../../utils/enum'
 
 const props = defineProps<{
-  videoId: number,
-  nickname: string,
-  title: string,
-  viewCount: number,
-  createdAt: string,
-  part: string,
-  introduceText: string,
-  thumbnailImgUrl: string,
-  videoUrl: string,
-  status: string,
+  videoId: string
+  nickname: string
+  title: string
+  viewCount: number
+  createdAt: string
+  part?: string
+  introduceText?: string
+  thumbnailImgUrl: string
+  videoUrl?: string
+  status?: string
   rating: number
 }>()
 
-const router = useRouter();
+const router = useRouter()
 
 const navigateToVideo = () => {
   router.push({
     name: Routes.VIDEO,
-    params: { id: props.videoId }
-  });
-};
+    params: { id: props.videoId },
+  })
+}
 </script>
 
 <style scoped>
@@ -98,7 +98,7 @@ const navigateToVideo = () => {
 }
 
 .view-count {
-  color: #E50914; /* 조회수 빨간색 */
+  color: #e50914; /* 조회수 빨간색 */
   font-weight: bold;
 }
 
