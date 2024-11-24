@@ -19,7 +19,7 @@ export interface Follow {
 }
 
 type VideoPart = 'Run' | 'Strength' | 'Relax'
-type VideoStatus = 'APPROVED' | 'PENDING' | 'REJECTED'
+export type VideoStatus = 'APPROVED' | 'PENDING' | 'REJECTED'
 export type VideoSortType = 'VIEW_CNT' | 'RECENT' | 'RATING'
 
 export interface Video {
