@@ -1,11 +1,14 @@
 import api from '../apiClient'
 import type { VideoStatus } from '../interfaces/common'
-import type { VideoResponse } from '../interfaces/response'
+import type { PaginationResponse, VideoResponse } from '../interfaces/response'
 
 class AdminService {
   private static path = '/api/admin/videos'
 
-  private static async _getPendingVideos(page: number, size: number): Promise<VideoResponse[]> {
+  private static async _getPendingVideos(
+    page: number,
+    size: number,
+  ): Promise<PaginationResponse<VideoResponse>> {
     const response = await api.get(this.path, {
       params: {
         page,
@@ -25,7 +28,10 @@ class AdminService {
     return response.data
   }
 
-  static getPendingVideos(page: number, size: number): Promise<VideoResponse[]> {
+  static getPendingVideos(
+    page: number,
+    size: number,
+  ): Promise<PaginationResponse<VideoResponse>> {
     return this._getPendingVideos(page, size)
   }
 

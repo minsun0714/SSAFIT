@@ -8,6 +8,10 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import Button from '../ui/button/Button.vue'
+import CommonPagination from '../common/CommonPagination.vue'
+import AdminApiFacade from '@/api/apiFacade/AdminApiFacade'
+
+const { data } = AdminApiFacade.useFetchPendingVideos()
 </script>
 
 <template>
@@ -25,19 +29,25 @@ import Button from '../ui/button/Button.vue'
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell> INV001 </TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell> $250.00 </TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell>
+          <TableRow v-for="video in data?.data" :key="video?.videoId">
+            <TableCell><img /></TableCell>
+            <TableCell>{{ video?.title }}</TableCell>
+            <TableCell>{{ video?.part }}</TableCell>
+            <TableCell>{{ video?.publishedAt }}</TableCell>
+            <TableCell>{{ video?.channelTitle }}</TableCell>
+            <TableCell v-if="video?.videoStatus === 'PENDING'">
               <Button variant="outline">승인</Button>
               <Button variant="destructive">거절</Button>
+            </TableCell>
+            <TableCell>
+              {{ video?.videoStatus }}
             </TableCell>
           </TableRow>
         </TableBody>
       </Table>
     </div>
+  </div>
+  <div>
+    <CommonPagination :data="data" />
   </div>
 </template>

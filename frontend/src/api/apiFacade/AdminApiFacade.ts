@@ -2,14 +2,20 @@ import { useMutation, useQuery } from '@tanstack/vue-query'
 import { queryClient } from '@/main'
 import AdminService from '../services/AdminService'
 import type { VideoStatus } from '../interfaces/common'
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
-class FollowApiFacade {
+class AdminApiFacade {
   // 팔로우
-  static useFetchPendingVideos(page: number, size: number) {
+  static useFetchPendingVideos() {
+    const route = useRoute()
+
+    const page = computed(() => Number(route.query.page) || 1)
+
     return useQuery({
-      queryKey: ['admin', page, size],
+      queryKey: ['admin', page],
       queryFn: async () => {
-        const result = await AdminService.getPendingVideos(page, size)
+        const result = await AdminService.getPendingVideos(page.value, 10)
         console.log(result)
         return result
       },
@@ -29,4 +35,4 @@ class FollowApiFacade {
   }
 }
 
-export default FollowApiFacade
+export default AdminApiFacade
