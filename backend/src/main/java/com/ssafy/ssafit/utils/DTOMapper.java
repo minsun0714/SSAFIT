@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DTOMapper {
 
@@ -117,6 +118,25 @@ public class DTOMapper {
                 totalDataCount,
                 data
         );
+    }
+
+    public static List<VideoCardVO> toVideoCardVO(List<Video> videos) {
+        if (videos == null || videos.isEmpty()) {
+            return List.of(); // 비어 있는 리스트 반환
+        }
+
+        return videos.stream()
+                .map(video -> VideoCardVO.builder()
+                        .videoId(video.getVideoId())
+                        .channelTitle(video.getChannelTitle())
+                        .title(video.getTitle())
+                        .viewCount(video.getViewCount())
+                        .publishedAt(video.getPublishedAt())
+                        .part(video.getPart())
+                        .videoStatus(video.getVideoStatus())
+                        .build()
+                )
+                .collect(Collectors.toList());
     }
 
 

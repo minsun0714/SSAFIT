@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.ssafy.ssafit.utils.DTOMapper.toPagedResponseDTO;
+import static com.ssafy.ssafit.utils.DTOMapper.toVideoCardVO;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,6 @@ public class VideoSearchService {
         int totalCount = videoSearchMapper.countVideos(keyword);
 
         // 페이지네이션 정보를 포함한 응답 객체 생성
-        return toPagedResponseDTO(page, size, totalCount, videos);
+        return toPagedResponseDTO(page, size, totalCount, toVideoCardVO(videos));
     }
 }
