@@ -27,7 +27,7 @@ export interface Video {
   channelTitle: string
   title: string
   viewCount: number
-  publishedAt: Date
+  publishedAt: string
   part: VideoPart
   videoStatus: VideoStatus
 }
