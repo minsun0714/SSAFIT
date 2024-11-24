@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 public class LikeVideos {
     private Long likeId;
-    private Member member;
+    private String memberId;
     private String videoId;
     private Date likedAt;
 }

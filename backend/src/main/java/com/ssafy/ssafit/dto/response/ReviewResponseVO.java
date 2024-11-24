@@ -1,6 +1,6 @@
-package com.ssafy.ssafit.dto.reponse;
+package com.ssafy.ssafit.dto.response;
 
-import com.ssafy.ssafit.domain.Member;
+import com.ssafy.ssafit.domain.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,8 +14,18 @@ import java.util.Date;
 @Builder
 public class ReviewResponseVO {
     private String reviewId;
-    private Member member;
+    private String memberId;
     private String videoId;
-    private Date createdAt;
     private String content;
+    private Date createdAt;
+    private Double rating;
+
+    public ReviewResponseVO(Review review) {
+        this.reviewId = review.getReviewId();
+        this.memberId = review.getMemberId();
+        this.videoId = review.getVideoId();
+        this.content = review.getContent();
+        this.createdAt = review.getCreatedAt();
+        this.rating = review.getRating();
+    }
 }

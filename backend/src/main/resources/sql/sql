@@ -47,14 +47,47 @@ SELECT
 
 SELECT WEEK(now())
 
+DROP TABLE video;
 CREATE TABLE video (
-video_id VARCHAR(255) PRIMARY KEY,
-channel_title VARCHAR(255) NOT NULL,
-title VARCHAR(255) NOT NULL,
-view_count BIGINT NOT NULL,
-rating DOUBLE DEFAULT NULL,
-published_at DATE NOT NULL,
-description TEXT,
-part VARCHAR(50),
-video_status ENUM('APPROVED', 'PENDING','REJECTED') DEFAULT 'PENDING'
+    video_id VARCHAR(255) NOT NULL PRIMARY KEY,     -- videoId, Primary key로 설정
+    channel_title VARCHAR(255) NOT NULL,            -- channelTitle
+    title VARCHAR(255) NOT NULL,                    -- title
+    view_count BIGINT,                              -- viewCount
+    published_at DATETIME,                          -- publishedAt
+    part VARCHAR(255),                              -- part (예: Enum 형태로 처리 시 적절한 데이터 타입 사용)
+    video_status VARCHAR(255),                      -- videoStatus (Enum 타입일 경우 적절한 데이터 타입 사용)
+    member_id VARCHAR(255),                         -- memberId
+    rating DOUBLE,                                  -- rating
+    introduce_text TEXT,                            -- introduceText
+    description TEXT                                -- description
 );
+
+DROP TABLE review;
+CREATE TABLE review (
+    review_id VARCHAR(255) NOT NULL PRIMARY KEY,
+    member_id VARCHAR(255) NOT NULL,
+    video_id VARCHAR(255) NOT NULL,
+    content TEXT,
+    rating DOUBLE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE,
+    FOREIGN KEY (video_id) REFERENCES video(video_id) ON DELETE CASCADE
+);
+
+DROP TABLE review;
+CREATE TABLE review (
+    review_id VARCHAR(255) NOT NULL PRIMARY KEY,
+    member_id VARCHAR(255) NOT NULL,
+    video_id VARCHAR(255) NOT NULL,
+    content TEXT,
+    rating DOUBLE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE,
+    FOREIGN KEY (video_id) REFERENCES video(video_id) ON DELETE CASCADE
+);
+SELECT * FROM review;
+
+INSERT INTO members (member_id, name, nickname, password, profile_img, role, created_at)
+VALUES
+    ('minsun', 'MinSun', 'minsun1234', 'abcd1234', 'minsun_profile.jpg', 'ROLE_ADMIN', NOW()),
+    ('beomsu', 'BeomSu', 'beomsu5678', 'abcd1234', 'beomsu_profile.jpg', 'ROLE_ADMIN', NOW());

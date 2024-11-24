@@ -14,9 +14,9 @@ import java.util.Date;
 @Builder
 public class Review {
     private String reviewId;
-    private Member member;
+    private String memberId;
     private String videoId;
     private Date createdAt;
     private String content;
-
+    private Double rating;
 }
