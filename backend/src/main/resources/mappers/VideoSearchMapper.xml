@@ -7,15 +7,15 @@
     <!-- 비디오 검색 쿼리 -->
     <select id="searchVideos" resultType="Video">
         SELECT
-        videoId,
-        channelTitle,
+        video_id,
+        channel_title,
         title,
-        viewCount,
-        publishedAt,
+        view_count,
+        published_at,
         part,
-        videoStatus
-        FROM videos
-        WHERE title LIKE CONCAT('%', #{keyword}, '%') AND STATUS = 'APPROVED'
+        video_status
+        FROM video
+        WHERE title LIKE CONCAT('%', #{keyword}, '%') AND video_status = 'APPROVED'
         ORDER BY
         <choose>
             <when test="sortType == 'RECENT'">
@@ -34,15 +34,15 @@
     <!-- 비디오 총 개수 조회 -->
     <select id="countVideos" resultType="int">
         SELECT COUNT(*)
-        FROM videos
-        WHERE title LIKE CONCAT('%', #{keyword}, '%') AND STATUS = 'APPROVED'
+        FROM video
+        WHERE title LIKE CONCAT('%', #{keyword}, '%') AND video_status = 'APPROVED'
     </select>
 
     <!-- 자동완성 -->
     <select id="getAutocompleteSuggestions" resultType="String">
         SELECT title
-        FROM videos
-        WHERE title LIKE CONCAT('%', #{keyword}, '%')
+        FROM video
+        WHERE title LIKE CONCAT('%', #{keyword}, '%') AND video_status = 'APPROVED'
         LIMIT #{limit}
     </select>
 </mapper>

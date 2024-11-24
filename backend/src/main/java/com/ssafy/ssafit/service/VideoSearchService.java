@@ -20,7 +20,7 @@ public class VideoSearchService {
 
     private final VideoSearchMapper videoSearchMapper;
 
-    public PagedResponseDTO<VideoCardVO> getPaginatedAndSortedVideos(String keyword, int page, int size, VideoSortType sort) {
+    public PagedResponseDTO<VideoCardVO> getPaginatedAndSortedVideos(String keyword, int page, int size, String sort) {
         int offset = page * size;
 
         // 데이터베이스에서 검색된 비디오 목록 조회

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface VideoSearchMapper {
 
-    List<Video> searchVideos(@Param("keyword") String keyword , @Param("offset") int offset, @Param("size") int size, @Param("sortType") VideoSortType sortType);
+    List<Video> searchVideos(@Param("keyword") String keyword , @Param("offset") int offset, @Param("size") int size, @Param("sortType") String sortType);
 
     int countVideos(String keyword);
 
