@@ -8,7 +8,18 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { FollowInfoResponse } from '@/api/interfaces/response'
-import { inject, Ref } from 'vue'
+import { inject, Ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
+
+watch(
+  () => route.fullPath,
+  () => {
+    location.reload()
+  },
+) 
 
 const follows = inject<Ref<FollowInfoResponse | undefined>>('followInfo')
 console.log(follows?.value)
@@ -31,6 +42,7 @@ console.log(follows?.value)
           v-for="follower in follows?.followerList"
           :key="follower?.memberId"
           class="flex border rounded-lg p-4"
+          @click="router.push(`/mypage/${follower.memberId}/liked-videos`)"
         >
           <div>
             <img :src="follower?.profileImg" alt="" />
@@ -60,6 +72,7 @@ console.log(follows?.value)
           v-for="following in follows?.followingList"
           :key="following?.memberId"
           class="flex border rounded-lg p-4"
+          @click="router.push(`/mypage/${following.memberId}/liked-videos`)"
         >
           <div>
             <img :src="following?.profileImg" alt="" />
