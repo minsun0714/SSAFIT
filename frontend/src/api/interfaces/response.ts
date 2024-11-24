@@ -55,3 +55,29 @@ export interface ExerciseGrass {
   level: 0 | 1 | 2 | 3 | 4
   exerciseTime: number
 }
+
+export interface VideoRegistVO {
+  id: string
+  title: string
+  description: string
+  videoUrl: string
+  createdAt: string
+}
+
+export interface VideoDetailVO {
+  id: string
+  title: string
+  description: string
+  videoUrl: string
+  createdAt: string
+  views: number
+  likes: number
+}
+
+export interface VideoCardVO {
+  id: string
+  title: string
+  description: string
+  videoUrl: string
+  createdAt: string
+}
