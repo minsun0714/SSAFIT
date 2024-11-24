@@ -23,10 +23,10 @@ const dayOneYearAgo = oneYearAgo.getDay()
             <span
               class="w-3 h-3 rounded-xs border"
               :class="{
-                'bg-blue-100': item.level === 1,
-                'bg-blue-200': item.level === 2,
-                'bg-blue-300': item.level === 3,
-                'bg-blue-400': item.level === 4,
+                'bg-blue-100': item?.level === 1,
+                'bg-blue-200': item?.level === 2,
+                'bg-blue-300': item?.level === 3,
+                'bg-blue-400': item?.level === 4,
               }"
             ></span>
           </HoverCardTrigger>

@@ -7,8 +7,10 @@ class FollowApiFacade {
   static useFetchFollowRelations() {
     return useQuery({
       queryKey: ['follow'],
-      queryFn: () => FollowService.fetchFollowRelations(),
-      retry: 0,
+      queryFn: async () => {
+        const result = await FollowService.fetchFollowRelations()
+        return result
+      },
     })
   }
 
