@@ -20,18 +20,12 @@ class AdminService {
 
   private static async _updateVideoStatus(videoId: string, status: VideoStatus): Promise<void> {
     const response = await api.patch(this.path + `/${videoId}`, {
-      params: {
-        videoId,
-        status,
-      },
+      status,
     })
     return response.data
   }
 
-  static getPendingVideos(
-    page: number,
-    size: number,
-  ): Promise<PaginationResponse<VideoResponse>> {
+  static getPendingVideos(page: number, size: number): Promise<PaginationResponse<VideoResponse>> {
     return this._getPendingVideos(page, size)
   }
 
