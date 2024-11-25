@@ -98,12 +98,13 @@ import { ref, watch, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import VideoCard from '@/components/common/VideoCard.vue'
 import { Input } from '@/components/ui/input'
-import { Route, Search } from 'lucide-vue-next'
+import { Search } from 'lucide-vue-next'
 import { DownOutlined } from '@ant-design/icons-vue'
 import VideoSearchApiFacade from '@/api/apiFacade/VideoSearchApiFacade'
 import CommonPagination from '../common/CommonPagination.vue'
 import { VideoSortType } from '@/api/interfaces/common'
 import { Routes, SORT_MAPPING } from '@/utils/enum'
+import { useThrottle } from '@vueuse/core'
 
 const router = useRouter()
 const route = useRoute()
@@ -126,7 +127,6 @@ function updateQueryString() {
 }
 
 function handleSearch(query: string) {
-  console.log(autoCompletes.value)
   searchQuery.value = query
   currentPage.value = 1
   updateQueryString()

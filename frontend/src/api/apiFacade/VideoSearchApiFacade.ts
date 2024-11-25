@@ -3,6 +3,7 @@ import VideoSearchService from '../services/VideoSearchService'
 import type { VideoSortType } from '../interfaces/common'
 import { useRoute } from 'vue-router'
 import { computed, ref, watch } from 'vue'
+import { useDebounce, useThrottle } from '@vueuse/core'
 
 class VideoSearchApiFacade {
   // 페이지네이션
@@ -13,6 +14,8 @@ class VideoSearchApiFacade {
     const keyword = ref(route.query.keyword || '')
     const sort = computed(() => route.query.sort || 'RECENT')
 
+    const debouncedKeyword = useDebounce(keyword, 300)
+
     watch(
       () => route.query.keyword,
       (newValue) => {
@@ -22,10 +25,10 @@ class VideoSearchApiFacade {
     )
 
     return useQuery({
-      queryKey: ['search', keyword, page, sort],
+      queryKey: ['search', debouncedKeyword, page, sort],
       queryFn: async () => {
         const result = await VideoSearchService.getPaginatedAndSortedVideos(
-          keyword.value as string,
+          debouncedKeyword.value as string,
           page.value,
           9,
           sort.value as VideoSortType,
@@ -39,7 +42,7 @@ class VideoSearchApiFacade {
   static useFetchAutocompleteSuggestions() {
     const route = useRoute()
     const keyword = ref(route.query.keyword || '')
-    console.log(keyword)
+    const throttledKeyword = useThrottle(keyword, 300)
 
     watch(
       () => route.query.keyword,
@@ -50,9 +53,9 @@ class VideoSearchApiFacade {
     )
 
     return useQuery({
-      queryKey: ['autocomplete', keyword],
+      queryKey: ['autocomplete', throttledKeyword],
       queryFn: async () => {
-        const result = await VideoSearchService.getAutocompleteSuggestions(keyword.value as string)
+        const result = await VideoSearchService.getAutocompleteSuggestions(throttledKeyword.value as string)
         console.log(result)
         return result
       },
