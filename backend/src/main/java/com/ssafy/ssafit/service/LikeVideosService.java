@@ -3,6 +3,9 @@ package com.ssafy.ssafit.service;
 import com.ssafy.ssafit.dao.LikeVideosMapper;
 import com.ssafy.ssafit.domain.LikeVideos;
 import com.ssafy.ssafit.dto.response.LikeResponseVO;
+import com.ssafy.ssafit.exception.MemberNotAuthenticatedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +39,12 @@ public class LikeVideosService {
         return null;
     }
 
+    // 나의 좋아요 조회
+    public List<LikeVideos> getLikes() {
+        String memberId = getAuthenticatedMemberId();
+        return likeVideosMapper.findByMemberId(memberId);
+    }
+
     // 특정 멤버의 좋아요 조회
     public List<LikeVideos> getLikesByMember(String memberId) {
         return likeVideosMapper.findByMemberId(memberId);
@@ -50,5 +59,13 @@ public class LikeVideosService {
     @Transactional
     public void removeLike(Long likeId) {
         likeVideosMapper.deleteByLikeId(likeId);
+    }
+
+    public String getAuthenticatedMemberId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !(authentication.getPrincipal() instanceof String)) {
+            throw new MemberNotAuthenticatedException("Member not authenticated");
+        }
+        return (String) authentication.getPrincipal();
     }
 }

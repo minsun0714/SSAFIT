@@ -28,6 +28,13 @@ public class LikeVideosController {
         return ResponseEntity.ok(likeResponseVO);
     }
 
+    // 나의 좋아요 조회
+    @GetMapping("/list")
+    public ResponseEntity<List<LikeVideos>> getLikes() {
+        List<LikeVideos> likes = likeVideosService.getLikes();
+        return ResponseEntity.ok(likes);
+    }
+
     // 특정 멤버의 좋아요 조회
     @GetMapping("/list/{memberId}")
     public ResponseEntity<List<LikeVideos>> getLikesByMember(@PathVariable String memberId) {
