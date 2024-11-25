@@ -66,13 +66,19 @@ export interface VideoRegistVO {
 }
 
 export interface VideoDetailVO {
-  id: string
-  title: string
-  description: string
-  videoUrl: string
-  createdAt: string
-  views: number
-  likes: number
+  videoId: string;
+  channelTitle: string;
+  title: string;
+  viewCount: number;
+  publishedAt: string;
+  part: "RUN" | "STRENGTH" | "RELAX";
+  videoStatus: "PENDING" | "APPROVED" | "REJECTED";
+  memberId: string;
+  rating: number;
+  introduceText: string;
+  description: string;
+  thumbnailUrl: string;
+  embeddingUrl: string;
 }
 
 export interface VideoCardVO {

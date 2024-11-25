@@ -10,7 +10,7 @@ const allVideos = {
       nickname: "비치러너 제이",
       viewCount: 580601,
       createdAt: "2023-11-25",
-      videoId: 15,
+      videoId: '4oGKJW-BdvY',
       rating: 9,
     },
     {

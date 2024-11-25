@@ -1,33 +1,37 @@
 <template>
-  <br>
-  <div class="video-intro">
+  <br />
+  <div class="video-intro" v-if="videoData">
     <div class="thumbnail">
-      <img :src="videoData.thumbnailImgUrl" :alt="videoData.title" />
+      <img :src="videoData.thumbnailUrl" :alt="videoData.title" />
     </div>
     <div class="details">
       <h1 class="title">{{ videoData.title }}</h1>
-      <p class="nickname">{{ videoData.nickname }}</p>
-      <p class="view-count">조회수: <span>{{ formattedViewCount }}</span></p>
-      <p class="introduce">이 비디오는 아침 스트레칭 루틴으로 활력을 더합니다.</p>
+      <p class="nickname">{{ videoData.channelTitle }}</p>
+      <p class="view-count">
+        조회수: <span>{{ formattedViewCount }}</span>
+      </p>
+      <p class="introduce">{{ videoData.introduceText }}</p>
       <Button> 좋아요 </Button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from "vue";
+import { computed, PropType } from "vue";
 import Button from "../ui/button/Button.vue";
-const videoData = reactive({
-  thumbnailImgUrl: "https://img.youtube.com/vi/50WCSpZtdmA/maxresdefault.jpg",
-  title: "Shim EuDdeum 10 Minute Morning Stretch Everydayㅣ2023 Renewal",
-  nickname: "힘으뜸",
-  viewCount: 1200000,
-  createdAt: "2024-11-17",
-  videoId:"abc"
+import type { VideoDetailVO } from "@/api/interfaces/response";
+
+// props로 데이터 수신
+const props = defineProps({
+  videoData: {
+    type: Object as PropType<VideoDetailVO | null>,
+    required: true,
+  },
 });
 
+// 조회수 포맷팅
 const formattedViewCount = computed(() => {
-  return videoData.viewCount.toLocaleString();
+  return props.videoData?.viewCount?.toLocaleString() || "0";
 });
 </script>
 

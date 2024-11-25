@@ -15,6 +15,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import { Routes } from '../../utils/enum'
 
@@ -32,14 +33,20 @@ const props = defineProps<{
   rating?: number
 }>()
 
-const router = useRouter()
+const router = useRouter();
+const loading = ref(false);
 
-const navigateToVideo = () => {
-  router.push({
-    name: Routes.VIDEO,
-    params: { id: props.videoId },
-  })
-}
+const navigateToVideo = async () => {
+  loading.value = true;
+  try {
+    await router.push({
+      name: Routes.VIDEO,
+      params: { videoId: props.videoId },
+    });
+  } finally {
+    loading.value = false;
+  }
+};
 </script>
 
 <style scoped>

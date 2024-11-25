@@ -93,7 +93,7 @@ public class VideoService {
                 .embeddingUrl(video.getEmbeddingUrl())
                 .build();
     }
-    //
+
     public List<VideoCardVO> getAllVideos(int page, int size) {
         int offset = page * size; // OFFSET 계산
         return videoMapper.findAllVideos(size, offset);
