@@ -13,12 +13,12 @@
       >
         <!-- URL Input -->
         <a-form-item ref="name" label="Url" name="name">
-          <a-input v-model:value="formState.name" placeholder="Enter a URL" />
+          <a-input v-model:value="formState.videoUrl" placeholder="Enter a URL" />
         </a-form-item>
 
         <!-- Type Selection -->
         <a-form-item label="Type" name="resource">
-          <a-radio-group v-model:value="formState.resource" class="flex justify-evenly">
+          <a-radio-group v-model:value="formState.part" class="flex justify-evenly">
             <a-radio value="1">🏃 Run</a-radio>
             <a-radio value="2">💪 Strength</a-radio>
             <a-radio value="3">🧘 Relax</a-radio>
@@ -28,7 +28,7 @@
         <!-- Description -->
         <a-form-item label="Intro" name="desc">
           <a-textarea
-            v-model:value="formState.desc"
+            v-model:value="formState.introduceText"
             placeholder="Please write a brief introduction."
             auto-size="{ minRows: 3, maxRows: 6 }"
           />
@@ -46,50 +46,71 @@
 </template>
 
 <script lang="ts" setup>
-import { Dayjs } from 'dayjs';
-import { reactive, ref, toRaw } from 'vue';
-import type { UnwrapRef } from 'vue';
-import type { Rule } from 'ant-design-vue/es/form';
+import { ref, reactive } from "vue";
+import { notification } from "ant-design-vue";
+import VideoService from "@/api/services/VideoService"; // API 서비스
+import { VideoRegistDTO } from "@/api/interfaces/request";
 
-interface FormState {
-  name: string;
-  region: string | undefined;
-  date1: Dayjs | undefined;
-  delivery: boolean;
-  type: string[];
-  resource: string;
-  desc: string;
-}
-const formRef = ref();
-const labelCol = { span: 5 };
-const wrapperCol = { span: 19 };
-const formState: UnwrapRef<FormState> = reactive({
-  name: '',
-  region: undefined,
-  date1: undefined,
-  delivery: false,
-  type: [],
-  resource: '',
-  desc: '',
+type Part = 'RUN' | 'STRENGTH' | 'RELAX'
+// Enum 매핑
+const partMapping: Record<number, Part> = {
+  1: "RUN",
+  2: "STRENGTH",
+  3: "RELAX",
+};
+
+// 폼 상태
+const formState = reactive({
+  videoUrl: "", // 비디오 URL
+  part: 1, // 기본 값: 1 (RUN)
+  introduceText: "", // 소개 텍스트
 });
-const rules: Record<string, Rule[]> = {
-  name: [
-    { required: true, message: 'Please input the activity URL', trigger: 'change' },
-    { type: 'url', message: 'Please enter a valid URL', trigger: 'blur' },
+
+// 유효성 검사 규칙
+const rules = {
+  videoUrl: [
+    { required: true, message: "Please input the video URL", trigger: "change" },
+    { type: "url", message: "Please enter a valid URL", trigger: "blur" },
   ],
-  resource: [{ required: true, message: 'Please select an activity type', trigger: 'change' }],
-  desc: [{ required: true, message: 'Please provide a description', trigger: 'blur' }],
+  part: [{ required: true, message: "Please select a video type", trigger: "change" }],
+  introduceText: [{ required: true, message: "Please provide a description", trigger: "blur" }],
 };
-const onSubmit = () => {
-  formRef.value
-    .validate()
-    .then(() => {
-      console.log('Submitted Values:', formState, toRaw(formState));
-    })
-    .catch((error: Error) => {
-      console.log('Validation Error:', error);
+
+const formRef = ref();
+
+// 폼 제출
+const onSubmit = async () => {
+  try {
+    await formRef.value.validate(); // 폼 유효성 검사
+    const payload: VideoRegistDTO = {
+      videoUrl: formState.videoUrl,
+      part: partMapping[formState.part],
+      introduceText: formState.introduceText,
+    };
+
+    // API 호출
+    const response = await VideoService.registerVideo(payload);
+    console.log('Response:', response.introductUrl, response.part, response.videoUrl);
+
+    // 성공 알림
+    notification.success({
+      message: "Success",
+      description: "The video has been registered successfully!",
     });
+
+    resetForm(); // 폼 초기화
+  } catch (error: any) {
+    console.error("Error during submission:", error);
+
+    // 실패 알림
+    notification.error({
+      message: "Error",
+      description: error.response?.data?.message || "Failed to register the video.",
+    });
+  }
 };
+
+// 폼 초기화
 const resetForm = () => {
   formRef.value.resetFields();
 };

@@ -11,9 +11,10 @@ export interface MemberInfoRequest extends Omit<Member, 'name'> {
 
 interface ExerciseTimerRequest extends Exercise {}
 
+type Part = 'RUN' | 'STRENGTH' | 'RELAX'
 export interface VideoRegistDTO {
-  title: string
-  description: string
-  videoFile: File
+  videoUrl: string
+  introduceText: string
+  part: Part
 }
 
