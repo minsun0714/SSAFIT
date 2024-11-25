@@ -24,7 +24,6 @@ public class LikeVideosService {
     // 좋아요 추가
     @Transactional
     public LikeResponseVO addLike(String memberId, String videoId) {
-
         if (!likeVideosMapper.existsByMemberIdAndVideoId(memberId, videoId)) {
             LikeVideos like = LikeVideos.builder()
                     .memberId(memberId)
@@ -32,18 +31,13 @@ public class LikeVideosService {
                     .likedAt(new Date())
                     .build();
             likeVideosMapper.insertLike(like);
-
-            return LikeResponseVO.builder().likeId(like.getLikeId())
-                    .videoId(like.getVideoId()).memberId(like.getMemberId())
-                    .likedAt(like.getLikedAt()).build();
+            return LikeResponseVO.builder()
+                    .memberId(memberId)
+                    .videoId(videoId)
+                    .likedAt(like.getLikedAt())
+                    .build();
         }
-        return null;
-    }
-
-    // 나의 좋아요 조회
-    public List<LikeVideos> getLikes() {
-        String memberId = getAuthenticatedMemberId();
-        return likeVideosMapper.findByMemberId(memberId);
+        return null; // 이미 좋아요가 존재할 경우
     }
 
     // 특정 멤버의 좋아요 조회
@@ -58,10 +52,11 @@ public class LikeVideosService {
 
     // 좋아요 삭제
     @Transactional
-    public void removeLike(Long likeId) {
-        likeVideosMapper.deleteByLikeId(likeId);
+    public void removeLikeByVideoId(String memberId, String videoId) {
+        likeVideosMapper.deleteByVideoId(memberId, videoId);
     }
 
+    // 인증된 사용자 ID 가져오기
     public String getAuthenticatedMemberId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !(authentication.getPrincipal() instanceof String)) {

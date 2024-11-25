@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/videos")
 
-public class VideoController {
+public class    VideoController {
 
     private final VideoService videoService;
 

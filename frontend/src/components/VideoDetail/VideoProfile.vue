@@ -12,23 +12,23 @@
       </p>
       <p class="introduce">{{ videoData.introduceText }}</p>
       <button
-        :class="['like-button', { 'liked': isLiked }]"
+        :class="['like-button', { liked: isLiked }]"
         @click="toggleLike"
       >
-        {{ isLiked ? '좋아요 취소' : '좋아요' }}
+        {{ likeButtonText }}
       </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, PropType } from "vue";
+import { ref, computed, watch, defineProps } from "vue";
+import type { PropType } from "vue";
 import LikeVideosService from "@/api/services/LikeVideosService";
 import { notification } from "ant-design-vue";
 import type { VideoDetailVO } from "@/api/interfaces/response";
 import type { LikeRequestDTO } from "@/api/interfaces/request";
 
-// props로 데이터 수신
 const props = defineProps({
   videoData: {
     type: Object as PropType<VideoDetailVO | null>,
@@ -36,41 +36,52 @@ const props = defineProps({
   },
 });
 
-// 상태 관리
 const isLiked = ref(false);
 const likeId = ref<number | null>(null);
 
-// 조회수 포맷팅
 const formattedViewCount = computed(() => {
   return props.videoData?.viewCount?.toLocaleString() || "0";
 });
 
-// 좋아요 상태 토글
+const likeButtonText = computed(() => (isLiked.value ? "좋아요 취소" : "좋아요"));
+
+watch(() => props.videoData, async (newData) => {
+  if (newData?.videoId) {
+    try {
+      const likes = await LikeVideosService.getLikesByMember(); // 인증된 사용자 정보로 좋아요 조회
+      const existingLike = likes.find(like => like.videoId === newData.videoId);
+      console.log("Existing like:", existingLike);
+      isLiked.value = !!existingLike;
+      likeId.value = existingLike?.likeId || null;
+    } catch (error) {
+      console.error("Failed to fetch likes for video", error);
+    }
+  }
+}, { immediate: true });
+
 const toggleLike = async () => {
   if (!props.videoData?.videoId) return;
 
   try {
     if (isLiked.value) {
       // 좋아요 취소
-      if (likeId.value) {
-        await LikeVideosService.removeLike(likeId.value.toString());
-        notification.success({ message: "좋아요 취소됨" });
-        isLiked.value = false;
-        likeId.value = null;
-      }
+      await LikeVideosService.removeLikeByVideoId(props.videoData.videoId);
+      console.log("좋아요 취소 요청 성공");
+      isLiked.value = false;
+      likeId.value = null; // 좋아요 취소 후 likeId 초기화
+      notification.success({ message: "좋아요 취소됨" });
     } else {
-      // 좋아요 등록
+      // 좋아요 추가
       const payload: LikeRequestDTO = {
-        memberId: "currentUser123", // 실제 로그인 사용자 ID
         videoId: props.videoData.videoId,
       };
       const response = await LikeVideosService.addLike(payload);
-      notification.success({ message: "좋아요 추가됨" });
+      console.log("좋아요 요청 성공");
       isLiked.value = true;
-      likeId.value = response.likeId;
+      likeId.value = response.likeId; // 서버에서 받은 likeId로 설정
+      notification.success({ message: "좋아요 추가됨" });
     }
   } catch (error) {
-    console.error("Failed to toggle like:", error);
     notification.error({ message: "작업 실패", description: "좋아요 처리에 실패했습니다." });
   }
 };
