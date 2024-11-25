@@ -25,3 +25,11 @@ const routesMap = [
     </MyPageContext>
   </main>
 </template>
+
+<style scoped>
+main {
+  background-color: black;
+  color: white;
+  min-height: 100vh;
+}
+</style>

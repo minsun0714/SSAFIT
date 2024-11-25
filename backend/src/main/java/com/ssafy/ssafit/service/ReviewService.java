@@ -55,6 +55,23 @@ public class ReviewService {
                 .toList();
     }
 
+    // 특정 유저의 리뷰 리스트 조회
+    public List<ReviewResponseVO> getReviewsByMemberId(String memberId) {
+        List<Review> reviews = reviewMapper.selectReviewsByMemberId(memberId);
+        return reviews.stream()
+                .map(ReviewResponseVO::new)
+                .toList();
+    }
+
+    // 나의 리뷰 리스트 조회
+    public List<ReviewResponseVO> getReviewsByMyId() {
+        String myId = getAuthenticatedMemberId();
+        List<Review> reviews = reviewMapper.selectReviewsByMyId(myId);
+        return reviews.stream()
+                .map(ReviewResponseVO::new)
+                .toList();
+    }
+
     // 리뷰 수정
     @Transactional
     public ReviewResponseVO updateReview(String reviewId, ReviewRequestDTO reviewRequestDTO) {

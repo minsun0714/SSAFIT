@@ -3,8 +3,11 @@ package com.ssafy.ssafit.controller;
 import com.ssafy.ssafit.domain.LikeVideos;
 import com.ssafy.ssafit.dto.request.LikeRequestDTO;
 import com.ssafy.ssafit.dto.response.LikeResponseVO;
+import com.ssafy.ssafit.exception.MemberNotAuthenticatedException;
 import com.ssafy.ssafit.service.LikeVideosService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +25,9 @@ public class LikeVideosController {
     // 좋아요 등록
     @PostMapping
     public ResponseEntity<LikeResponseVO> addLike(@RequestBody LikeRequestDTO requestDTO) {
-        String memberId = requestDTO.getMemberId();
+        String myId = getAuthenticatedMemberId();
         String videoId = requestDTO.getVideoId();
-        LikeResponseVO likeResponseVO = likeVideosService.addLike(memberId, videoId);
+        LikeResponseVO likeResponseVO = likeVideosService.addLike(myId, videoId);
         return ResponseEntity.ok(likeResponseVO);
     }
 
@@ -47,5 +50,14 @@ public class LikeVideosController {
     public ResponseEntity<Void> removeLike(@PathVariable Long likeId) {
         likeVideosService.removeLike(likeId);
         return ResponseEntity.noContent().build();
+    }
+
+    // 인증된 사용자 ID 가져오기
+    public String getAuthenticatedMemberId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !(authentication.getPrincipal() instanceof String)) {
+            throw new MemberNotAuthenticatedException("Member not authenticated");
+        }
+        return (String) authentication.getPrincipal();
     }
 }

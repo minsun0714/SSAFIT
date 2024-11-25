@@ -21,6 +21,7 @@ public class LikeVideosService {
     // 좋아요 추가
     @Transactional
     public LikeResponseVO addLike(String memberId, String videoId) {
+
         if (!likeVideosMapper.existsByMemberIdAndVideoId(memberId, videoId)) {
             LikeVideos like = LikeVideos.builder()
                     .memberId(memberId)

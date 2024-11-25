@@ -11,7 +11,7 @@ class ReviewService {
     return response.data
   }
 
-  // 특정 영상에 대한 리뷰 조회
+  // 리뷰 조회
   static async getReviewsByVideoId(videoId: string): Promise<ReviewResponseVO[]> {
     const response = await api.get(`${this.path}/video/${videoId}`)
     return response.data
