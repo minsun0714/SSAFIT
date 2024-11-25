@@ -36,6 +36,8 @@ public class VideoSearchService {
     }
 
     public List<String> getAutocompleteSuggestions(String keyword) {
-        return videoSearchMapper.getAutocompleteSuggestions(keyword); // 최대 5개 반환
+        List<String> autoCompleteSuggestions = videoSearchMapper.getAutocompleteSuggestions(keyword); // 최대 5개 반환
+        System.out.println("auto: " + autoCompleteSuggestions);
+        return autoCompleteSuggestions;
     }
 }
