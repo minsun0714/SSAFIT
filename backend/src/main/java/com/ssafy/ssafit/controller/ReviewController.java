@@ -31,6 +31,20 @@ public class ReviewController {
         return ResponseEntity.ok(reviews);
     }
 
+    // 리뷰 조회 (특정 유저의 리뷰 리스트)
+    @GetMapping("/video/{memberId}")
+    public ResponseEntity<List<ReviewResponseVO>> getReviewsByMemberId(@PathVariable String memberId) {
+        List<ReviewResponseVO> reviews = reviewService.getReviewsByVideoId(memberId);
+        return ResponseEntity.ok(reviews);
+    }
+
+    // 리뷰 조회 (나의 리뷰 리스트)
+    @GetMapping("/video/my")
+    public ResponseEntity<List<ReviewResponseVO>> getReviewsByMyId() {
+        List<ReviewResponseVO> reviews = reviewService.getReviewsByMyId();
+        return ResponseEntity.ok(reviews);
+    }
+
     // 리뷰 수정
     @PutMapping("/{reviewId}")
     public ResponseEntity<ReviewResponseVO> updateReview(@PathVariable String reviewId,
