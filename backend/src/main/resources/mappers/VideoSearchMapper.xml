@@ -15,7 +15,10 @@
         part,
         video_status
         FROM video
-        WHERE title LIKE CONCAT('%', #{keyword}, '%') AND video_status = 'APPROVED'
+        WHERE video_status = 'APPROVED'
+        <if test="keyword != null and keyword != ''">
+            AND title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
         ORDER BY
         <choose>
             <when test="sortType == 'RECENT'">
@@ -35,14 +38,21 @@
     <select id="countVideos" resultType="int">
         SELECT COUNT(*)
         FROM video
-        WHERE title LIKE CONCAT('%', #{keyword}, '%') AND video_status = 'APPROVED'
+        WHERE video_status = 'APPROVED'
+        <if test="keyword != null and keyword != ''">
+            AND title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
     </select>
 
     <!-- 자동완성 -->
     <select id="getAutocompleteSuggestions" resultType="String">
         SELECT title
         FROM video
-        WHERE title LIKE CONCAT('%', #{keyword}, '%') AND video_status = 'APPROVED'
+        WHERE video_status = 'APPROVED'
+        <if test="keyword != null and keyword != ''">
+            AND title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
         LIMIT #{limit}
     </select>
+
 </mapper>
