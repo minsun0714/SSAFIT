@@ -27,11 +27,12 @@ const { mutate } = AdminApiFacade.useUpdateVideoStatus()
             <TableHead>작성자</TableHead>
             <TableHead>등록 일시</TableHead>
             <TableHead>승인 여부</TableHead>
+            <TableHead>승인 상태</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody v-if="data?.totalItems">
           <TableRow v-for="video in data?.data" :key="video?.videoId">
-            <TableCell><img /></TableCell>
+            <TableCell><img :src="video?.thumbnailUrl" alt="영상 썸네일 url" /></TableCell>
             <TableCell>{{ video?.title }}</TableCell>
             <TableCell>{{ video?.part }}</TableCell>
             <TableCell>{{ video?.publishedAt }}</TableCell>

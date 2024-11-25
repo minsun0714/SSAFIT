@@ -130,6 +130,7 @@ public class DTOMapper {
                         .videoId(video.getVideoId())
                         .channelTitle(video.getChannelTitle())
                         .title(video.getTitle())
+                        .thumbnailUrl(YouTubeUtils.getThumbnailUrl(video.getVideoId()))
                         .viewCount(video.getViewCount())
                         .publishedAt(video.getPublishedAt())
                         .part(video.getPart())

@@ -30,4 +30,5 @@ export interface Video {
   publishedAt: string
   part: VideoPart
   videoStatus: VideoStatus
+  thumbnailUrl: string
 }
