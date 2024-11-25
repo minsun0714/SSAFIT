@@ -4,6 +4,8 @@ import type {
   FollowInfoResponse,
   MemberInfoResponse,
   ExerciseGrass,
+  LikeResponseVO,
+  ReviewResponseVO,
 } from '@/api/interfaces/response'
 import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
 import FollowApiFacade from '@/api/apiFacade/FollowAPIFacade'
@@ -18,8 +20,8 @@ const followInfo: Ref<FollowInfoResponse | undefined> = ref(
 const grassInfo: Ref<ExerciseGrass[] | undefined> = ref(
   ExerciseLogApiFacade.useFetchExerciseGrass().data,
 )
-const likeVideosInfo: Ref<LikeResponse[] | undefined> = ref(LikeVideoApiFacade.useFetchLikes().data)
-const reviewsInfo: Ref<ReviewResponse[] | undefined> = ref(ReviewApiFacade.useFetchReviews().data)
+const likeVideosInfo: Ref<LikeResponseVO[] | undefined> = ref(LikeVideoApiFacade.useFetchLikes().data)
+const reviewsInfo: Ref<ReviewResponseVO | undefined> = ref(ReviewApiFacade.useFetchReviews().data)
 
 provide('userInfo', userInfo)
 provide('followInfo', followInfo)
