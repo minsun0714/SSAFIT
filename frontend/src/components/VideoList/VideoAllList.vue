@@ -11,15 +11,28 @@
 
   <div>
     <!-- Search Bar -->
-    <div class="flex justify-center">
+    <div class="flex flex-col justify-center items-center">
       <div class="relative w-full max-w-sm items-center mb-4 text-black">
-        <Input id="search" type="text" placeholder="Search..." class="pl-10" @input="handleSearch($event.target.value)"/>
+        <Input
+          id="search"
+          type="text"
+          placeholder="Search..."
+          class="pl-10"
+          autocomplete="off"
+          @input="handleSearch($event.target.value)"
+        />
         <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
           <Search class="size-6 text-muted-foreground" />
         </span>
       </div>
-      <ul v-if="autoCompletes?.length" class="bg-white text-black">
-        <li v-for="(s, index) in autoCompletes" :key="index">{{ s }}</li>
+      <!-- 자동완성 목록 -->
+      <ul
+        v-if="autoCompletes?.length"
+        class="bg-white text-black absolute top-[300px] w-[384px] rounded-md shadow-md z-10"
+      >
+        <li v-for="(s, index) in autoCompletes" :key="index" class="px-4 py-3">
+          {{ s.length <= 30 ? s : s.slice(0, 28) + '...' }}
+        </li>
       </ul>
     </div>
 
