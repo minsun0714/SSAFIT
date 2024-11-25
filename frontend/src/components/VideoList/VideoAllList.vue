@@ -35,16 +35,18 @@
         <!-- Sorting Dropdown -->
         <div class="flex justify-center mb-4">
           <a-dropdown>
-            <a class="ant-dropdown-link" @click.prevent> {{ selectedSort }} <DownOutlined /> </a>
+            <a class="ant-dropdown-link" @click.prevent>
+              {{ SORT_MAPPING[selectedSort as VideoSortType] }} <DownOutlined />
+            </a>
             <template #overlay>
               <a-menu @click="handleMenuClick">
-                <a-menu-item key="조회순">
+                <a-menu-item key="VIEW_CNT">
                   <a href="javascript:;">조회순</a>
                 </a-menu-item>
-                <a-menu-item key="최신순">
+                <a-menu-item key="RECENT">
                   <a href="javascript:;">최신순</a>
                 </a-menu-item>
-                <a-menu-item key="별점순">
+                <a-menu-item key="RATING">
                   <a href="javascript:;">별점순</a>
                 </a-menu-item>
               </a-menu>
@@ -87,6 +89,7 @@ import { DownOutlined } from '@ant-design/icons-vue'
 import VideoSearchApiFacade from '@/api/apiFacade/VideoSearchApiFacade'
 import CommonPagination from '../common/CommonPagination.vue'
 import { VideoSortType } from '@/api/interfaces/common'
+import { SORT_MAPPING } from '@/utils/enum'
 
 const router = useRouter()
 const route = useRoute()
