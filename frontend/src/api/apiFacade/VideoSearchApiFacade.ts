@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/vue-query'
 import VideoSearchService from '../services/VideoSearchService'
 import type { VideoSortType } from '../interfaces/common'
 import { useRoute } from 'vue-router'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 class VideoSearchApiFacade {
   // 페이지네이션
@@ -12,6 +12,14 @@ class VideoSearchApiFacade {
     const page = computed(() => Number(route.query.page) || 1)
     const keyword = ref(route.query.keyword || '')
     const sort = computed(() => route.query.sort || 'RECENT')
+
+    watch(
+      () => route.query.keyword,
+      (newValue) => {
+        keyword.value = newValue || ''
+      },
+      { immediate: true },
+    )
 
     return useQuery({
       queryKey: ['search', keyword, page, sort],
