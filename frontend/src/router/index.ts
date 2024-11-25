@@ -96,6 +96,10 @@ const router = createRouter({
       path: '/video/:id',
       name: Routes.VIDEO,
       component: () => import('../views/VideoDetailView.vue'),
+      redirect: to => ({
+        name: Routes.VIDEO_PLAY,
+        params: to.params,
+      }),
       children: [
         {
           path: 'video-play',

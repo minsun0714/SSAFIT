@@ -58,12 +58,11 @@ export interface ExerciseGrass {
 
 export interface VideoResponse extends Video {}
 
+type Part = 'Run' | 'STRENGTH' | 'RELAX'
 export interface VideoRegistVO {
-  id: string
-  title: string
-  description: string
   videoUrl: string
-  createdAt: string
+  part: Part
+  introductUrl: string
 }
 
 export interface VideoDetailVO {

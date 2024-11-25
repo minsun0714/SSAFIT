@@ -60,6 +60,7 @@ public class MemberService {
     // 사용자 생성
     @Transactional
     public SignUpResponseDTO createMember(SignUpRequestDTO memberRequestDTO, HttpServletResponse response) {
+        System.out.println(memberRequestDTO);
         Member member = Member.builder()
                 .memberId(memberRequestDTO.getMemberId())
                 .password(passwordEncoder.encode(memberRequestDTO.getPassword())) // 보안상 해시 처리 필요

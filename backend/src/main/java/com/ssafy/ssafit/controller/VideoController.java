@@ -48,5 +48,53 @@ public class VideoController {
         return ResponseEntity.ok(videos);
     }
 
+    // 인기순 리스트 조회 (상위 8개)
+    @GetMapping("/top8/view-count")
+    public ResponseEntity<List<VideoCardVO>> getTop8ByViewCount() {
+        List<VideoCardVO> videos = videoService.getTop8ByViewCount();
+        return ResponseEntity.ok(videos);
+    }
+
+    // 인기순 전체 목록 조회
+    @GetMapping("/list/view-count")
+    public ResponseEntity<List<VideoCardVO>> getAllByViewCount() {
+        List<VideoCardVO> videos = videoService.getAllByViewCount();
+        return ResponseEntity.ok(videos);
+    }
+
+    // 별점순 리스트 조회 (상위 3개)
+    @GetMapping("/top3/rating")
+    public ResponseEntity<List<VideoCardVO>> getTop3ByRating() {
+        List<VideoCardVO> videos = videoService.getTop3ByRating();
+        return ResponseEntity.ok(videos);
+    }
+
+    // 별점순 전체 목록 조회
+    @GetMapping("/list/rating")
+    public ResponseEntity<List<VideoCardVO>> getAllByRating() {
+        List<VideoCardVO> videos = videoService.getAllByRating();
+        return ResponseEntity.ok(videos);
+    }
+
+    // 최신순 리스트 조회 (상위 3개)
+    @GetMapping("/top3/latest")
+    public ResponseEntity<List<VideoCardVO>> getTop3ByLatest() {
+        List<VideoCardVO> videos = videoService.getTop3ByLatest();
+        return ResponseEntity.ok(videos);
+    }
+
+    // 최신순 전체 목록 조회
+    @GetMapping("/list/latest")
+    public ResponseEntity<List<VideoCardVO>> getAllByLatest() {
+        List<VideoCardVO> videos = videoService.getAllByLatest();
+        return ResponseEntity.ok(videos);
+    }
+
+    // 비디오 검색
+    @GetMapping("/search")
+    public ResponseEntity<List<VideoCardVO>> searchVideos(@RequestParam String keyword) {
+        List<VideoCardVO> videos = videoService.searchVideos(keyword);
+        return ResponseEntity.ok(videos);
+    }
 
 }

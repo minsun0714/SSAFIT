@@ -19,9 +19,12 @@ public class AuthService {
     @Transactional
     public JwtToken authenticateAndGenerateToken(String memberId, String password) {
         // 유저 인증 처리
+        System.out.println(memberId + " " + password);
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(memberId, password)
         );
+
+        System.out.println(memberId + " " + password);
 
         // 인증에 성공하면 토큰 생성
         return jwtTokenProvider.generateToken(authentication);

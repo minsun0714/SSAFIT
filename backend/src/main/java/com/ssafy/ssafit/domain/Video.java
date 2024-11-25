@@ -24,4 +24,7 @@ public class Video {
     private double rating;
     private String introduceText;
     private String description;
+
+    private String embeddingUrl;
+    private String thumbnailUrl;
 }
