@@ -62,7 +62,7 @@ const { mutate } = ExerciseLogApiFacade.useDeleteExerciseLog()
             </button>
           </li>
         </ul>
-        <div v-else>해당 날짜의 운동 데이터가 없습니다.</div>
+        <div v-else class="flex justify-center p-16">해당 날짜의 운동 데이터가 없습니다.</div>
       </DialogContent>
     </Dialog>
   </div>

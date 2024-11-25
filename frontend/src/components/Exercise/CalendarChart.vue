@@ -16,7 +16,10 @@ calendarChartStore.setChartData(exerciseLogVO)
 </script>
 
 <template>
-  <div class="w-full h-[400px] flex justify-center">
+  <div
+    class="w-full h-[400px] flex justify-center items-center border"
+    v-if="calendarChartStore.chartData.datasets[0].data.length"
+  >
     <Doughnut :data="calendarChartStore.chartData" />
   </div>
 </template>
