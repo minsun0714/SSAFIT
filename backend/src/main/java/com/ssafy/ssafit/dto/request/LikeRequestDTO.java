@@ -14,7 +14,7 @@ import java.util.Date;
 @Builder
 public class LikeRequestDTO {
     private Long likeId;
-    private Member member;
+    private String memberId;
     private String videoId;
     private Date likedAt;
 }
