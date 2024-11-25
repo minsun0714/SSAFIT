@@ -24,3 +24,8 @@ export interface ReviewRequestDTO{
   content: string;
   rating: number;
 }
+
+export interface LikeRequestDTO{
+  videoId: string;
+}
+

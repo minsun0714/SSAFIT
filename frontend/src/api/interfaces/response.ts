@@ -97,3 +97,10 @@ export interface ReviewResponseVO {
   createdAt: string;
   rating: number;
 }
+
+export interface LikeResponseVO {
+  likeId: number;
+  memberId: string;
+  videoId: string;
+  likedAt: string;
+}

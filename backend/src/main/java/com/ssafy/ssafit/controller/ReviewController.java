@@ -39,7 +39,7 @@ public class ReviewController {
     }
 
     // 리뷰 조회 (나의 리뷰 리스트)
-    @GetMapping("/video/my")
+    @GetMapping("/video")
     public ResponseEntity<List<ReviewResponseVO>> getReviewsByMyId() {
         List<ReviewResponseVO> reviews = reviewService.getReviewsByMyId();
         return ResponseEntity.ok(reviews);
