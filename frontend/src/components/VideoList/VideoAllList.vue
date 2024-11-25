@@ -12,27 +12,15 @@
   <div>
     <!-- Search Bar -->
     <div class="flex justify-center">
-      <Popover>
-        <PopoverTrigger>
-          <div class="relative w-full max-w-sm items-center mb-4 text-black">
-            <Input
-              id="search"
-              type="text"
-              placeholder="Search..."
-              class="pl-10"
-              @input="handleSearch($event.target.value)"
-            />
-            <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
-              <Search class="size-6 text-muted-foreground" />
-            </span>
-          </div>
-        </PopoverTrigger>
-        <PopoverContent>
-          <ul v-if="autoCompletes?.length">
-            <li v-for="(s, index) in autoCompletes" :key="index">{{ s }}</li>
-          </ul>
-        </PopoverContent>
-      </Popover>
+      <div class="relative w-full max-w-sm items-center mb-4 text-black">
+        <Input id="search" type="text" placeholder="Search..." class="pl-10" @input="handleSearch($event.target.value)"/>
+        <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
+          <Search class="size-6 text-muted-foreground" />
+        </span>
+      </div>
+      <ul v-if="autoCompletes?.length" class="bg-white text-black">
+        <li v-for="(s, index) in autoCompletes" :key="index">{{ s }}</li>
+      </ul>
     </div>
 
     <!-- Video List -->
@@ -92,7 +80,6 @@ import { ref, watch, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import VideoCard from '@/components/common/VideoCard.vue'
 import { Input } from '@/components/ui/input'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Search } from 'lucide-vue-next'
 import { DownOutlined } from '@ant-design/icons-vue'
 import VideoSearchApiFacade from '@/api/apiFacade/VideoSearchApiFacade'
@@ -121,6 +108,7 @@ function updateQueryString() {
 }
 
 function handleSearch(query: string) {
+  console.log(autoCompletes.value)
   searchQuery.value = query
   currentPage.value = 1
   updateQueryString()

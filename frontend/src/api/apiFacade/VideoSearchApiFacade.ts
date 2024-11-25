@@ -50,7 +50,7 @@ class VideoSearchApiFacade {
     )
 
     return useQuery({
-      queryKey: ['autocomplete', keyword.value],
+      queryKey: ['autocomplete', keyword],
       queryFn: async () => {
         const result = await VideoSearchService.getAutocompleteSuggestions(keyword.value as string)
         console.log(result)
