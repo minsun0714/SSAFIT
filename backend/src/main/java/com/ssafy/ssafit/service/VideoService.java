@@ -26,8 +26,10 @@ public class VideoService {
 
     // 비디오 등록
     public VideoRegistVO registerVideo(VideoRegistDTO videoRegistDTO) throws ParseException, IOException, InterruptedException {
-        String videoId = YouTubeUtils.extractVideoId(videoRegistDTO.getVideoUrl()); //url에서 id추출
-        System.out.println(videoRegistDTO.toString());
+        String videoId = YouTubeUtils.extractVideoId(videoRegistDTO.getVideoUrl());
+        String thumbnailUrl = YouTubeUtils.getThumbnailUrl(videoId);
+        String embeddingUrl = YouTubeUtils.getEmbeddingUrl(videoId);
+
         Video video = YouTubeUtils.loadVideoInfo(videoId);
 
         // 사용자 ID를 인증 정보에서 가져온다고 가정
@@ -45,6 +47,8 @@ public class VideoService {
                 .memberId(memberId)
                 .rating(video.getRating())
                 .introduceText(videoRegistDTO.getIntroduceText())
+                .thumbnailUrl(thumbnailUrl)
+                .embeddingUrl(embeddingUrl)
                 .build();
 
         System.out.println(video.toString());
@@ -63,6 +67,8 @@ public class VideoService {
                 .memberId(video.getMemberId())
                 .rating(video.getRating())
                 .introduceText(videoRegistDTO.getIntroduceText())
+                .thumbnailUrl(video.getThumbnailUrl())
+                .embeddingUrl(video.getEmbeddingUrl())
                 .build();
     }
 
@@ -83,6 +89,8 @@ public class VideoService {
                 .memberId(video.getMemberId())
                 .rating(video.getRating())
                 .introduceText(video.getIntroduceText())
+                .thumbnailUrl(video.getThumbnailUrl())
+                .embeddingUrl(video.getEmbeddingUrl())
                 .build();
     }
     //
@@ -92,42 +100,42 @@ public class VideoService {
     }
 
     // 인기순 리스트 조회 (상위 8개)
-    public List<Video> getTop8ByViewCount() {
+    public List<VideoCardVO> getTop8ByViewCount() {
         return videoMapper.findTop8ByViewCount();
     }
 
     // 인기순 전체 목록 조회
-    public List<Video> getAllByViewCount() {
+    public List<VideoCardVO> getAllByViewCount() {
         return videoMapper.findAllByViewCount();
     }
 
     // 별점순 리스트 조회 (상위 3개)
-    public List<Video> getTop3ByRating() {
+    public List<VideoCardVO> getTop3ByRating() {
         return videoMapper.findTop3ByRating();
     }
 
     // 별점순 전체 목록 조회
-    public List<Video> getAllByRating() {
+    public List<VideoCardVO> getAllByRating() {
         return videoMapper.findAllByRating();
     }
 
     // 최신순 리스트 조회 (상위 3개)
-    public List<Video> getTop3ByLatest() {
+    public List<VideoCardVO> getTop3ByLatest() {
         return videoMapper.findTop3ByLatest();
     }
 
     // 최신순 전체 목록 조회
-    public List<Video> getAllByLatest() {
+    public List<VideoCardVO> getAllByLatest() {
         return videoMapper.findAllByLatest();
     }
 
     // 비디오 검색
-    public List<Video> searchVideos(String keyword) {
+    public List<VideoCardVO> searchVideos(String keyword) {
         return videoMapper.searchByKeyword(keyword);
     }
 
     // admin에서 pending 상태인 비디오 조회
-    public List<Video> getPendingVideos(int page) { return videoMapper.selectPendingVideos(page); }
+    public List<VideoCardVO> getPendingVideos(int page) { return videoMapper.selectPendingVideos(page); }
 
     // admin에서 승인
     public void updateStatusToApproved(String videoId) { videoMapper.updateStatusToApproved(videoId);}

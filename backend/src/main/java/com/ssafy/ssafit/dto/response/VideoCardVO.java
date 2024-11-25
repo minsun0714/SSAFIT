@@ -25,4 +25,6 @@ public class VideoCardVO {
     private Date publishedAt;
     private Part part;
     private VideoStatus videoStatus;
+    private String thumbnailUrl;
+    private String embeddingUrl;
 }

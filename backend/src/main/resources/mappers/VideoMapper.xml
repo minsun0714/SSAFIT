@@ -8,9 +8,9 @@
     <!-- 비디오 등록 -->
     <insert id="insertVideo" parameterType="Video">
         INSERT INTO video ( video_id, channel_title, title, view_count, rating, published_at, part, video_status,
-        member_id, introduce_text, description )
+        member_id, introduce_text, description, embedding_url, thumbnail_url )
         VALUES ( #{videoId}, #{channelTitle}, #{title}, #{viewCount}, #{rating}, #{publishedAt}, #{part}, #{videoStatus},
-        #{memberId}, #{introduceText}, #{description} )
+        #{memberId}, #{introduceText}, #{description}, #{embeddingUrl}, #{thumbnailUrl} )
     </insert>
 
     <!-- 비디오 상세 정보 조회 -->

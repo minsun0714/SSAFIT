@@ -1,9 +1,7 @@
 package com.ssafy.ssafit.dto.response;
 
-import com.ssafy.ssafit.domain.Member;
 import com.ssafy.ssafit.domain.Part;
 import com.ssafy.ssafit.domain.VideoStatus;
-import com.ssafy.ssafit.dto.response.VideoCardVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,9 +30,11 @@ public class VideoDetailVO extends VideoCardVO {
             String memberId,
             String introduceText,
             String description,
+            String thumbnailUrl,
+            String embeddingUrl,
             double rating
     ) {
-        super(videoId, channelTitle, title, viewCount, publishedAt, part, videoStatus);
+        super(videoId, channelTitle, title, viewCount, publishedAt, part, videoStatus, thumbnailUrl, embeddingUrl);
         this.memberId = memberId;
         this.introduceText = introduceText;
         this.description = description;

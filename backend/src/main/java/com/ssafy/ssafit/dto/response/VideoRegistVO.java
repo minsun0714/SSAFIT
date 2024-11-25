@@ -32,9 +32,11 @@ public class VideoRegistVO extends VideoCardVO {
             String memberId,
             String introduceText,
             String description,
-            double rating
+            double rating,
+            String thumbnailUrl,
+            String embeddingUrl
     ) {
-        super(videoId, channelTitle, title, viewCount, publishedAt, part, videoStatus);
+        super(videoId, channelTitle, title, viewCount, publishedAt, part, videoStatus, thumbnailUrl, embeddingUrl);
         this.memberId = memberId;
         this.introduceText = introduceText;
         this.description = description;
