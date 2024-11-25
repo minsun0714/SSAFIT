@@ -20,8 +20,10 @@ public class AdminService {
     private final AdminMapper adminMapper;
 
     public PagedResponseDTO<VideoCardVO> getPendingVideos(int page, int size) {
-        int offset = page * size;
+        int offset = (page - 1) * size;
+        System.out.println(offset);
         List<Video> videos = adminMapper.findPendingVideos(offset, size);
+        System.out.println(videos);
         int totalCount = adminMapper.countPendingVideos();
         return toPagedResponseDTO(page, size, totalCount, toVideoCardVO(videos));
     }

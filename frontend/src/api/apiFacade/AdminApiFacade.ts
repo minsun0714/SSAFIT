@@ -22,12 +22,13 @@ class AdminApiFacade {
     })
   }
 
-  static useUpdateVideoStatus(videoId: string, status: VideoStatus) {
+  static useUpdateVideoStatus() {
     return useMutation({
-      mutationFn: () => AdminService.updateVideoStatus(videoId, status),
+      mutationFn: ({ videoId, status }: { videoId: string; status: VideoStatus }) =>
+        AdminService.updateVideoStatus(videoId, status),
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: ['video', videoId, status],
+          queryKey: ['video'],
           refetchType: 'active',
         })
       },

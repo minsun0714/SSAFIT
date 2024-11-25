@@ -12,6 +12,15 @@ import CommonPagination from '../common/CommonPagination.vue'
 import AdminApiFacade from '@/api/apiFacade/AdminApiFacade'
 
 const { data } = AdminApiFacade.useFetchPendingVideos()
+const { mutate } = AdminApiFacade.useUpdateVideoStatus()
+
+const handleVideoApprove = (videoId: string) => {
+  mutate({ videoId, status: 'APPROVED' })
+}
+
+const handleVideoReject = (videoId: string) => {
+  mutate({ videoId, status: 'REJECTED' })
+}
 </script>
 
 <template>
@@ -36,8 +45,16 @@ const { data } = AdminApiFacade.useFetchPendingVideos()
             <TableCell>{{ video?.publishedAt }}</TableCell>
             <TableCell>{{ video?.channelTitle }}</TableCell>
             <TableCell v-if="video?.videoStatus === 'PENDING'">
-              <Button variant="outline">승인</Button>
-              <Button variant="destructive">거절</Button>
+              <Button
+                variant="outline"
+                @click="mutate({ videoId: video.videoId, status: 'APPROVED' })"
+                >승인</Button
+              >
+              <Button
+                variant="destructive"
+                @click="mutate({ videoId: video.videoId, status: 'REJECTED' })"
+                >거절</Button
+              >
             </TableCell>
             <TableCell>
               {{ video?.videoStatus }}

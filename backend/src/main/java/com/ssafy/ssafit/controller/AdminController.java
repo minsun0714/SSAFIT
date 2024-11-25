@@ -21,6 +21,7 @@ public class AdminController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
+        System.out.println(page + " " + size);
         PagedResponseDTO<VideoCardVO> pendingVideos = adminService.getPendingVideos(page, size);
         return ResponseEntity.ok(pendingVideos);
     }
