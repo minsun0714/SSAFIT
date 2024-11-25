@@ -11,6 +11,16 @@ class ReviewService {
     return response.data
   }
 
+  static async getReviews(): Promise<ReviewResponseVO> {
+    const response = await api.get(this.path + '/video')
+    return response.data
+  }
+
+  static async getReviewsByMemberId(memberId: string): Promise<ReviewResponseVO> {
+    const response = await api.post(this.path + `/video/${memberId}`)
+    return response.data
+  }
+
   // 특정 영상에 대한 리뷰 조회
   static async getReviewsByVideoId(videoId: string): Promise<ReviewResponseVO[]> {
     const response = await api.get(`${this.path}/video/${videoId}`)
@@ -18,7 +28,10 @@ class ReviewService {
   }
 
   // 리뷰 수정
-  static async updateReview(reviewId: string, reviewRequestDTO: ReviewRequestDTO): Promise<ReviewResponseVO> {
+  static async updateReview(
+    reviewId: string,
+    reviewRequestDTO: ReviewRequestDTO,
+  ): Promise<ReviewResponseVO> {
     const response = await api.put(`${this.path}/${reviewId}`, reviewRequestDTO)
     return response.data
   }
