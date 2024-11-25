@@ -1,11 +1,11 @@
-import type { Follow, Video } from './common'
+import type { Exercise, Follow, Member, Video } from './common'
 
-interface SignUpResponse extends Omit<Member, 'password'> {
+export interface SignUpResponse extends Omit<Member, 'password'> {
   profileImg: string
   accessToken: string
 }
 
-interface LoginResponse {
+export interface LoginResponse {
   grantType: 'Bearer'
   accessToken: string
 }
@@ -28,7 +28,7 @@ export interface ExerciseLogResponse {
   exerciseLogVO: ExerciseTimerResponse[]
 }
 type CardType = 'MINUTE' | 'KCAL' | 'KG'
-interface ExerciseCard {
+export interface ExerciseCard {
   title: string
   cardIconUrl: string
   cardType: CardType

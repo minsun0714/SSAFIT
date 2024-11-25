@@ -1,13 +1,13 @@
 import type { MemberInfoResponse } from './response'
 
-interface Member {
+export interface Member {
   memberId: string
   name: string
   nickname: string
   password: string
 }
 
-interface Exercise {
+export interface Exercise {
   exerciseDate: Date
   exerciseType: string
   exerciseTime: number
