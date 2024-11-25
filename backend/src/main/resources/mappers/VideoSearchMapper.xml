@@ -25,7 +25,7 @@
                 view_count DESC
             </when>
             <otherwise>
-                created_at DESC
+                published_at DESC
             </otherwise>
         </choose>
         LIMIT #{size} OFFSET #{offset}

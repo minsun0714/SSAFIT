@@ -1,4 +1,4 @@
-import type { Follow } from "./common"
+import type { Follow, Video } from './common'
 
 interface SignUpResponse extends Omit<Member, 'password'> {
   profileImg: string
