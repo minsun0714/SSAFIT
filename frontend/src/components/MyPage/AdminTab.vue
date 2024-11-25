@@ -18,7 +18,7 @@ const { mutate } = AdminApiFacade.useUpdateVideoStatus()
 <template>
   <div class="flex justify-center items-center w-full h-full">
     <div>
-      <Table class="w-full border">
+      <Table class="w-full border text-lg">
         <TableHeader>
           <TableRow>
             <TableHead>썸네일</TableHead>
@@ -32,7 +32,9 @@ const { mutate } = AdminApiFacade.useUpdateVideoStatus()
         </TableHeader>
         <TableBody v-if="data?.totalItems">
           <TableRow v-for="video in data?.data" :key="video?.videoId">
-            <TableCell><img :src="video?.thumbnailUrl" alt="영상 썸네일 url" /></TableCell>
+            <TableCell
+              ><img :src="video?.thumbnailUrl" alt="영상 썸네일 url" height="200" width="300"
+            /></TableCell>
             <TableCell>{{ video?.title }}</TableCell>
             <TableCell>{{ video?.part }}</TableCell>
             <TableCell>{{ video?.publishedAt }}</TableCell>
