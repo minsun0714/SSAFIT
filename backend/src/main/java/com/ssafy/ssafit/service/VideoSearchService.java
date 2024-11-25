@@ -21,10 +21,12 @@ public class VideoSearchService {
     private final VideoSearchMapper videoSearchMapper;
 
     public PagedResponseDTO<VideoCardVO> getPaginatedAndSortedVideos(String keyword, int page, int size, String sort) {
-        int offset = page * size;
+        int offset = (page - 1) * size;
 
         // 데이터베이스에서 검색된 비디오 목록 조회
         List<Video> videos = videoSearchMapper.searchVideos(keyword, offset, size, sort);
+
+        System.out.println(videos);
 
         // 총 검색 결과 수 조회
         int totalCount = videoSearchMapper.countVideos(keyword);
