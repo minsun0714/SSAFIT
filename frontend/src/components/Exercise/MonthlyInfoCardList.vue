@@ -31,13 +31,19 @@ const { data } = ExerciseLogApiFacade.useFetchCardDataList()
         </div>
         <p class="flex items-center w-full text-xs px-4 pb-3">
           <span v-if="cardData.currentValue === cardData.lastValue" class="flex border">
-            <FaArrowRightLong class="flex items-center border h-full"/>
+            <FaArrowRightLong class="flex items-center border h-full" />
             지난주와 동일
           </span>
-          <span v-else class="border flex items-center">
+          <span v-else class="flex items-center">
             <img :src="cardData.up ? Up : Down" alt="change" class="h-4 w-4 m-2" />
             <span :class="cardData.up ? 'text-[#00B69B]' : 'text-[#F93C65]'"
-              >{{ cardData.currentValue - cardData.lastValue + cardData.cardType }}
+              >지난주보다
+              {{
+                cardData.cardType === 'MINUTE'
+                  ? ((cardData.currentValue - cardData.lastValue) / 60).toFixed(2)
+                  : cardData.currentValue - cardData.lastValue
+              }}
+              {{ cardData.cardType }}
               {{ cardData.up ? ' 증가' : ' 감소' }}</span
             >
           </span>
