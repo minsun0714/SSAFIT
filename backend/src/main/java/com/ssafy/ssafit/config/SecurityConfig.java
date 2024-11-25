@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/members", "/api/auth/*").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/members/*", "/api/video/search", "/api/exercise-log/grass/*", "/api/follows/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/members/*", "/api/video/search", "/api/video/search/autocomplete", "/api/exercise-log/grass/*", "/api/follows/*").permitAll()
                         .requestMatchers(HttpMethod.DELETE).permitAll()
                         .anyRequest().authenticated()
                 )

@@ -36,11 +36,23 @@ class VideoSearchApiFacade {
     })
   }
 
-  static useFetchAutocompleteSuggestions(keyword: string) {
+  static useFetchAutocompleteSuggestions() {
+    const route = useRoute()
+    const keyword = ref(route.query.keyword || '')
+    console.log(keyword)
+
+    watch(
+      () => route.query.keyword,
+      (newValue) => {
+        keyword.value = newValue || ''
+      },
+      { immediate: true },
+    )
+
     return useQuery({
-      queryKey: ['autocomplete', keyword],
+      queryKey: ['autocomplete', keyword.value],
       queryFn: async () => {
-        const result = await VideoSearchService.getAutocompleteSuggestions(keyword)
+        const result = await VideoSearchService.getAutocompleteSuggestions(keyword.value as string)
         console.log(result)
         return result
       },
