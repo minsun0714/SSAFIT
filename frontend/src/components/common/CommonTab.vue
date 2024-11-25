@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 
 const { tabs, routesMap } = defineProps<{
   tabs: string[]
-  routesMap: string[]
+  routesMap: Array<{ name: string; params?: Record<string, string> }>
 }>()
 
 const route = useRoute()
@@ -12,16 +12,18 @@ const router = useRouter()
 
 const activeTab = ref(0)
 
+// 현재 라우트와 routesMap 동기화
 watch(
-  () => route.path,
-  (newPath) => {
-    activeTab.value = routesMap.indexOf(newPath.slice(route.path.lastIndexOf('/') + 1))
+  () => route.name,
+  (newName) => {
+    activeTab.value = routesMap.findIndex((route) => route.name === newName)
   },
   { immediate: true },
 )
 
+// 탭 클릭 이벤트
 const handleClickTab = async (index: number) => {
-  await router.push({ name: routesMap[index] })
+  await router.push(routesMap[index])
   activeTab.value = index
 }
 </script>

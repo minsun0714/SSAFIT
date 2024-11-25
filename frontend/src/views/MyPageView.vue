@@ -6,12 +6,11 @@ import { Routes } from '@/utils/enum'
 import MyPageContext from './MyPageContext.vue'
 
 const tabs = ['좋아요한 영상', '남긴 후기', '정보관리', 'Admin']
-
 const routesMap = [
-  Routes.MYPAGE_LIKED_VIDEOS,
-  Routes.MYPAGE_REVIEWS,
-  Routes.MYPAGE_INFO,
-  Routes.MYPAGE_ADMIN,
+  { name: Routes.MYPAGE_LIKED_VIDEOS, params: {} },
+  { name: Routes.MYPAGE_REVIEWS, params: {} },
+  { name: Routes.MYPAGE_INFO, params: {} },
+  { name: Routes.MYPAGE_ADMIN, params: {} },
 ]
 </script>
 
