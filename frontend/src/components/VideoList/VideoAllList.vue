@@ -74,9 +74,8 @@
           :nickname="video?.channelTitle"
           :viewCount="video?.viewCount"
           :createdAt="video?.publishedAt"
-          :thumbnailImgUrl="''"
+          :thumbnailImgUrl="video?.thumbnailUrl"
           :videoId="video?.videoId"
-          :rating="10"
         />
       </div>
     </div>
