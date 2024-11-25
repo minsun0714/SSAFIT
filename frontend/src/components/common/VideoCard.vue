@@ -29,7 +29,7 @@ const props = defineProps<{
   thumbnailImgUrl: string
   videoUrl?: string
   status?: string
-  rating: number
+  rating?: number
 }>()
 
 const router = useRouter()
