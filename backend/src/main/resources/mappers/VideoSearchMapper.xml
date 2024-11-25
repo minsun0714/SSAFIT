@@ -46,14 +46,22 @@
 
     <!-- 자동완성 -->
     <select id="getAutocompleteSuggestions" resultType="String">
-        SELECT title
-        FROM video
-        WHERE video_status = 'APPROVED'
-        <if test="keyword != null and keyword != ''">
-            AND title LIKE CONCAT('%', #{keyword}, '%')
-        </if>
-        LIMIT 5
+        <choose>
+            <when test="keyword != null and keyword != ''">
+                SELECT title
+                FROM video
+                WHERE video_status = 'APPROVED'
+                AND title LIKE CONCAT('%', #{keyword}, '%')
+                LIMIT 5
+            </when>
+            <otherwise>
+                SELECT title
+                FROM video
+                WHERE 1 = 0
+            </otherwise>
+        </choose>
     </select>
+
 
 
 </mapper>
