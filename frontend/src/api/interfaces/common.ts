@@ -32,3 +32,10 @@ export interface Video {
   videoStatus: VideoStatus
   thumbnailUrl: string
 }
+
+export interface LikeVideos {
+  likeId: number;
+  memberId: string;
+  videoId: string;
+  likedAt: string;
+}

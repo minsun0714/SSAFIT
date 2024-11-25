@@ -11,7 +11,8 @@ class VideoService {
   }
 
   private static async _getVideoById(videoId: string): Promise<VideoDetailVO> {
-    const response = await api.get(`${this.path}/${videoId}`)
+    const response = await api.get(`${this.path}/${videoId}`);
+    console.log("API Response:", response.data); // 서버 응답 확인
     return response.data
   }
 

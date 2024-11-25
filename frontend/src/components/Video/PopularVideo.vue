@@ -30,7 +30,7 @@ type Video = {
   viewCount: number;
   createdAt: string;
   thumbnailImgUrl: string;
-  videoId: number;
+  videoId: string;
   rating: number;
 };
 
