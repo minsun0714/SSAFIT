@@ -1,5 +1,7 @@
 import { useQuery, useMutation } from '@tanstack/vue-query'
 import LikeVideosService from '@/api/services/LikeVideosService'
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
 class LikeVideoApiFacade {
   // 나의 좋아요 리스트 조회
@@ -15,14 +17,16 @@ class LikeVideoApiFacade {
   }
 
   // 특정 멤버의 좋아요 리스트 조회
-  static useFetchLikesByMember(memberId: string) {
+  static useFetchLikesByMember() {
+    const route = useRoute()
+    const memberId = computed(() => route.params.memberId)
     return useQuery({
       queryKey: ['likes', memberId],
       queryFn: async () => {
-        const result = await LikeVideosService.getLikesByMember(memberId)
+        const result = await LikeVideosService.getLikesByMember(memberId.value as string)
         return result
       },
-      enabled: !!memberId, // memberId가 존재할 때만 실행
+      enabled: !!memberId.value, // memberId가 존재할 때만 실행
     })
   }
 

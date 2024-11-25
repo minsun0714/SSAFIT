@@ -1,5 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query'
 import ReviewService from '@/api/services/ReviewService'
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
 class ReviewApiFacade {
   // 특정 영상에 대한 리뷰 조회
@@ -29,14 +31,15 @@ class ReviewApiFacade {
   }
 
   // 다른 사람 리뷰 조회
-  static useFetchReviewsByMemberId(memberId: string) {
+  static useFetchReviewsByMemberId() {
+    const route = useRoute()
+    const memberId = computed(() => route.params.memberId)
     return useQuery({
       queryKey: ['reviews', memberId],
       queryFn: async () => {
-        const result = await ReviewService.getReviewsByMemberId(memberId)
+        const result = await ReviewService.getReviewsByMemberId(memberId.value as string)
         return result
       },
-      staleTime: 1000 * 60 * 5,
     })
   }
 

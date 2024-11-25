@@ -12,12 +12,13 @@ class ReviewService {
   }
 
   static async getReviews(): Promise<ReviewResponseVO> {
-    const response = await api.get(this.path + '/video')
+    const response = await api.get(this.path + '/member')
     return response.data
   }
 
   static async getReviewsByMemberId(memberId: string): Promise<ReviewResponseVO> {
-    const response = await api.post(this.path + `/video/${memberId}`)
+    const response = await api.get(this.path + `/member/${memberId}`)
+    console.log('남의 리뷰' + response.data)
     return response.data
   }
 
