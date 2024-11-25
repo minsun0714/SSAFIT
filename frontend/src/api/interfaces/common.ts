@@ -31,3 +31,10 @@ export interface Video {
   part: VideoPart
   videoStatus: VideoStatus
 }
+
+export interface LikeVideos {
+  likeId: number;
+  memberId: string;
+  videoId: string;
+  likedAt: string;
+}
