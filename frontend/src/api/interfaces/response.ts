@@ -88,3 +88,12 @@ export interface VideoCardVO {
   videoUrl: string
   createdAt: string
 }
+
+export interface ReviewResponseVO {
+  reviewId: string;
+  memberId: string;
+  videoId: string;
+  content: string;
+  createdAt: string;
+  rating: number;
+}

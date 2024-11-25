@@ -41,14 +41,14 @@ onMounted(async () => {
     <CommonTab :tabs="tabs" :routesMap="routesMap" />
     <!-- RouterView로 데이터 전달 -->
     <RouterView :video-data="videoData" />
-    <!-- 디버깅용 상태 확인 -->
-    <pre>{{ videoData }}</pre>
+    <!-- 디버깅용 상태 확인
+    <pre>{{ videoData }}</pre> -->
   </main>
 </template>
 
 <style scoped>
 main {
   background-color: black;
-  color: white;
+  color: white; /* 텍스트 색을 흰색으로 설정하여 가독성을 높임 */
 }
 </style>

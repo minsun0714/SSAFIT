@@ -18,3 +18,9 @@ export interface VideoRegistDTO {
   part: Part
 }
 
+export interface ReviewRequestDTO{
+  memberId: string;
+  videoId: string;
+  content: string;
+  rating: number;
+}

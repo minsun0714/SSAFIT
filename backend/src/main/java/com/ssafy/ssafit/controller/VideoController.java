@@ -96,5 +96,4 @@ public class VideoController {
         List<VideoCardVO> videos = videoService.searchVideos(keyword);
         return ResponseEntity.ok(videos);
     }
-
 }
