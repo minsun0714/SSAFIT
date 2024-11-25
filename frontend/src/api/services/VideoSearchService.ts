@@ -1,6 +1,6 @@
 import api from '../apiClient'
 import type { VideoSortType } from '../interfaces/common'
-import type { PaginationResponse, VideoResponse } from '../interfaces/response'
+import type { AutoCompleteVO, PaginationResponse, VideoResponse } from '../interfaces/response'
 
 class VideoSearchService {
   private static path = '/api/video/search'
@@ -23,7 +23,7 @@ class VideoSearchService {
     return response.data
   }
 
-  private static async _getAutocompleteSuggestions(keyword: string): Promise<string[]> {
+  private static async _getAutocompleteSuggestions(keyword: string): Promise<AutoCompleteVO[]> {
     const response = await api.get(this.path + '/autocomplete', {
       params: {
         keyword,
@@ -42,7 +42,7 @@ class VideoSearchService {
     return await this._getPaginatedAndSortedVideos(keyword, page, size, sort)
   }
 
-  static getAutocompleteSuggestions(keyword: string): Promise<string[]> {
+  static getAutocompleteSuggestions(keyword: string): Promise<AutoCompleteVO[]> {
     return this._getAutocompleteSuggestions(keyword)
   }
 }

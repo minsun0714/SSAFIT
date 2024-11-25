@@ -4,6 +4,7 @@ import com.ssafy.ssafit.dao.VideoMapper;
 import com.ssafy.ssafit.dao.VideoSearchMapper;
 import com.ssafy.ssafit.domain.Video;
 import com.ssafy.ssafit.domain.VideoSortType;
+import com.ssafy.ssafit.dto.response.AutoCompleteVO;
 import com.ssafy.ssafit.dto.response.PagedResponseDTO;
 import com.ssafy.ssafit.dto.response.VideoCardVO;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +36,8 @@ public class VideoSearchService {
         return toPagedResponseDTO(page, size, totalCount, toVideoCardVO(videos));
     }
 
-    public List<String> getAutocompleteSuggestions(String keyword) {
-        List<String> autoCompleteSuggestions = videoSearchMapper.getAutocompleteSuggestions(keyword); // 최대 5개 반환
+    public List<AutoCompleteVO> getAutocompleteSuggestions(String keyword) {
+        List<AutoCompleteVO> autoCompleteSuggestions = videoSearchMapper.getAutocompleteSuggestions(keyword); // 최대 5개 반환
         System.out.println("auto: " + autoCompleteSuggestions);
         return autoCompleteSuggestions;
     }

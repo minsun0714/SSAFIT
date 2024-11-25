@@ -45,22 +45,23 @@
     </select>
 
     <!-- 자동완성 -->
-    <select id="getAutocompleteSuggestions" resultType="String">
+    <select id="getAutocompleteSuggestions" resultType="map">
         <choose>
             <when test="keyword != null and keyword != ''">
-                SELECT title
+                SELECT video_id as videoId, title
                 FROM video
                 WHERE video_status = 'APPROVED'
                 AND title LIKE CONCAT('%', #{keyword}, '%')
                 LIMIT 5
             </when>
             <otherwise>
-                SELECT title
+                SELECT video_id, title
                 FROM video
                 WHERE 1 = 0
             </otherwise>
         </choose>
     </select>
+
 
 
 

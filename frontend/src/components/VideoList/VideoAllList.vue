@@ -30,8 +30,13 @@
         v-if="autoCompletes?.length"
         class="bg-white text-black absolute top-[300px] w-[384px] rounded-md shadow-md z-10"
       >
-        <li v-for="(s, index) in autoCompletes" :key="index" class="px-4 py-3">
-          {{ s.length <= 30 ? s : s.slice(0, 28) + '...' }}
+        <li
+          v-for="(s, index) in autoCompletes"
+          :key="index"
+          class="px-4 py-3 cursor-pointer"
+          @click="router.push({ name: Routes.VIDEO, params: { videoId: s.videoId } })"
+        >
+          {{ s.title.length <= 30 ? s : s.title.slice(0, 28) + '...' }}
         </li>
       </ul>
     </div>
@@ -93,12 +98,12 @@ import { ref, watch, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import VideoCard from '@/components/common/VideoCard.vue'
 import { Input } from '@/components/ui/input'
-import { Search } from 'lucide-vue-next'
+import { Route, Search } from 'lucide-vue-next'
 import { DownOutlined } from '@ant-design/icons-vue'
 import VideoSearchApiFacade from '@/api/apiFacade/VideoSearchApiFacade'
 import CommonPagination from '../common/CommonPagination.vue'
 import { VideoSortType } from '@/api/interfaces/common'
-import { SORT_MAPPING } from '@/utils/enum'
+import { Routes, SORT_MAPPING } from '@/utils/enum'
 
 const router = useRouter()
 const route = useRoute()

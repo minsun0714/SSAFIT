@@ -2,6 +2,7 @@ package com.ssafy.ssafit.controller;
 
 import com.ssafy.ssafit.domain.VideoSortType;
 import com.ssafy.ssafit.dto.request.VideoRegistDTO;
+import com.ssafy.ssafit.dto.response.AutoCompleteVO;
 import com.ssafy.ssafit.dto.response.PagedResponseDTO;
 import com.ssafy.ssafit.dto.response.VideoCardVO;
 import com.ssafy.ssafit.dto.response.VideoRegistVO;
@@ -46,8 +47,9 @@ public class VideoSearchController {
 
     // 자동완성 API
     @GetMapping("/autocomplete")
-    public ResponseEntity<List<String>> getAutocompleteSuggestions(@RequestParam String keyword) {
-        List<String> suggestions = videoSearchService.getAutocompleteSuggestions(keyword);
+    public ResponseEntity<List<AutoCompleteVO>> getAutocompleteSuggestions(@RequestParam String keyword) {
+        List<AutoCompleteVO> suggestions = videoSearchService.getAutocompleteSuggestions(keyword);
+        System.out.println(suggestions);
         return ResponseEntity.ok(suggestions);
     }
 }

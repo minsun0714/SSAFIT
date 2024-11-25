@@ -66,19 +66,19 @@ export interface VideoRegistVO {
 }
 
 export interface VideoDetailVO {
-  videoId: string;
-  channelTitle: string;
-  title: string;
-  viewCount: number;
-  publishedAt: string;
-  part: "RUN" | "STRENGTH" | "RELAX";
-  videoStatus: "PENDING" | "APPROVED" | "REJECTED";
-  memberId: string;
-  rating: number;
-  introduceText: string;
-  description: string;
-  thumbnailUrl: string;
-  embeddingUrl: string;
+  videoId: string
+  channelTitle: string
+  title: string
+  viewCount: number
+  publishedAt: string
+  part: 'RUN' | 'STRENGTH' | 'RELAX'
+  videoStatus: 'PENDING' | 'APPROVED' | 'REJECTED'
+  memberId: string
+  rating: number
+  introduceText: string
+  description: string
+  thumbnailUrl: string
+  embeddingUrl: string
 }
 
 export interface VideoCardVO {
@@ -90,17 +90,22 @@ export interface VideoCardVO {
 }
 
 export interface ReviewResponseVO {
-  reviewId: string;
-  memberId: string;
-  videoId: string;
-  content: string;
-  createdAt: string;
-  rating: number;
+  reviewId: string
+  memberId: string
+  videoId: string
+  content: string
+  createdAt: string
+  rating: number
 }
 
 export interface LikeResponseVO {
-  likeId: number;
-  memberId: string;
-  videoId: string;
-  likedAt: string;
+  likeId: number
+  memberId: string
+  videoId: string
+  likedAt: string
+}
+
+export interface AutoCompleteVO {
+  videoId: string
+  title: string
 }
