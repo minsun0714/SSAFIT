@@ -12,6 +12,12 @@ class LikeVideosService {
     return response.data
   }
 
+  // 나의 좋아요 조회
+  static async getLikes(): Promise<LikeVideos[]> {
+    const response = await api.get(`${this.path}/list`)
+    return response.data
+  }
+
   // 특정 멤버의 좋아요 조회
   static async getLikesByMember(memberId: string): Promise<LikeVideos[]> {
     const response = await api.get(`${this.path}/list/${memberId}`)
