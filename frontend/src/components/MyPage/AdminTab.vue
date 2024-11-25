@@ -13,14 +13,6 @@ import AdminApiFacade from '@/api/apiFacade/AdminApiFacade'
 
 const { data } = AdminApiFacade.useFetchPendingVideos()
 const { mutate } = AdminApiFacade.useUpdateVideoStatus()
-
-const handleVideoApprove = (videoId: string) => {
-  mutate({ videoId, status: 'APPROVED' })
-}
-
-const handleVideoReject = (videoId: string) => {
-  mutate({ videoId, status: 'REJECTED' })
-}
 </script>
 
 <template>
