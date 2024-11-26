@@ -2,7 +2,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -15,7 +14,7 @@ const route = useRoute()
 const router = useRouter()
 
 watch(
-  () => route.fullPath,
+  () => route.params.memberId,
   () => {
     location.reload()
   },
@@ -53,9 +52,6 @@ console.log(follows?.value)
           <div>{{ follower?.nickname }}</div>
         </li>
       </ul>
-      <DialogFooter>
-        <Button type="submit"> Save changes </Button>
-      </DialogFooter>
     </DialogContent>
   </Dialog>
   <Dialog>
@@ -85,9 +81,6 @@ console.log(follows?.value)
           <div>{{ following?.nickname }}</div>
         </li>
       </ul>
-      <DialogFooter>
-        <Button type="submit"> Save changes </Button>
-      </DialogFooter>
     </DialogContent>
   </Dialog>
 </template>
