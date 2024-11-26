@@ -1,5 +1,4 @@
 <template>
-  <br />
   <div class="relative bg-container">
     <!-- 배경 이미지 위에 중앙 정렬된 텍스트 -->
     <div class="absolute inset-0 flex flex-col items-center justify-center space-y-4 z-10">
