@@ -11,6 +11,7 @@ import { notification } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { Routes } from '@/utils/enum'
 import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
+import Button from '../ui/button/Button.vue'
 
 const router = useRouter()
 
@@ -186,7 +187,7 @@ onMounted(() => {
     <p v-if="isLoading" class="text-gray-500 text-sm">Loading reviews...</p>
 
     <!-- 오류 상태 -->
-    <p v-if="hasError" class="text-red-500 text-sm">Failed to load reviews. Please try again.</p>
+    <p v-if="hasError" class="text-sm">Failed to load reviews. Please try again.</p>
 
     <ul
       v-if="reviews.length && !isLoading"
@@ -198,26 +199,29 @@ onMounted(() => {
         class="w-2/3 h-full border-t border-b flex flex-col justify-center items-center text-sm text-gray-600"
       >
         <!-- 수정 중인 리뷰 -->
-        <div v-if="editingReview.isEditing && editingReview.reviewId === review.reviewId">
+        <div
+          v-if="editingReview.isEditing && editingReview.reviewId === review.reviewId"
+          class="w-full p-4"
+        >
           <textarea
             v-model="editingReview.content"
             placeholder="리뷰 내용을 수정하세요"
-            class="w-full border p-2 rounded mb-2"
+            class="w-full p-2 rounded mb-2 border"
           ></textarea>
           <a-rate v-model:value="editingReview.rating" allow-half class="mb-2" />
-          <div class="flex gap-2">
-            <button
+          <div class="flex gap-2 justify-end">
+            <Button
               @click="submitEditedReview"
-              class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+              class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-green-600"
             >
               저장
-            </button>
-            <button
+            </Button>
+            <Button
               @click="cancelEditing"
               class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
             >
               취소
-            </button>
+            </Button>
           </div>
         </div>
 
