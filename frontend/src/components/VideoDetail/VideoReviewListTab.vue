@@ -10,6 +10,7 @@ import type { ReviewRequestDTO } from '@/api/interfaces/request'
 import { notification } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { Routes } from '@/utils/enum'
+import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
 
 const router = useRouter()
 
@@ -20,6 +21,8 @@ const props = defineProps({
     required: true,
   },
 })
+
+const { data: memberInfo } = MemberApiFacade.useFetchUserInfo()
 
 // 상태 관리
 const reviews = ref<ReviewResponseVO[]>([])
@@ -219,9 +222,9 @@ onMounted(() => {
         </div>
 
         <!-- 일반 리뷰 -->
-        <div v-else>
-          <div class="flex flex-col items-center text-sm w-full pt-6 px-6">
-            <div class="flex flex-row justify-between items-center w-full">
+        <div v-else class="w-full">
+          <div class="flex flex-col justify-center items-center text-sm w-full">
+            <div class="flex flex-row justify-between items-center w-full border-b p-4">
               <span
                 class="flex flex-row items-center gap-2 cursor-pointer"
                 @click="
@@ -240,29 +243,31 @@ onMounted(() => {
                 ·
                 <p>{{ new Date(review.createdAt).toLocaleDateString() }}</p>
               </span>
-              <div class="grid grid-cols-5 gap-1">
-                <span
-                  class="flex flex-row"
-                  v-for="(_, idx) in Math.floor(review.rating / 2)"
-                  :key="idx"
-                >
-                  <FaStar color="#ECBA0B" />
-                </span>
-                <span
-                  class="flex flex-row"
-                  v-for="(_, idx) in Math.floor(review.rating % 2)"
-                  :key="idx"
-                >
-                  <FaStarHalf color="#ECBA0B" />
-                </span>
-              </div>
-              <div class="flex gap-2">
-                <button @click="startEditingReview(review)" class="text-blue-500 text-sm">
-                  수정
-                </button>
-                <button @click="deleteReview(review.reviewId)" class="text-red-500 text-sm">
-                  삭제
-                </button>
+              <div class="flex">
+                <div class="grid grid-cols-5 gap-1">
+                  <span
+                    class="flex flex-row"
+                    v-for="(_, idx) in Math.floor(review.rating / 2)"
+                    :key="idx"
+                  >
+                    <FaStar color="#ECBA0B" />
+                  </span>
+                  <span
+                    class="flex flex-row"
+                    v-for="(_, idx) in Math.floor(review.rating % 2)"
+                    :key="idx"
+                  >
+                    <FaStarHalf color="#ECBA0B" />
+                  </span>
+                </div>
+                <div class="flex gap-2" v-if="memberInfo.memberId === review.memberId">
+                  <button @click="startEditingReview(review)" class="text-blue-500 text-sm">
+                    수정
+                  </button>
+                  <button @click="deleteReview(review.reviewId)" class="text-red-500 text-sm">
+                    삭제
+                  </button>
+                </div>
               </div>
             </div>
           </div>
