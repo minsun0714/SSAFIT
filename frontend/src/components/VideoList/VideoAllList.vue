@@ -93,11 +93,10 @@
           :videoId="video?.videoId"
         />
       </div>
-    </div>
-
-    <!-- Pagination -->
-    <div class="mt-4 flex justify-center">
-      <CommonPagination :data="videos" />
+      <!-- Pagination -->
+      <div class="mt-4 flex justify-center">
+        <CommonPagination :data="videos" />
+      </div>
     </div>
   </div>
 </template>
@@ -113,7 +112,6 @@ import VideoSearchApiFacade from '@/api/apiFacade/VideoSearchApiFacade'
 import CommonPagination from '../common/CommonPagination.vue'
 import { VideoSortType } from '@/api/interfaces/common'
 import { Routes, SORT_MAPPING } from '@/utils/enum'
-import { useThrottle } from '@vueuse/core'
 
 const router = useRouter()
 const route = useRoute()
