@@ -1,7 +1,6 @@
 CREATE DATABASE ssafit;
 USE ssafit;
 
-DROP TABLE members;
 CREATE TABLE IF NOT EXISTS members (
     member_id VARCHAR(20) PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -12,12 +11,9 @@ CREATE TABLE IF NOT EXISTS members (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-SELECT * FROM members;
-
-DELETE FROM members WHERE member_id = 'minsun';
 
 CREATE TABLE IF NOT EXISTS exercise_log (
-	exercise_log_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    exercise_log_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     member_id VARCHAR(50) NOT NULL, -- 회원 ID
     exercise_date DATE NOT NULL, -- 운동 날짜
     exercise_type VARCHAR(50) NOT NULL, -- 운동 유형 (근력 또는 유산소)
@@ -26,29 +22,9 @@ CREATE TABLE IF NOT EXISTS exercise_log (
     fat_burned DOUBLE NOT NULL, -- 소모된 지방량 (g)
     FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-DROP TABLE exercise_log;
-SELECT * FROM exercise_log;
 
-SELECT *
-FROM exercise_log
-WHERE member_id = 'minsun'
-  AND DATE(exercise_date) = '2024-11-17';
 
-SELECT
-	IFNULL(SUM(exercise_time), 0.0) AS totalExerciseTime,
-	IFNULL(SUM(calories_burned), 0.0) AS totalCaloriesBurned,
-	IFNULL(SUM(fat_burned), 0.0) AS totalFatBurned
-	FROM
-        exercise_log
-	WHERE
-        member_id = 'minsun'
-	AND WEEK(exercise_date, 1) = WEEK(now())
-	AND YEAR(exercise_date) = YEAR(now());
-
-SELECT WEEK(now())
-
-DROP TABLE video;
-CREATE TABLE video (
+CREATE TABLE IF NOT EXISTS video (
     video_id VARCHAR(255) NOT NULL PRIMARY KEY,     -- videoId, Primary key로 설정
     channel_title VARCHAR(255) NOT NULL,            -- channelTitle
     title VARCHAR(255) NOT NULL,                    -- title
@@ -62,8 +38,7 @@ CREATE TABLE video (
     description TEXT                                -- description
 );
 
-DROP TABLE review;
-CREATE TABLE review (
+CREATE TABLE IF NOT EXISTS review (
     review_id VARCHAR(255) NOT NULL PRIMARY KEY,
     member_id VARCHAR(255) NOT NULL,
     video_id VARCHAR(255) NOT NULL,
@@ -74,8 +49,7 @@ CREATE TABLE review (
     FOREIGN KEY (video_id) REFERENCES video(video_id) ON DELETE CASCADE
 );
 
-DROP TABLE review;
-CREATE TABLE review (
+CREATE TABLE IF NOT EXISTS review (
     review_id VARCHAR(255) NOT NULL PRIMARY KEY,
     member_id VARCHAR(255) NOT NULL,
     video_id VARCHAR(255) NOT NULL,
@@ -85,9 +59,3 @@ CREATE TABLE review (
     FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE,
     FOREIGN KEY (video_id) REFERENCES video(video_id) ON DELETE CASCADE
 );
-SELECT * FROM review;
-
-INSERT INTO members (member_id, name, nickname, password, profile_img, role, created_at)
-VALUES
-    ('minsun', 'MinSun', 'minsun1234', 'abcd1234', 'minsun_profile.jpg', 'ROLE_ADMIN', NOW()),
-    ('beomsu', 'BeomSu', 'beomsu5678', 'abcd1234', 'beomsu_profile.jpg', 'ROLE_ADMIN', NOW());
