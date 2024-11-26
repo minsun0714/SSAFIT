@@ -10,7 +10,7 @@ const data = inject<Ref<VideoDetailVO[] | undefined>>('likeVideosInfo')
   <div class="flex justify-center">
     <ul
       v-if="data?.length"
-      class="max-w-[1200px] flex flex-wrap justify-center items-center gap-6 p-6"
+      class="max-w-[1200px] grid grid-cols-3 justify-center items-center gap-6 p-6"
     >
       <li v-for="video in data" :key="video?.videoId">
         <VideoCard
