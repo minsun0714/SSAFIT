@@ -8,7 +8,7 @@
       <p class="nickname">{{ nickname }}</p>
       <div class="details">
         <p class="created-at">{{ createdAt }}</p>
-        <p class="view-count">조회수 {{ viewCount }}</p>
+        <p class="view-count">조회수 {{ viewCount.toLocaleString() }}</p>
       </div>
     </div>
   </div>
