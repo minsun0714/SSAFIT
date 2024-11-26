@@ -30,7 +30,7 @@ const data = inject<Ref<MemberInfoResponse | undefined>>('userInfo')
         </h1>
         <MyProfileFollow />
       </div>
-      <div v-if="memberId !== myInfo.memberId">
+      <div v-if="memberId && memberId !== myInfo.memberId">
         <FollowButton />
       </div>
     </div>
