@@ -1,22 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { inject, Ref } from 'vue'
 import { FaStar, FaStarHalf } from 'vue3-icons/fa'
 import MyReviewContent from './MyReviewContent.vue'
-import ReviewService from '@/api/services/ReviewService'  // ReviewService 임포트
-import type { ReviewResponseVO } from '@/api/interfaces/response'
+import { ReviewResponseVO } from '@/api/interfaces/response'
 
-// 리뷰 목록 상태 관리
-const reviews = ref<ReviewResponseVO[]>([])
-
-// onMounted 훅에서 API 호출하여 리뷰 데이터 가져오기
-onMounted(async () => {
-  try {
-    // ReviewService의 getReviewsByMyId 메소드 호출하여 로그인한 사용자 리뷰 데이터 가져오기
-    reviews.value = await ReviewService.getReviewsByMyId()
-  } catch (error) {
-    console.error('Failed to load reviews:', error)
-  }
-})
+const reviews = inject<Ref<ReviewResponseVO[] | undefined>>('reviewsInfo')
 </script>
 
 <template>
@@ -45,7 +33,7 @@ onMounted(async () => {
               </span>
               <span
                 class="flex flex-row"
-                v-for="(_, idx) in Math.floor(review.rating % 2)" 
+                v-for="(_, idx) in Math.floor(review.rating % 2)"
                 :key="idx"
               >
                 <FaStarHalf color="#ECBA0B" />
@@ -53,7 +41,8 @@ onMounted(async () => {
             </div>
           </div>
         </div>
-        <MyReviewContent :content="review.content" /> <!-- 리뷰 내용 컴포넌트 -->
+        <MyReviewContent :content="review.content" />
+        <!-- 리뷰 내용 컴포넌트 -->
       </li>
     </ul>
   </div>

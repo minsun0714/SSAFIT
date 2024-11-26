@@ -1,24 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject, Ref } from 'vue'
 import { notification } from 'ant-design-vue'
 import LikeVideosService from '@/api/services/LikeVideosService'
 import VideoCard from '../common/VideoCard.vue'
+import { ReviewResponseVO } from '@/api/interfaces/response'
 
-const data = ref<LikeVideos[] | undefined>([])
-
-onMounted(async () => {
-  try {
-    // 좋아요한 영상 목록 가져오기
-    const likedVideos = await LikeVideosService.getLikesByMember()
-    data.value = likedVideos
-  } catch (error) {
-    console.error('좋아요한 영상 조회 실패:', error)
-    notification.error({
-      message: '영상 좋아요 조회 실패',
-      description: '좋아요한 영상을 가져오는 데 실패했습니다.'
-    })
-  }
-})
+const data = inject<Ref<ReviewResponseVO[] | undefined>>('likeVideosInfo')
 </script>
 
 <template>

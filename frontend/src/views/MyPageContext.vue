@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, provide, type Ref } from 'vue'
+import { ref, provide, type Ref, watchEffect } from 'vue'
 import type {
   FollowInfoResponse,
   MemberInfoResponse,
@@ -20,8 +20,14 @@ const followInfo: Ref<FollowInfoResponse | undefined> = ref(
 const grassInfo: Ref<ExerciseGrass[] | undefined> = ref(
   ExerciseLogApiFacade.useFetchExerciseGrass().data,
 )
-const likeVideosInfo: Ref<LikeResponseVO[] | undefined> = ref(LikeVideoApiFacade.useFetchLikes().data)
+const likeVideosInfo: Ref<LikeResponseVO[] | undefined> = ref(
+  LikeVideoApiFacade.useFetchLikes().data,
+)
 const reviewsInfo: Ref<ReviewResponseVO | undefined> = ref(ReviewApiFacade.useFetchReviews().data)
+
+watchEffect(() => {
+  console.log('Updated ikes Info:', likeVideosInfo.value)
+})
 
 provide('userInfo', userInfo)
 provide('followInfo', followInfo)

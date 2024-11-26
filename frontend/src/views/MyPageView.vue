@@ -20,7 +20,7 @@ const routesMap = [
       <MyProfile />
       <ExerciseGrassRecord />
       <CommonTab :tabs="tabs" :routesMap="routesMap" />
-      <RouterView :key="$route.fullPath"/>
+      <RouterView />
     </MyPageContext>
   </main>
 </template>

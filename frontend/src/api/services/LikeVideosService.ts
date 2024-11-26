@@ -17,11 +17,23 @@ class LikeVideosService {
     }
   }
 
-  // 특정 멤버의 좋아요 조회 (인증된 사용자 ID로 조회)
-  static async getLikesByMember(): Promise<LikeVideos[]> {
+  // 나의 좋아요 조회 (인증된 사용자 ID로 조회)
+  static async getLikes(): Promise<LikeVideos[]> {
     try {
       // 인증된 사용자의 ID를 자동으로 추출하여 요청
       const response = await api.get(`${this.path}/list`)
+      return response.data
+    } catch (error) {
+      console.error('Failed to get likes for member:', error)
+      throw new Error('멤버의 좋아요 조회에 실패했습니다.')
+    }
+  }
+
+  // 특정 멤버의 좋아요 조회 (인증된 사용자 ID로 조회)
+  static async getLikesByMember(memberId: string): Promise<LikeVideos[]> {
+    try {
+      // 인증된 사용자의 ID를 자동으로 추출하여 요청
+      const response = await api.get(`${this.path}/list/${memberId}`)
       return response.data
     } catch (error) {
       console.error('Failed to get likes for member:', error)
