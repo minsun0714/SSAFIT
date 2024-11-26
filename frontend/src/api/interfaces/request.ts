@@ -26,6 +26,7 @@ export interface ReviewRequestDTO{
 }
 
 export interface LikeRequestDTO{
+  memberId: string;
   videoId: string;
 }
 

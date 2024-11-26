@@ -22,8 +22,14 @@ class ReviewService {
     return response.data
   }
 
+  static async getReviewsByMyId(): Promise<ReviewResponseVO> {
+    const response = await api.get(this.path + '/video')
+    return response.data
+  }
+ 
+
   static async getReviewsByVideoId(videoId: string): Promise<ReviewResponseVO[]> {
-    const response = await api.get(`${this.path}/video/${videoId}`)
+    const response = await api.get(`${this.path}/list/${videoId}`)
     return response.data
   }
 

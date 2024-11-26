@@ -22,25 +22,18 @@ public class LikeVideosController {
         this.likeVideosService = likeVideosService;
     }
 
-    // 좋아요 등록
+    // 좋아요 추가
     @PostMapping
     public ResponseEntity<LikeResponseVO> addLike(@RequestBody LikeRequestDTO requestDTO) {
-        String myId = getAuthenticatedMemberId();
-        String videoId = requestDTO.getVideoId();
-        LikeResponseVO likeResponseVO = likeVideosService.addLike(myId, videoId);
-        return ResponseEntity.ok(likeResponseVO);
-    }
-
-    // 나의 좋아요 조회
-    @GetMapping("/list")
-    public ResponseEntity<List<LikeVideos>> getLikes() {
-        List<LikeVideos> likes = likeVideosService.getLikes();
-        return ResponseEntity.ok(likes);
+        String memberId = getAuthenticatedMemberId();
+        LikeResponseVO response = likeVideosService.addLike(memberId, requestDTO.getVideoId());
+        return ResponseEntity.ok(response);
     }
 
     // 특정 멤버의 좋아요 조회
-    @GetMapping("/list/{memberId}")
-    public ResponseEntity<List<LikeVideos>> getLikesByMember(@PathVariable String memberId) {
+    @GetMapping("/list")
+    public ResponseEntity<List<LikeVideos>> getLikesByMember() {
+        String memberId = getAuthenticatedMemberId();
         List<LikeVideos> likes = likeVideosService.getLikesByMember(memberId);
         return ResponseEntity.ok(likes);
     }
@@ -53,14 +46,15 @@ public class LikeVideosController {
     }
 
     // 좋아요 삭제
-    @DeleteMapping("/{likeId}")
-    public ResponseEntity<Void> removeLike(@PathVariable Long likeId) {
-        likeVideosService.removeLike(likeId);
+    @DeleteMapping("/{videoId}")
+    public ResponseEntity<Void> removeLikeByVideoId(@PathVariable String videoId) {
+        String memberId = getAuthenticatedMemberId();
+        likeVideosService.removeLikeByVideoId(memberId, videoId);
         return ResponseEntity.noContent().build();
     }
 
     // 인증된 사용자 ID 가져오기
-    public String getAuthenticatedMemberId() {
+    private String getAuthenticatedMemberId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !(authentication.getPrincipal() instanceof String)) {
             throw new MemberNotAuthenticatedException("Member not authenticated");

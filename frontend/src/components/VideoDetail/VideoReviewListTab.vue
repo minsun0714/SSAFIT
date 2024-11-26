@@ -42,7 +42,9 @@ const fetchReviews = async () => {
   hasError.value = false;
 
   try {
-    reviews.value = await ReviewService.getReviewsByVideoId(props.videoData.videoId);
+    const fetchedReviews = await ReviewService.getReviewsByVideoId(props.videoData.videoId);
+    console.log("Fetched Reviews:", fetchedReviews); // 리뷰 데이터 출력
+    reviews.value = fetchedReviews;
   } catch (error) {
     console.error("Failed to fetch reviews:", error);
     hasError.value = true;
@@ -151,6 +153,11 @@ watch(
   },
   { immediate: true }
 );
+
+// 페이지 진입 시에도 리뷰를 로드
+onMounted(() => {
+  fetchReviews();  // 페이지 진입 시에도 리뷰를 로드
+});
 </script>
 
 <template>

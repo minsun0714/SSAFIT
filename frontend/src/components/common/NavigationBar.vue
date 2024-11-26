@@ -4,6 +4,7 @@ import '@/assets/index.css'
 import { profileImg } from '../../assets'
 import { Routes } from '../../utils/enum'
 import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
+import { UserOutlined } from '@ant-design/icons-vue';
 
 const { data: memberInfo, isSuccess, refetch } = MemberApiFacade.useFetchUserInfo()
 const router = useRouter()
@@ -24,20 +25,22 @@ const logout = () => {
         <RouterLink :to="{ name: Routes.EXERCISE }" class="nav-link">Record</RouterLink>
         <RouterLink :to="{ name: Routes.CREATE_VIDEO }" class="nav-link">Regist</RouterLink>
       </div>
-      <div v-if="isSuccess" class="flex flex-row gap-x-2 text-[#e50914]">
-        <span>{{ memberInfo?.nickname }}님</span>
-        <RouterLink :to="{ name: Routes.MYPAGE_LIKED_VIDEOS }">마이페이지</RouterLink>
-        <button @click="logout">로그아웃</button>
+      <div v-if="isSuccess" class="flex flex-row gap-x-2 text-[#e50914] items-center">
+        <UserOutlined class="text-white mr-1" />
+        <span class="text-white">{{ memberInfo?.nickname }}</span>
+        <RouterLink :to="{ name: Routes.MYPAGE_LIKED_VIDEOS }" class="text-white">마이페이지</RouterLink>
+        <button @click="logout" class="text-gray-500">로그아웃</button>
       </div>
       <div class="flex flex-row gap-x-1 text-[#E50914]" v-else>
         <!-- <img :src="profileImg" alt="auth icon" /> -->
         <RouterLink :to="{ name: Routes.LOGIN }">Login</RouterLink>
-        /
+        <span></span>
         <RouterLink :to="{ name: Routes.SIGN_UP }">Register</RouterLink>
       </div>
     </nav>
   </header>
 </template>
+
 
 <style scoped>
 .logo-text {

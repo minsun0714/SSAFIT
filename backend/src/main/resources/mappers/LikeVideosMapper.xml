@@ -9,12 +9,12 @@
         VALUES (#{memberId}, #{videoId}, #{likedAt})
     </insert>
 
-    <!-- 특정 멤버의 좋아요 조회 -->
+    <!-- 특정 멤버의 좋아요 리스트 조회 -->
     <select id="findByMemberId" parameterType="String" resultType="com.ssafy.ssafit.domain.LikeVideos">
         SELECT * FROM like_videos WHERE member_id = #{memberId}
     </select>
 
-    <!-- 특정 영상의 좋아요 조회 -->
+    <!-- 특정 영상의 좋아요 리스트 조회 -->
     <select id="findByVideoId" parameterType="String" resultType="com.ssafy.ssafit.domain.LikeVideos">
         SELECT * FROM like_videos WHERE video_id = #{videoId}
     </select>
@@ -24,15 +24,15 @@
         SELECT * FROM like_videos WHERE like_id = #{likeId}
     </select>
 
-    <!-- 좋아요 삭제 -->
-    <delete id="deleteByLikeId" parameterType="Long">
-        DELETE FROM like_videos WHERE like_id = #{likeId}
-    </delete>
-
-    <!-- 좋아요 존재 여부 확인 -->
+    <!-- 특정 멤버와 영상의 좋아요 존재 여부 확인 -->
     <select id="existsByMemberIdAndVideoId" parameterType="map" resultType="boolean">
         SELECT EXISTS (
         SELECT 1 FROM like_videos WHERE member_id = #{memberId} AND video_id = #{videoId}
         )
     </select>
+
+    <!-- 특정 멤버의 특정 영상 좋아요 삭제 -->
+    <delete id="deleteByVideoId" parameterType="map">
+        DELETE FROM like_videos WHERE member_id = #{memberId} AND video_id = #{videoId}
+    </delete>
 </mapper>
