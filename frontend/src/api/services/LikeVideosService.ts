@@ -1,6 +1,6 @@
 import api from '../apiClient'
 import type { LikeRequestDTO } from '../interfaces/request'
-import type { LikeResponseVO } from '../interfaces/response'
+import type { LikeResponseVO, VideoDetailVO } from '../interfaces/response'
 import type { LikeVideos } from '../interfaces/common'
 
 class LikeVideosService {
@@ -18,7 +18,7 @@ class LikeVideosService {
   }
 
   // 나의 좋아요 조회 (인증된 사용자 ID로 조회)
-  static async getLikes(): Promise<LikeVideos[]> {
+  static async getLikes(): Promise<VideoDetailVO[]> {
     try {
       // 인증된 사용자의 ID를 자동으로 추출하여 요청
       const response = await api.get(`${this.path}/list`)
@@ -30,7 +30,7 @@ class LikeVideosService {
   }
 
   // 특정 멤버의 좋아요 조회 (인증된 사용자 ID로 조회)
-  static async getLikesByMember(memberId: string): Promise<LikeVideos[]> {
+  static async getLikesByMember(memberId: string): Promise<VideoDetailVO[]> {
     try {
       // 인증된 사용자의 ID를 자동으로 추출하여 요청
       const response = await api.get(`${this.path}/list/${memberId}`)

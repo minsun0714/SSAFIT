@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { inject, Ref } from 'vue'
 import VideoCard from '../common/VideoCard.vue'
-import { ReviewResponseVO } from '@/api/interfaces/response'
+import { VideoDetailVO } from '@/api/interfaces/response'
 
-const data = inject<Ref<ReviewResponseVO[] | undefined>>('likeVideosInfo')
+const data = inject<Ref<VideoDetailVO[] | undefined>>('likeVideosInfo')
 </script>
 
 <template>

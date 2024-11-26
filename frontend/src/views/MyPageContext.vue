@@ -25,10 +25,6 @@ const likeVideosInfo: Ref<LikeResponseVO[] | undefined> = ref(
 )
 const reviewsInfo: Ref<ReviewResponseVO | undefined> = ref(ReviewApiFacade.useFetchReviews().data)
 
-watchEffect(() => {
-  console.log('Updated ikes Info:', likeVideosInfo.value)
-})
-
 provide('userInfo', userInfo)
 provide('followInfo', followInfo)
 provide('grassInfo', grassInfo)
