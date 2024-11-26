@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import VideoCard from "@/components/common/VideoCard.vue";
-import BsChevronLeft from "vue3-icons";
+import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
+
 const allVideos = {
   Run: [
     {
@@ -286,37 +287,47 @@ const changeCategory = (category: 'Run' | 'Strength' | 'Relax') => {
         v-for="option in ['Run', 'Strength', 'Relax']"
         :key="option"
         @click="changeCategory(option)"
-        :class="{'bg-black text-[#E50914] font-bold': selectedOption === option, 'text-white': selectedOption !== option}"
+        :class="{'text-blue-100 font-bold': selectedOption === option, 'text-black': selectedOption !== option}"
         class="hover:font-bold"
       >
         {{ option }}
       </button>
     </div>
 
-    <!-- Pagination Buttons -->
-    <div class="flex space-x-2">
+     <!-- Pagination Buttons -->
+  <div class="flex space-x-4">
+    <!-- Previous Button -->
       <button
         @click="goToPreviousPage"
         :disabled="currentPage === 0"
-        :class="{'text-gray-500 cursor-not-allowed': currentPage === 0, 'text-white': currentPage !== 0}"
+        :class="{
+          'text-gray-500 cursor-not-allowed': currentPage === 0,
+          'text-black hover:text-blue-100': currentPage !== 0
+        }"
+        class="flex items-center space-x-2 px-4 py-2 rounded-md disabled:"
       >
-        Previous
+      <LeftOutlined class="text-xl" />
       </button>
+
+      <!-- Next Button -->
       <button
         @click="goToNextPage"
         :disabled="(currentPage + 1) * videosPerPage >= allVideos[selectedOption].length"
-        :class="{'text-gray-500 cursor-not-allowed': (currentPage + 1) * videosPerPage >= allVideos[selectedOption].length,
-          'text-white': (currentPage + 1) * videosPerPage < allVideos[selectedOption].length}"
+        :class="{
+          'text-gray-400 cursor-not-allowed': (currentPage + 1) * videosPerPage >= allVideos[selectedOption].length,
+          'text-black hover:text-blue-100': (currentPage + 1) * videosPerPage < allVideos[selectedOption].length
+        }"
+        class="flex items-center space-x-2 px-4 py-2 rounded-md disabled:"
       >
-        Next
-      </button>
-    </div>
+      <RightOutlined class="text-xl" />
+    </button>
+  </div>
   </div>
 </div>
 
 
       <!-- Video Grid -->
-      <div class="grid grid-cols-2" style="gap: 20px;">
+      <div class="grid grid-cols-2" style="gap: 40px;">
         <VideoCard
           v-for="(video, index) in currentVideos"
           :key="index"

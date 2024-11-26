@@ -55,10 +55,8 @@ const navigateToVideo = async () => {
   flex-direction: column;
   width: 360px;
   padding: 10px;
-  background-color: black; /* 배경 검은색 */
   cursor: pointer;
   transition: transform 0.2s ease;
-  color: white; /* 글씨 흰색 */
 }
 
 .video-card:hover {
@@ -89,27 +87,33 @@ const navigateToVideo = async () => {
   font-size: 16px;
   font-weight: bold;
   margin: 0;
-  color: white; /* 제목 흰색 */
+  display: -webkit-box; /* Flexbox를 기반으로 한 클리핑 */
+  -webkit-line-clamp: 2; /* 최대 2줄로 제한 */
+  -webkit-box-orient: vertical; /* 수직 방향으로 클리핑 */
+  overflow: hidden; /* 초과된 텍스트 숨김 */
+  text-overflow: ellipsis; /* ... 처리 */
+  min-height: 44px; /* 2줄 높이에 맞게 최소 높이 설정 (16px * 2 + 여백) */
+  line-height: 1.4; /* 줄 간격 설정 */
 }
+
 
 .nickname {
   font-size: 14px;
-  color: #bbb; /* 닉네임 약간 밝은 회색 */
+  color: #bbb;
 }
 
 .details {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: white; /* 기본 텍스트 색 흰색 */
 }
 
 .view-count {
-  color: #e50914; /* 조회수 빨간색 */
+  color: #0001c8;
   font-weight: bold;
 }
 
 .created-at {
-  color: #bbb; /* 생성 날짜 밝은 회색 */
+  color: #bbb
 }
 </style>

@@ -1,18 +1,15 @@
 <template>
   <br />
-  <div class="text-center space-y-4">
-    <h1 class="text-3xl font-bold">Video Playlist</h1>
-    <div class="text-xl animated-gradient-text" :class="{ animate: isAnimating }">
-      Make exercise more fun with music!
-    </div>
-  </div>
+  <div class="relative bg-container">
+    <!-- 배경 이미지 위에 중앙 정렬된 텍스트 -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center space-y-4 z-10">
+      <h1 class="text-3xl font-bold text-white">Video Playlist</h1>
+      <div class="text-xl font-semibold animated-gradient-text text-white" :class="{ animate: isAnimating }">
+        Make exercise more fun with music!
+      </div>
 
-  <br />
-
-  <div>
-    <!-- Search Bar -->
-    <div class="flex flex-col justify-center items-center">
-      <div class="relative w-full max-w-sm items-center mb-4 text-black">
+      <!-- Search Bar -->
+      <div class="relative w-full max-w-sm mt-4">
         <Input
           id="search"
           type="text"
@@ -25,25 +22,33 @@
           <Search class="size-6 text-muted-foreground" />
         </span>
       </div>
-      <!-- 자동완성 목록 -->
-      <ul
-        v-if="autoCompletes?.length"
-        class="bg-white text-black absolute top-[300px] w-[384px] rounded-md shadow-md z-10"
-      >
-        <li
-          v-for="(s, index) in autoCompletes"
-          :key="index"
-          class="px-4 py-3 cursor-pointer"
-          @click="router.push({ name: Routes.VIDEO, params: { videoId: s.videoId } })"
-        >
-          {{ s?.title?.length <= 30 ? s : s?.title?.slice(0, 28) + '...' }}
-        </li>
-      </ul>
     </div>
+
+    <!-- 배경 이미지 오버레이 -->
+    <div class="absolute inset-0 bg-overlay"></div>
+  </div>
+
+  <br />
+
+  <div>
+    <!-- 자동완성 목록 -->
+    <ul
+      v-if="autoCompletes?.length"
+      class="bg-white text-black absolute top-[300px] w-[384px] rounded-md shadow-md z-20"
+    >
+      <li
+        v-for="(s, index) in autoCompletes"
+        :key="index"
+        class="px-4 py-3 cursor-pointer"
+        @click="router.push({ name: Routes.VIDEO, params: { videoId: s.videoId } })"
+      >
+        {{ s?.title?.length <= 30 ? s : s?.title?.slice(0, 28) + '...' }}
+      </li>
+    </ul>
 
     <!-- Video List -->
     <div class="video-list-view">
-      <div class="flex justify-between items-center mb-4" style="max-width: 1080px; margin: 0 auto">
+      <div class="flex justify-between items-center mb-4" style="max-width: 1080px; margin: 0 auto;">
         <!-- Search Results Count -->
         <div class="text-lg font-medium">{{ videos?.totalItems }}개의 결과가 검색되었습니다.</div>
 
@@ -69,9 +74,10 @@
           </a-dropdown>
         </div>
       </div>
+
       <div
         class="grid grid-cols-3 gap-2 justify-center items-center"
-        style="max-width: 1080px; margin: 0 auto"
+        style="max-width: 1080px; margin: 0 auto;"
       >
         <VideoCard
           v-for="video in videos?.data"
@@ -159,17 +165,35 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* 배경 이미지를 설정하는 스타일 */
+.bg-container {
+  position: relative;
+  width: 100%;
+  height: 250px; /* 원하는 높이로 설정 */
+  background-image: url('@/assets/Home/runner2.jpg'); /* 배경 이미지 경로 */
+  background-size: cover; /* 이미지가 영역을 채우도록 */
+  background-position: center; /* 이미지가 중앙에 위치하도록 */
+}
+
+/* 배경 위에 반투명 오버레이 추가 */
+.bg-overlay {
+  background-color: rgba(0, 0, 0, 0.4); /* 반투명 검정색 */
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
 .animated-gradient-text {
   font-size: 1.25rem;
   background: linear-gradient(
     90deg,
     #ffffff,
-    #ff5733,
-    #e50914,
-    #ff5733,
+    #7f80e3,
+    #0001c8,
+    #7f80e3,
     #ffffff,
-    #e50914,
-    #ff5733,
+    #0001c8,
+    #7f80e3,
     #ffffff
   );
   background-size: 200% 100%; /* 그라데이션의 크기를 크게 설정 */
