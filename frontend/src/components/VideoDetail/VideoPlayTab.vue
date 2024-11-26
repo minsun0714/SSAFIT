@@ -1,26 +1,26 @@
 <template>
   <div class="video-play" v-if="props.videoData">
-    <div class="video-container">
+    <div class="w-2/3">
       <iframe
         class="video-iframe"
         :src="props.videoData.embeddingUrl"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
-      ></iframe>
-      <br>
-      <h2>{{ props.videoData.description }}</h2>
+      >
+      </iframe>
+      <h2 class="relative py-4">{{ props.videoData.description }}</h2>
     </div>
-    <RelatedVideos />
   </div>
+  >
+  <RelatedVideos />
 </template>
 
 <script setup lang="ts">
-import RelatedVideos from "./RelatedVideos.vue";
-import type { PropType } from "vue";
-import type { VideoDetailVO } from "@/api/interfaces/response";
-import { onMounted, watch } from "vue";
-
+import RelatedVideos from './RelatedVideos.vue'
+import type { PropType } from 'vue'
+import type { VideoDetailVO } from '@/api/interfaces/response'
+import { onMounted, watch } from 'vue'
 
 // props로 데이터 수신
 const props = defineProps({
@@ -28,23 +28,26 @@ const props = defineProps({
     type: Object as PropType<VideoDetailVO | null>,
     required: true,
   },
-});
+})
 
 onMounted(() => {
-  console.log("Received videoData:", props.videoData);
-});
+  console.log('Received videoData:', props.videoData)
+})
 
-watch(() => props.videoData, (newVal) => {
-  console.log("Updated videoData:", newVal);
-});
+watch(
+  () => props.videoData,
+  (newVal) => {
+    console.log('Updated videoData:', newVal)
+  },
+)
 </script>
 
 <style scoped>
 .video-play {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
 }
 
 .video-container {
