@@ -28,4 +28,6 @@ public class SignUpRequestDTO {
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,20}$",
             message = "Password Confirm must contain both letters and numbers")
     private String passwordConfirm;
+
+    private String profileImg;
 }

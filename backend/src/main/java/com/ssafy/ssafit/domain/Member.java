@@ -24,7 +24,7 @@ public class Member implements UserDetails {
     private String name;
     private String nickname;
     private String password;
-    private String profileImg;
+    private String profileImg = "https://ssafit.s3.ap-northeast-2.amazonaws.com/uploads/7fea8d6d-bfac-4ee4-a400-8b3b1f9ae78f_Vector.svg";
     private Role role; // Enum 타입
     private int weight;
     private Date createdAt;
