@@ -8,6 +8,10 @@ import type { PropType } from 'vue'
 import type { VideoDetailVO, ReviewResponseVO } from '@/api/interfaces/response'
 import type { ReviewRequestDTO } from '@/api/interfaces/request'
 import { notification } from 'ant-design-vue'
+import { useRouter } from 'vue-router'
+import { Routes } from '@/utils/enum'
+
+const router = useRouter()
 
 // props로 videoData를 수신
 const props = defineProps({
@@ -218,7 +222,15 @@ onMounted(() => {
         <div v-else>
           <div class="flex flex-col items-center text-sm w-full pt-6 px-6">
             <div class="flex flex-row justify-between items-center w-full">
-              <span class="flex flex-row items-center gap-2">
+              <span
+                class="flex flex-row items-center gap-2 cursor-pointer"
+                @click="
+                  router.push({
+                    name: 'others-liked-videos',
+                    params: { memberId: review.memberId },
+                  })
+                "
+              >
                 <img
                   :src="review.profileImg"
                   alt="프로필 이미지"
