@@ -3,6 +3,7 @@ package com.ssafy.ssafit.controller;
 import com.ssafy.ssafit.domain.LikeVideos;
 import com.ssafy.ssafit.dto.request.LikeRequestDTO;
 import com.ssafy.ssafit.dto.response.LikeResponseVO;
+import com.ssafy.ssafit.dto.response.VideoCardVO;
 import com.ssafy.ssafit.exception.MemberNotAuthenticatedException;
 import com.ssafy.ssafit.service.LikeVideosService;
 import org.springframework.http.ResponseEntity;
@@ -30,11 +31,18 @@ public class LikeVideosController {
         return ResponseEntity.ok(response);
     }
 
-    // 특정 멤버의 좋아요 조회
+    // 나의 좋아요 조회
     @GetMapping("/list")
-    public ResponseEntity<List<LikeVideos>> getLikesByMember() {
+    public ResponseEntity<List<VideoCardVO>> getLikes() {
         String memberId = getAuthenticatedMemberId();
-        List<LikeVideos> likes = likeVideosService.getLikesByMember(memberId);
+        List<VideoCardVO> likes = likeVideosService.getLikesByMember(memberId);
+        return ResponseEntity.ok(likes);
+    }
+
+    // 특정 멤버의 좋아요 조회
+    @GetMapping("/list/{memberId}")
+    public ResponseEntity<List<VideoCardVO>> getLikesByMember(@PathVariable String memberId) {
+        List<VideoCardVO> likes = likeVideosService.getLikesByMember(memberId);
         return ResponseEntity.ok(likes);
     }
 

@@ -1,6 +1,7 @@
 package com.ssafy.ssafit.dao;
 
 import com.ssafy.ssafit.domain.LikeVideos;
+import com.ssafy.ssafit.dto.response.VideoCardVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface LikeVideosMapper {
     void insertLike(LikeVideos likeVideos);
 
     // 특정 멤버의 좋아요 리스트 조회
-    List<LikeVideos> findByMemberId(String memberId);
+    List<VideoCardVO> findByMemberId(String memberId);
 
     // 특정 영상에 대한 좋아요 조회
     List<LikeVideos> findByVideoId(String videoId);

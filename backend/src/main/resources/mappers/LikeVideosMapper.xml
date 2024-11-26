@@ -10,8 +10,11 @@
     </insert>
 
     <!-- 특정 멤버의 좋아요 리스트 조회 -->
-    <select id="findByMemberId" parameterType="String" resultType="com.ssafy.ssafit.domain.LikeVideos">
-        SELECT * FROM like_videos WHERE member_id = #{memberId}
+    <select id="findByMemberId" parameterType="String" resultType="com.ssafy.ssafit.domain.Video">
+        SELECT lv.*, v.*
+        FROM like_videos lv
+        JOIN video v ON lv.video_id = v.video_id
+        WHERE lv.member_id = #{memberId}
     </select>
 
     <!-- 특정 영상의 좋아요 리스트 조회 -->

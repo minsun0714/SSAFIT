@@ -3,6 +3,7 @@ package com.ssafy.ssafit.service;
 import com.ssafy.ssafit.dao.LikeVideosMapper;
 import com.ssafy.ssafit.domain.LikeVideos;
 import com.ssafy.ssafit.dto.response.LikeResponseVO;
+import com.ssafy.ssafit.dto.response.VideoCardVO;
 import com.ssafy.ssafit.exception.MemberNotAuthenticatedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,7 +42,7 @@ public class LikeVideosService {
     }
 
     // 특정 멤버의 좋아요 조회
-    public List<LikeVideos> getLikesByMember(String memberId) {
+    public List<VideoCardVO> getLikesByMember(String memberId) {
         return likeVideosMapper.findByMemberId(memberId);
     }
 
