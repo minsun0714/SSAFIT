@@ -25,7 +25,7 @@ public class ReviewController {
     }
 
     // 리뷰 조회 (특정 영상에 대한 리뷰 리스트)
-    @GetMapping("/video/{videoId}")
+    @GetMapping("/list/{videoId}")
     public ResponseEntity<List<ReviewResponseVO>> getReviewsByVideoId(@PathVariable String videoId) {
         List<ReviewResponseVO> reviews = reviewService.getReviewsByVideoId(videoId);
         return ResponseEntity.ok(reviews);
