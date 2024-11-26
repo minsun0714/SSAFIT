@@ -11,10 +11,7 @@
         조회수: <span>{{ formattedViewCount }}</span>
       </p>
       <p class="introduce">{{ videoData.introduceText }}</p>
-      <button
-        :class="['like-button', { liked: isLiked }]"
-        @click="toggleLike"
-      >
+      <button :class="['like-button', { liked: isLiked }]" @click="toggleLike">
         {{ likeButtonText }}
       </button>
     </div>
@@ -22,69 +19,73 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, defineProps } from "vue";
-import type { PropType } from "vue";
-import LikeVideosService from "@/api/services/LikeVideosService";
-import { notification } from "ant-design-vue";
-import type { VideoDetailVO } from "@/api/interfaces/response";
-import type { LikeRequestDTO } from "@/api/interfaces/request";
+import { ref, computed, watch, defineProps } from 'vue'
+import type { PropType } from 'vue'
+import LikeVideosService from '@/api/services/LikeVideosService'
+import { notification } from 'ant-design-vue'
+import type { VideoDetailVO } from '@/api/interfaces/response'
+import type { LikeRequestDTO } from '@/api/interfaces/request'
 
 const props = defineProps({
   videoData: {
     type: Object as PropType<VideoDetailVO | null>,
     required: true,
   },
-});
+})
 
-const isLiked = ref(false);
-const likeId = ref<number | null>(null);
+const isLiked = ref(false)
+const likeId = ref<number | null>(null)
 
 const formattedViewCount = computed(() => {
-  return props.videoData?.viewCount?.toLocaleString() || "0";
-});
+  return props.videoData?.viewCount?.toLocaleString() || '0'
+})
 
-const likeButtonText = computed(() => (isLiked.value ? "좋아요 취소" : "좋아요"));
+const likeButtonText = computed(() => (isLiked.value ? '좋아요 취소' : '좋아요'))
 
-watch(() => props.videoData, async (newData) => {
-  if (newData?.videoId) {
-    try {
-      const likes = await LikeVideosService.getLikesByMember(); // 인증된 사용자 정보로 좋아요 조회
-      const existingLike = likes.find(like => like.videoId === newData.videoId);
-      console.log("Existing like:", existingLike);
-      isLiked.value = !!existingLike;
-      likeId.value = existingLike?.likeId || null;
-    } catch (error) {
-      console.error("Failed to fetch likes for video", error);
+watch(
+  () => props.videoData,
+  async (newData) => {
+    if (newData?.videoId) {
+      try {
+        const likes = await LikeVideosService.getLikes() // 인증된 사용자 정보로 좋아요 조회
+        const existingLike = likes.find((like) => like.videoId === newData.videoId)
+        console.log('Existing like:', existingLike)
+        isLiked.value = !!existingLike
+        likeId.value = existingLike?.likeId || null
+      } catch (error) {
+        console.error('Failed to fetch likes for video', error)
+      }
     }
-  }
-}, { immediate: true });
+  },
+  { immediate: true },
+)
 
 const toggleLike = async () => {
-  if (!props.videoData?.videoId) return;
+  if (!props.videoData?.videoId) return
 
   try {
     if (isLiked.value) {
       // 좋아요 취소
-      await LikeVideosService.removeLikeByVideoId(props.videoData.videoId);
-      console.log("좋아요 취소 요청 성공");
-      isLiked.value = false;
-      likeId.value = null; // 좋아요 취소 후 likeId 초기화
-      notification.success({ message: "좋아요 취소됨" });
+      await LikeVideosService.removeLikeByVideoId(props.videoData.videoId)
+      console.log('좋아요 취소 요청 성공')
+      isLiked.value = false
+      likeId.value = null // 좋아요 취소 후 likeId 초기화
+      notification.success({ message: '좋아요 취소됨' })
     } else {
       // 좋아요 추가
       const payload: LikeRequestDTO = {
         videoId: props.videoData.videoId,
-      };
-      const response = await LikeVideosService.addLike(payload);
-      console.log("좋아요 요청 성공");
-      isLiked.value = true;
-      likeId.value = response.likeId; // 서버에서 받은 likeId로 설정
-      notification.success({ message: "좋아요 추가됨" });
+      }
+      const response = await LikeVideosService.addLike(payload)
+      console.log('좋아요 요청 성공')
+      isLiked.value = true
+      likeId.value = response.likeId // 서버에서 받은 likeId로 설정
+      notification.success({ message: '좋아요 추가됨' })
     }
   } catch (error) {
-    notification.error({ message: "작업 실패", description: "좋아요 처리에 실패했습니다." });
+    notification.error({ message: '작업 실패', description: '좋아요 처리에 실패했습니다.' })
   }
-};
+}
 </script>
 
 <style scoped>
