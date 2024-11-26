@@ -1,16 +1,29 @@
 <script setup lang="ts">
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 import FollowApiFacade from '@/api/apiFacade/FollowAPIFacade'
 import { useRoute } from 'vue-router'
 import Button from '../ui/button/Button.vue'
 import OtherMemberApiFacade from '@/api/apiFacade/OtherMemberApiFacade'
 import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
-import { computed } from 'vue'
+import { computed, inject, Ref } from 'vue'
+import { SlArrowDown } from 'vue3-icons/sl'
+import { MemberInfoResponse } from '@/api/interfaces/response'
 
 const route = useRoute()
 const memberId = route?.params?.memberId
 
 const { data: memberInfo } = MemberApiFacade.useFetchUserInfo()
 const { data: followData, refetch } = OtherMemberApiFacade.useFetchFollowRelations()
+
+const userInfo = inject<Ref<MemberInfoResponse | undefined>>('userInfo')
 
 const myId = computed(() => memberInfo?.value?.memberId || null)
 
@@ -36,6 +49,22 @@ const handleUnfollow = () => {
 </script>
 
 <template>
-  <Button v-if="isFollowing === true" @click="handleUnfollow">unfollow</Button>
+  <Dialog v-if="isFollowing === true">
+    <DialogTrigger as-child>
+      <Button>팔로잉 <SlArrowDown /> </Button>
+    </DialogTrigger>
+    <DialogContent class="sm:max-w-[425px]">
+      <DialogHeader class="flex flex-col justify-center w-full">
+        <DialogTitle class="flex flex-col justify-center items-center p-6"
+          ><img :src="userInfo?.profileImg" class="object-cover h-20" /><span class="p-3">
+            {{ userInfo?.name }}
+          </span></DialogTitle
+        >
+        <DialogDescription>
+          <div @click="handleUnfollow"><button>팔로우 취소</button></div>
+        </DialogDescription>
+      </DialogHeader>
+    </DialogContent>
+  </Dialog>
   <Button v-else-if="isFollowing === false" @click="handleFollow">follow</Button>
 </template>
