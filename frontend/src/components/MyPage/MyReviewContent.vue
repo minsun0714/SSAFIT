@@ -13,7 +13,7 @@ const toggleReviewOpen = () => {
 </script>
 
 <template>
-  <div class="p-8 h-full">
+  <div class="px-6 py-8 h-full w-full">
     <p class="w-4/5" :class="!isReviewOpen && 'h-20 text-ellipsis overflow-hidden'">
       {{ content.length < 300 ? content : isReviewOpen ? content : content.slice(0, 300) }}
     </p>
