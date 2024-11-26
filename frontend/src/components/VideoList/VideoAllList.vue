@@ -36,7 +36,7 @@
           class="px-4 py-3 cursor-pointer"
           @click="router.push({ name: Routes.VIDEO, params: { videoId: s.videoId } })"
         >
-          {{ s.title.length <= 30 ? s : s.title.slice(0, 28) + '...' }}
+          {{ s?.title?.length <= 30 ? s : s?.title?.slice(0, 28) + '...' }}
         </li>
       </ul>
     </div>
