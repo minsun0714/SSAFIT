@@ -50,6 +50,7 @@ public class ReviewService {
     // 특정 영상에 대한 리뷰 리스트 조회
     public List<ReviewResponseVO> getReviewsByVideoId(String videoId) {
         List<Review> reviews = reviewMapper.selectReviewsByVideoId(videoId);
+        System.out.println(reviews);
         return reviews.stream()
                 .map(ReviewResponseVO::new)
                 .toList();

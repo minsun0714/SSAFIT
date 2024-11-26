@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, watch } from "vue";
-import { FaStar, FaStarHalf } from "vue3-icons/fa";
-import MyReviewContent from "./VideoReviewContent.vue";
-import Input from "../ui/input/Input.vue";
-import ReviewService from "@/api/services/ReviewService";
-import type { PropType } from "vue";
-import type { VideoDetailVO, ReviewResponseVO } from "@/api/interfaces/response";
-import type { ReviewRequestDTO } from "@/api/interfaces/request";
-import { notification } from "ant-design-vue";
+import { ref, reactive, onMounted, watch } from 'vue'
+import { FaStar, FaStarHalf } from 'vue3-icons/fa'
+import MyReviewContent from './VideoReviewContent.vue'
+import Input from '../ui/input/Input.vue'
+import ReviewService from '@/api/services/ReviewService'
+import type { PropType } from 'vue'
+import type { VideoDetailVO, ReviewResponseVO } from '@/api/interfaces/response'
+import type { ReviewRequestDTO } from '@/api/interfaces/request'
+import { notification } from 'ant-design-vue'
 
 // props로 videoData를 수신
 const props = defineProps({
@@ -15,149 +15,149 @@ const props = defineProps({
     type: Object as PropType<VideoDetailVO | null>,
     required: true,
   },
-});
+})
 
 // 상태 관리
-const reviews = ref<ReviewResponseVO[]>([]);
-const isLoading = ref(false);
-const hasError = ref(false);
+const reviews = ref<ReviewResponseVO[]>([])
+const isLoading = ref(false)
+const hasError = ref(false)
 
 // 리뷰 등록 상태
-const newReviewContent = ref("");
-const newReviewRating = ref<number>(2.5); // 기본값 설정
+const newReviewContent = ref('')
+const newReviewRating = ref<number>(2.5) // 기본값 설정
 
 // 수정 중인 리뷰 상태
 const editingReview = reactive({
-  reviewId: "",
-  content: "",
+  reviewId: '',
+  content: '',
   rating: 0,
   isEditing: false,
-});
+})
 
 // 리뷰 로드 함수
 const fetchReviews = async () => {
-  if (!props.videoData || !props.videoData.videoId) return;
+  if (!props.videoData || !props.videoData.videoId) return
 
-  isLoading.value = true;
-  hasError.value = false;
+  isLoading.value = true
+  hasError.value = false
 
   try {
-    const fetchedReviews = await ReviewService.getReviewsByVideoId(props.videoData.videoId);
-    console.log("Fetched Reviews:", fetchedReviews); // 리뷰 데이터 출력
-    reviews.value = fetchedReviews;
+    const fetchedReviews = await ReviewService.getReviewsByVideoId(props.videoData.videoId)
+    console.log('Fetched Reviews:', fetchedReviews) // 리뷰 데이터 출력
+    reviews.value = fetchedReviews
   } catch (error) {
-    console.error("Failed to fetch reviews:", error);
-    hasError.value = true;
+    console.error('Failed to fetch reviews:', error)
+    hasError.value = true
   } finally {
-    isLoading.value = false;
+    isLoading.value = false
   }
-};
+}
 
 // 리뷰 등록 함수
 const submitReview = async () => {
-  if (!props.videoData || !props.videoData.videoId) return;
+  if (!props.videoData || !props.videoData.videoId) return
 
   const payload: ReviewRequestDTO = {
     videoId: props.videoData.videoId,
     content: newReviewContent.value,
     rating: newReviewRating.value * 2,
-  };
+  }
 
   try {
-    const newReview = await ReviewService.createReview(payload);
-    reviews.value.unshift(newReview); // 새 리뷰를 리스트 상단에 추가
-    newReviewContent.value = ""; // 입력 필드 초기화
-    newReviewRating.value = 2.5; // 평점 초기화
+    const newReview = await ReviewService.createReview(payload)
+    reviews.value.unshift(newReview) // 새 리뷰를 리스트 상단에 추가
+    newReviewContent.value = '' // 입력 필드 초기화
+    newReviewRating.value = 2.5 // 평점 초기화
     notification.success({
-      message: "Review Submitted",
-      description: "Your review has been successfully submitted!",
-    });
+      message: 'Review Submitted',
+      description: 'Your review has been successfully submitted!',
+    })
   } catch (error) {
-    console.error("Failed to submit review:", error);
+    console.error('Failed to submit review:', error)
     notification.error({
-      message: "Failed to Submit",
-      description: "Could not submit your review. Please try again later.",
-    });
+      message: 'Failed to Submit',
+      description: 'Could not submit your review. Please try again later.',
+    })
   }
-};
+}
 
 // 리뷰 수정 시작
 const startEditingReview = (review: ReviewResponseVO) => {
-  editingReview.reviewId = review.reviewId;
-  editingReview.content = review.content;
-  editingReview.rating = review.rating / 2;
-  editingReview.isEditing = true;
-};
+  editingReview.reviewId = review.reviewId
+  editingReview.content = review.content
+  editingReview.rating = review.rating / 2
+  editingReview.isEditing = true
+}
 
 // 리뷰 수정 완료
 const submitEditedReview = async () => {
-  if (!editingReview.reviewId) return;
+  if (!editingReview.reviewId) return
 
   try {
     const payload: ReviewRequestDTO = {
-      videoId: props.videoData?.videoId || "",
+      videoId: props.videoData?.videoId || '',
       content: editingReview.content,
       rating: editingReview.rating * 2,
-    };
-    const updatedReview = await ReviewService.updateReview(editingReview.reviewId, payload);
+    }
+    const updatedReview = await ReviewService.updateReview(editingReview.reviewId, payload)
 
     reviews.value = reviews.value.map((review) =>
-      review.reviewId === editingReview.reviewId ? updatedReview : review
-    );
+      review.reviewId === editingReview.reviewId ? updatedReview : review,
+    )
 
     notification.success({
-      message: "Review Updated",
-      description: "Your review has been successfully updated!",
-    });
-    cancelEditing(); // 수정 상태 초기화
+      message: 'Review Updated',
+      description: 'Your review has been successfully updated!',
+    })
+    cancelEditing() // 수정 상태 초기화
   } catch (error) {
-    console.error("Failed to update review:", error);
+    console.error('Failed to update review:', error)
     notification.error({
-      message: "Failed to Update",
-      description: "Could not update your review. Please try again later.",
-    });
+      message: 'Failed to Update',
+      description: 'Could not update your review. Please try again later.',
+    })
   }
-};
+}
 
 // 리뷰 수정 취소
 const cancelEditing = () => {
-  editingReview.reviewId = "";
-  editingReview.content = "";
-  editingReview.rating = 0;
-  editingReview.isEditing = false;
-};
+  editingReview.reviewId = ''
+  editingReview.content = ''
+  editingReview.rating = 0
+  editingReview.isEditing = false
+}
 
 // 리뷰 삭제
 const deleteReview = async (reviewId: string) => {
   try {
-    await ReviewService.deleteReview(reviewId);
-    reviews.value = reviews.value.filter((review) => review.reviewId !== reviewId);
+    await ReviewService.deleteReview(reviewId)
+    reviews.value = reviews.value.filter((review) => review.reviewId !== reviewId)
     notification.success({
-      message: "Review Deleted",
-      description: "Your review has been successfully deleted!",
-    });
+      message: 'Review Deleted',
+      description: 'Your review has been successfully deleted!',
+    })
   } catch (error) {
-    console.error("Failed to delete review:", error);
+    console.error('Failed to delete review:', error)
     notification.error({
-      message: "Failed to Delete",
-      description: "Could not delete your review. Please try again later.",
-    });
+      message: 'Failed to Delete',
+      description: 'Could not delete your review. Please try again later.',
+    })
   }
-};
+}
 
 // videoData 변경 시 리뷰를 로드
 watch(
   () => props.videoData,
   (newVideoData) => {
-    if (newVideoData?.videoId) fetchReviews();
+    if (newVideoData?.videoId) fetchReviews()
   },
-  { immediate: true }
-);
+  { immediate: true },
+)
 
 // 페이지 진입 시에도 리뷰를 로드
 onMounted(() => {
-  fetchReviews();  // 페이지 진입 시에도 리뷰를 로드
-});
+  fetchReviews() // 페이지 진입 시에도 리뷰를 로드
+})
 </script>
 
 <template>
@@ -181,7 +181,10 @@ onMounted(() => {
     <!-- 오류 상태 -->
     <p v-if="hasError" class="text-red-500 text-sm">Failed to load reviews. Please try again.</p>
 
-    <ul v-if="reviews.length && !isLoading" class="flex flex-col justify-center items-center w-full">
+    <ul
+      v-if="reviews.length && !isLoading"
+      class="flex flex-col justify-center items-center w-full"
+    >
       <li
         v-for="review in reviews"
         :key="review.reviewId"
@@ -217,7 +220,7 @@ onMounted(() => {
             <div class="flex flex-row justify-between items-center w-full">
               <span class="flex flex-row items-center gap-2">
                 <img
-                  src="https://via.placeholder.com/40"
+                  :src="review.profileImg"
                   alt="프로필 이미지"
                   class="border rounded-full h-8 w-8"
                 />
@@ -242,16 +245,10 @@ onMounted(() => {
                 </span>
               </div>
               <div class="flex gap-2">
-                <button
-                  @click="startEditingReview(review)"
-                  class="text-blue-500 text-sm"
-                >
+                <button @click="startEditingReview(review)" class="text-blue-500 text-sm">
                   수정
                 </button>
-                <button
-                  @click="deleteReview(review.reviewId)"
-                  class="text-red-500 text-sm"
-                >
+                <button @click="deleteReview(review.reviewId)" class="text-red-500 text-sm">
                   삭제
                 </button>
               </div>

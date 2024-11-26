@@ -15,6 +15,7 @@ import java.util.Date;
 public class ReviewResponseVO {
     private String reviewId;
     private String memberId;
+    private String profileImg;
     private String videoId;
     private String content;
     private Date createdAt;
@@ -23,6 +24,7 @@ public class ReviewResponseVO {
     public ReviewResponseVO(Review review) {
         this.reviewId = review.getReviewId();
         this.memberId = review.getMemberId();
+        this.profileImg = review.getProfileImg();
         this.videoId = review.getVideoId();
         this.content = review.getContent();
         this.createdAt = review.getCreatedAt();

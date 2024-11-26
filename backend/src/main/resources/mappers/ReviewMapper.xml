@@ -11,9 +11,13 @@
 
     <!-- 특정 영상에 대한 리뷰 조회 -->
     <select id="selectReviewsByVideoId" parameterType="string" resultType="com.ssafy.ssafit.domain.Review">
-        SELECT *
-        FROM review
-        WHERE video_id = #{videoId};
+        SELECT
+        r.*,
+        m.member_id,
+        m.profile_img
+        FROM review r
+        JOIN members m ON r.member_id = m.member_id
+        WHERE r.video_id = #{videoId};
     </select>
 
     <!-- 특정 사용자의 리뷰 조회 -->

@@ -92,6 +92,7 @@ export interface VideoCardVO {
 export interface ReviewResponseVO {
   reviewId: string
   memberId: string
+  profileImg: string
   videoId: string
   content: string
   createdAt: string

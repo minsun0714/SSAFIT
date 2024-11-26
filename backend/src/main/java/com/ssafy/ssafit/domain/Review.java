@@ -15,6 +15,7 @@ import java.util.Date;
 public class Review {
     private String reviewId;
     private String memberId;
+    private String profileImg;
     private String videoId;
     private Date createdAt;
     private String content;
