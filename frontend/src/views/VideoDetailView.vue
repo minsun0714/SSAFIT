@@ -47,8 +47,4 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-main {
-  background-color: black;
-  color: white; /* 텍스트 색을 흰색으로 설정하여 가독성을 높임 */
-}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-black">
+  <div class="flex items-center justify-center min-h-screen">
     <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-lg flex flex-col items-center">
       <h1 class="text-4xl font-bold text-center mb-6 text-black">Create Your Activity</h1>
       <iframe src="https://giphy.com/embed/VFDeGtRSHswfe" width="480" height="302" style="" frameBorder="0" class="giphy-embed rounded-lg" allowFullScreen></iframe>

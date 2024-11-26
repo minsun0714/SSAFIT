@@ -11,12 +11,15 @@
       style="bottom: 50%;"
     >
       <div class="mb-4 text-black">
-        <p class="text-lg font-semibold">Capture Your Workout</p>
-        <p class="text-lg font-semibold">With Music in Every Move</p>
+        <p class="text-5xl font-semibold">Elevate Your Fitness</p>
+        <br>
+        <p class="text-2xl font-semibold">Capture Your Workout</p>
+        <p class="text-2xl font-semibold">With Music in Every Move</p>
+        <br>
       </div>
 
       <button
-    class="bg-black hover:bg-[#E50914] hover:text-white text-white font-bold py-2 px-6 rounded-lg shadow-lg transition-colors duration-300"
+    class="bg-[#0001c8] text-white hover:text-[#0001c8] hover:bg-white font-bold py-2 px-6 rounded-lg shadow-lg transition-colors duration-300"
     @click="navigateToExercise"
   >
     Start Moving
