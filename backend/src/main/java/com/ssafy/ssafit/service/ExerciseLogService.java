@@ -102,22 +102,42 @@ public class ExerciseLogService {
         LocalDate today = LocalDate.now();
         LocalDate oneYearAgo = today.minusYears(1);
 
-        // 1년간 날짜별 운동 데이터 작성
+        // 데이터베이스에서 1년치 데이터를 한 번에 가져옴
+        List<Map<String, Object>> rawResult = exerciseLogMapper.selectTotalExerciseTimeByDateRange(
+                memberId,
+                oneYearAgo,
+                today
+        );
+
+        // 결과를 Map으로 변환 (날짜를 키로 사용)
+        Map<String, Integer> resultMap = rawResult.stream()
+                .collect(Collectors.toMap(
+                        entry -> (String) entry.get("exerciseDate"),
+                        entry -> ((Number) entry.get("totalExerciseTime")).intValue()
+                ));
+
+        // 결과 리스트 생성
         List<ExerciseGrassVO> result = new ArrayList<>();
+
+        // 날짜별 데이터를 처리
         LocalDate currentDate = oneYearAgo;
-
         while (!currentDate.isAfter(today)) {
-            // 운동 시간 조회
-            int dailyTotalExerciseTime = exerciseLogMapper.selectTotalExerciseTimeByDate(memberId, Date.valueOf(currentDate));
-
-            // 운동 레벨 계산
-            int level = dailyTotalExerciseTime == 0 ? 0 : Math.min((int) (dailyTotalExerciseTime / 30) + 1, 4);
-
-            // LocalDate를 문자열로 변환 (yyyy-MM-dd 형식)
+            // 현재 날짜를 문자열로 변환
             String currentDateStr = currentDate.toString();
 
-            // VO 생성 및 리스트에 추가
-            result.add(new ExerciseGrassVO(currentDateStr, level, dailyTotalExerciseTime));
+            // 해당 날짜의 운동 시간을 가져옴 (없으면 0으로 설정)
+            int dailyTotalExerciseTime = resultMap.getOrDefault(currentDateStr, 0);
+
+            // 운동 레벨 계산
+            int level = dailyTotalExerciseTime == 0 ? 0 : Math.min((dailyTotalExerciseTime / 30) + 1, 4);
+
+            // VO 객체 생성
+            result.add(ExerciseGrassVO.builder()
+                    .date(currentDateStr)
+                    .level(level)
+                    .exerciseTime(dailyTotalExerciseTime)
+                    .build()
+            );
 
             // 하루 증가
             currentDate = currentDate.plusDays(1);
@@ -125,6 +145,8 @@ public class ExerciseLogService {
 
         return result;
     }
+
+
 
     public List<ExerciseGrassVO> getOthersYearlyExerciseGrass(String memberId) {
         // 오늘 날짜와 1년 전 날짜 계산

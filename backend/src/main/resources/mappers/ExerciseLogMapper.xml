@@ -45,6 +45,21 @@
     <select id="selectTotalExerciseTimeByDate" parameterType="map" resultType="int">
         SELECT IFNULL(SUM(exercise_time), 0.0) FROM exercise_log WHERE member_id = #{memberId} AND DATE(exercise_date) = #{exerciseDate}
     </select>
+    <select id="selectTotalExerciseTimeByDateRange" parameterType="map" resultType="map">
+        SELECT
+        DATE_FORMAT(exercise_date, '%Y-%m-%d') AS exerciseDate, -- 날짜를 문자열로 변환
+        COALESCE(SUM(exercise_time), 0) AS totalExerciseTime    -- 총 운동 시간 합계
+        FROM
+        exercise_log
+        WHERE
+        member_id = #{memberId}                                -- 특정 멤버 ID 조건
+        AND exercise_date BETWEEN #{startDate} AND #{endDate}   -- 1년 범위 내
+        GROUP BY
+        DATE(exercise_date)
+        ORDER BY
+        DATE(exercise_date) ASC;
+    </select>
+
     <delete id="deleteExerciseLog" parameterType="map">
         DELETE FROM exercise_log WHERE exercise_log_id = #{exerciseLogId};
     </delete>
