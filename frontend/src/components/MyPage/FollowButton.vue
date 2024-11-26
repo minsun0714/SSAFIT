@@ -12,15 +12,13 @@ const memberId = route?.params?.memberId
 const { data: memberInfo } = MemberApiFacade.useFetchUserInfo()
 const { data: followData, refetch } = OtherMemberApiFacade.useFetchFollowRelations()
 
-const myId = computed(() => memberInfo?.value?.memberId || null);
+const myId = computed(() => memberInfo?.value?.memberId || null)
 
 const isFollowing = computed(() => {
-  if (!followData?.value?.followerList || !myId.value) return false; // 초기값 설정
-  return followData.value.followerList.some((follower) => follower?.memberId === myId.value);
-});
+  if (!followData?.value?.followerList || !myId.value) return false // 초기값 설정
+  return followData.value.followerList.some((follower) => follower?.memberId === myId.value)
+})
 
-
-console.log('isFollowing' + isFollowing.value)
 const { mutate: follow } = FollowApiFacade.useFollow()
 const { mutate: unfollow } = FollowApiFacade.useUnfollow()
 
@@ -38,12 +36,6 @@ const handleUnfollow = () => {
 </script>
 
 <template>
-  {{
-    followData?.followingList.forEach((f) => console.log(f.name)) +
-    ' ' +
-    followData?.followerList.forEach((f) => console.log(f.name))
-    + ' ' + isFollowing
-  }}
   <Button v-if="isFollowing === true" @click="handleUnfollow">unfollow</Button>
   <Button v-else-if="isFollowing === false" @click="handleFollow">follow</Button>
 </template>

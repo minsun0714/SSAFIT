@@ -4,9 +4,11 @@ import MyProfileFollow from './MyProfileFollow.vue'
 import { MemberInfoResponse } from '@/api/interfaces/response'
 import FollowButton from './FollowButton.vue'
 import { useRoute } from 'vue-router'
+import MemberApiFacade from '@/api/apiFacade/MemberApiFacade'
 
 const route = useRoute()
 const memberId = route?.params?.memberId
+const { data: myInfo } = MemberApiFacade.useFetchUserInfo()
 
 const data = inject<Ref<MemberInfoResponse | undefined>>('userInfo')
 </script>
@@ -20,15 +22,15 @@ const data = inject<Ref<MemberInfoResponse | undefined>>('userInfo')
         class="border min-w-28 min-h-28 rounded-full"
       />
     </div>
-    <div class="flex flex-col">
-      <div class="h-full flex flex-row justify-center items-center">
+    <div class="flex flex-col justify-center gap-y-6">
+      <div class="flex flex-row justify-center items-center">
         <h1 class="w-full">
           <p class="font-bold text-xl">{{ data?.name }}</p>
           <p class="text-sm text-gray-500"># {{ data?.nickname }}</p>
         </h1>
         <MyProfileFollow />
       </div>
-      <div class="flex" v-if="memberId">
+      <div v-if="memberId !== myInfo.memberId">
         <FollowButton />
       </div>
     </div>
