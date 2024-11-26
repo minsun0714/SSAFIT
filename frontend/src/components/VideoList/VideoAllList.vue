@@ -4,7 +4,10 @@
     <!-- 배경 이미지 위에 중앙 정렬된 텍스트 -->
     <div class="absolute inset-0 flex flex-col items-center justify-center space-y-4 z-10">
       <h1 class="text-3xl font-bold text-white">Video Playlist</h1>
-      <div class="text-xl font-semibold animated-gradient-text text-white" :class="{ animate: isAnimating }">
+      <div
+        class="text-xl font-semibold animated-gradient-text text-white"
+        :class="{ animate: isAnimating }"
+      >
         Make exercise more fun with music!
       </div>
 
@@ -30,11 +33,11 @@
 
   <br />
 
-  <div>
+  <div class="w-full flex justify-center">
     <!-- 자동완성 목록 -->
     <ul
       v-if="autoCompletes?.length"
-      class="bg-white text-black absolute top-[300px] w-[384px] rounded-md shadow-md z-20"
+      class="bg-white text-black absolute top-[360px] w-[384px] rounded-md shadow-md z-20"
     >
       <li
         v-for="(s, index) in autoCompletes"
@@ -48,7 +51,7 @@
 
     <!-- Video List -->
     <div class="video-list-view">
-      <div class="flex justify-between items-center mb-4" style="max-width: 1080px; margin: 0 auto;">
+      <div class="flex justify-between items-center mb-4" style="max-width: 1080px; margin: 0 auto">
         <!-- Search Results Count -->
         <div class="text-lg font-medium">{{ videos?.totalItems }}개의 결과가 검색되었습니다.</div>
 
@@ -77,7 +80,7 @@
 
       <div
         class="grid grid-cols-3 gap-2 justify-center items-center"
-        style="max-width: 1080px; margin: 0 auto;"
+        style="max-width: 1080px; margin: 0 auto"
       >
         <VideoCard
           v-for="video in videos?.data"
