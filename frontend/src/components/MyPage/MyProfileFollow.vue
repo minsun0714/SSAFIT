@@ -21,7 +21,6 @@ watch(
 )
 
 const follows = inject<Ref<FollowInfoResponse | undefined>>('followInfo')
-console.log(follows?.value)
 </script>
 
 <template>
