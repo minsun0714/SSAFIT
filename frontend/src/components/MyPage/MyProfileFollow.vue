@@ -35,24 +35,24 @@ const follows = inject<Ref<FollowInfoResponse | undefined>>('followInfo')
       <DialogHeader>
         <DialogTitle>팔로워 목록</DialogTitle>
       </DialogHeader>
-      <ul>
+      <ul class="flex flex-col gap-y-4 border p-4 rounded-lg">
         <li
           v-for="follower in follows?.followerList"
           :key="follower?.memberId"
-          class="flex border rounded-lg p-4 cursor-pointer"
+          class="flex items-center gap-4 border rounded-lg p-4 cursor-pointer"
           @click="
             router.push({ name: 'others-liked-videos', params: { memberId: follower.memberId } })
           "
         >
-          <span class="flex border w-20 h-20">
+          <span class="flex border rounded-full w-16 h-16">
             <img
               :src="follower?.profileImg"
               alt=""
-              class="w-[10px] h-[10px] rounded-full object-cover"
+              class="w-full h-full rounded-full object-cover"
             />
           </span>
           <div>{{ follower?.name }}</div>
-          <div>{{ follower?.nickname }}</div>
+          <div>#{{ follower?.nickname }}</div>
         </li>
       </ul>
     </DialogContent>
@@ -68,20 +68,24 @@ const follows = inject<Ref<FollowInfoResponse | undefined>>('followInfo')
       <DialogHeader>
         <DialogTitle>팔로워 목록</DialogTitle>
       </DialogHeader>
-      <ul>
+      <ul class="flex flex-col gap-y-4 border p-4 rounded-lg">
         <li
           v-for="following in follows?.followingList"
           :key="following?.memberId"
-          class="flex border rounded-lg p-4 cursor-pointer"
+          class="flex border rounded-lg p-4 cursor-pointer items-center gap-4"
           @click="
             router.push({ name: 'others-liked-videos', params: { memberId: following.memberId } })
           "
         >
-          <div>
-            <img :src="following?.profileImg" alt="" />
-          </div>
+          <span class="flex border rounded-full w-16 h-16">
+            <img
+              :src="following?.profileImg"
+              alt=""
+              class="w-full h-full rounded-full object-cover"
+            />
+          </span>
           <div>{{ following?.name }}</div>
-          <div>{{ following?.nickname }}</div>
+          <div>#{{ following?.nickname }}</div>
         </li>
       </ul>
     </DialogContent>
