@@ -19,8 +19,10 @@ const logout = () => {
 <template>
   <header class="p-10 flex flex-row justify-between items-center">
     <nav class="relative w-full h-98 font-bold">
-      <RouterLink :to="{ name: Routes.HOME }" class="logo-text absolute-left">SSAFIT</RouterLink>
-
+      <div class="logo-section">
+        <img src="@/assets/Home/icon.jpg" alt="Logo Icon" class="logo-icon" />
+        <RouterLink :to="{ name: Routes.HOME }" class="logo-text">MUSiCLE</RouterLink>
+      </div>
       <!-- Center navigation items -->
       <div class="center-nav">
         <RouterLink :to="{ name: Routes.VIDEOS }" class="nav-link">Video</RouterLink>
@@ -49,7 +51,23 @@ const logout = () => {
 </template>
 
 <style scoped>
-/* Logo positioned on the left */
+/* Logo Section Styles */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Space between icon and text */
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.logo-icon {
+  height: 30px; /* Adjust to match the text size */
+  width: 30px; /* Maintain square aspect ratio */
+  object-fit: contain; /* Prevent image distortion */
+}
+
 .logo-text {
   font-size: 2rem;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -58,9 +76,10 @@ const logout = () => {
   text-transform: uppercase;
 }
 
+
 /* Navigation links */
 .nav-link {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   padding: 0.5rem;
   color: black;
   text-transform: capitalize;
@@ -103,7 +122,7 @@ const logout = () => {
 nav {
   position: relative;
   width: 100%;
-  height: 60px;
+  height: 40px;
   display: flex;
   align-items: center;
 }
@@ -128,7 +147,7 @@ nav {
   display: flex; /* Ensure icons align properly */
   align-items: center; /* Vertically align icons */
   justify-content: center; /* Center icon inside button */
-  font-size: 1.5rem; /* Match icon size */
+  font-size: 2rem; /* Match icon size */
   color: black; /* Default icon color */
   transition: color 0.3s ease;
 }
