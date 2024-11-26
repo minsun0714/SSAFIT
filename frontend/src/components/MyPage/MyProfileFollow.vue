@@ -26,7 +26,7 @@ const follows = inject<Ref<FollowInfoResponse | undefined>>('followInfo')
 <template>
   <Dialog>
     <DialogTrigger as-child>
-      <h2 class="w-40 text-center">
+      <h2 class="w-40 text-center cursor-pointer">
         팔로워
         <p class="font-bold">{{ follows?.followerList.length }}</p>
       </h2>
@@ -44,9 +44,13 @@ const follows = inject<Ref<FollowInfoResponse | undefined>>('followInfo')
             router.push({ name: 'others-liked-videos', params: { memberId: follower.memberId } })
           "
         >
-          <div>
-            <img :src="follower?.profileImg" alt="" />
-          </div>
+          <span class="flex border w-20 h-20">
+            <img
+              :src="follower?.profileImg"
+              alt=""
+              class="w-[10px] h-[10px] rounded-full object-cover"
+            />
+          </span>
           <div>{{ follower?.name }}</div>
           <div>{{ follower?.nickname }}</div>
         </li>
@@ -55,7 +59,7 @@ const follows = inject<Ref<FollowInfoResponse | undefined>>('followInfo')
   </Dialog>
   <Dialog>
     <DialogTrigger as-child>
-      <h2 class="w-40 text-center">
+      <h2 class="w-40 text-center cursor-pointer">
         팔로잉
         <p class="font-bold">{{ follows?.followingList.length }}</p>
       </h2>

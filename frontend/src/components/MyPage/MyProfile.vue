@@ -19,7 +19,7 @@ const data = inject<Ref<MemberInfoResponse | undefined>>('userInfo')
       <img
         :src="'' + data?.profileImg"
         alt="프로필 사진"
-        class="border min-w-28 min-h-28 rounded-full"
+        class="border border-gray-200 min-w-32 min-h-32 rounded-full border"
       />
     </div>
     <div class="flex flex-col justify-center gap-y-6">
