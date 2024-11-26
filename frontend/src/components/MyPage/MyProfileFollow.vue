@@ -19,7 +19,7 @@ watch(
   () => {
     location.reload()
   },
-) 
+)
 
 const follows = inject<Ref<FollowInfoResponse | undefined>>('followInfo')
 console.log(follows?.value)
@@ -41,8 +41,10 @@ console.log(follows?.value)
         <li
           v-for="follower in follows?.followerList"
           :key="follower?.memberId"
-          class="flex border rounded-lg p-4"
-          @click="router.push(`/mypage/${follower.memberId}/liked-videos`)"
+          class="flex border rounded-lg p-4 cursor-pointer"
+          @click="
+            router.push({ name: 'others-liked-videos', params: { memberId: follower.memberId } })
+          "
         >
           <div>
             <img :src="follower?.profileImg" alt="" />
@@ -71,8 +73,10 @@ console.log(follows?.value)
         <li
           v-for="following in follows?.followingList"
           :key="following?.memberId"
-          class="flex border rounded-lg p-4"
-          @click="router.push(`/mypage/${following.memberId}/liked-videos`)"
+          class="flex border rounded-lg p-4 cursor-pointer"
+          @click="
+            router.push({ name: 'others-liked-videos', params: { memberId: following.memberId } })
+          "
         >
           <div>
             <img :src="following?.profileImg" alt="" />
