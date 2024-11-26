@@ -327,24 +327,33 @@ const changeCategory = (category: 'Run' | 'Strength' | 'Relax') => {
 
 
       <!-- Video Grid -->
-      <div class="grid grid-cols-2" style="gap: 40px;">
-        <VideoCard
-          v-for="(video, index) in currentVideos"
-          :key="index"
-          :title="video.title"
-          :nickname="video.nickname"
-          :viewCount="video.viewCount"
-          :createdAt="video.createdAt"
-          :thumbnailImgUrl="video.thumbnailImgUrl"
-          :videoId="video.videoId"
-          :rating="video.rating"
-        />
-      </div>
+      <div class="grid video-grid">
+  <VideoCard
+    v-for="(video, index) in currentVideos.slice(0, 4)"
+    :key="index"
+    :title="video.title"
+    :nickname="video.nickname"
+    :viewCount="video.viewCount"
+    :createdAt="video.createdAt"
+    :thumbnailImgUrl="video.thumbnailImgUrl"
+    :videoId="video.videoId"
+    :rating="video.rating"
+  />
+</div>
+
     </div>
   </div>
   <br>
 </template>
 
 <style scoped>
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 360px); /* 2열, 각 셀 너비 고정 */
+  grid-auto-rows: auto; /* 행 높이를 자동으로 조정 */
+  gap: 40px; /* 카드 간 간격 */
+  justify-content: center; /* 전체 그리드 중앙 정렬 */
+}
+
 
 </style>

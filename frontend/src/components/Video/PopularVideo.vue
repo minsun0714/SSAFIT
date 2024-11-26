@@ -1,5 +1,6 @@
 <template>
   <div class="popular-videos">
+    <br>
     <h2>Most Viewed Videos</h2>
     <h3>Discover the highest-rated videos, loved by our community.</h3>
     <br>
@@ -61,5 +62,11 @@ h3 {
   margin-top: 10px;
   font-size: 18px;
   color: #555;
+}
+.custom-line {
+  width: 100%; /* 전체 너비 */
+  height: 1px; /* 줄 두께 */
+  background-color: var(--line-color, black); /* 기본값은 검정색, 변경 가능 */
+  margin-bottom: 20px; /* 줄과 아래 콘텐츠 간격 */
 }
 </style>
